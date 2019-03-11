@@ -30,7 +30,7 @@ public class MemberController {
 	}
 	
 	//회원가입 액션
-	@RequestMapping(value="join", method=RequestMethod.POST)
+	@RequestMapping(value="register-form", method=RequestMethod.POST)
 	public String join(Member member, Model model) {
 		
 		int result = dao.join(member);
@@ -38,7 +38,7 @@ public class MemberController {
 			model.addAttribute("warning", "중복된 ID가 있습니다.");
 			model.addAttribute("member", member);
 			
-			return "signup";
+			return "JoinForm";
 		}
 		return "home";
 	}
@@ -46,11 +46,11 @@ public class MemberController {
 	//로그인폼 이동
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
-		return "login";
+		return "JoinForm";
 	}
 	
 	//로그인폼 액션
-	@RequestMapping(value="/loginMember", method=RequestMethod.GET)
+	@RequestMapping(value="/login-form", method=RequestMethod.GET)
 	public String loginMember(Member member, HttpSession session, Model model) {
 		Member result = null;
 		
@@ -58,7 +58,7 @@ public class MemberController {
 		if(result==null) {
 			model.addAttribute("warning", "ID와 비밀번호를 확인해주세요.");
 			model.addAttribute("member", member);
-			return "login";
+			return "JoinForm";
 		}
 
 		session.setAttribute("loginId", member.getId());
