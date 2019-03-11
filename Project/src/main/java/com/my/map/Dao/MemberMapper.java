@@ -1,9 +1,9 @@
 package com.my.map.Dao;
 
-import java.util.HashMap;
+import com.my.map.vo.Member;
 
 public interface MemberMapper {
 	
-	public int join(HashMap<String, String> member);
-	public String login(HashMap<String, String> member);
+	public int join(Member member);
+	public Member login(Member member);
 }

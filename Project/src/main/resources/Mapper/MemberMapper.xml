@@ -5,7 +5,7 @@
   
   <mapper namespace="com.my.map.Dao.MemberMapper">
   
-  	<insert id="join" parameterType="HashMap">
+  	<insert id="join" parameterType="Member">
   	
   	insert into user
   	(id, pw, email)
@@ -14,19 +14,19 @@
   	
   	</insert>
   	
-  	<select id="login" resultType="String" parameterType="HashMap">
+  	<select id="login" resultType="Member" parameterType="Member">
   	select 
-  		userid
+  		id,
+  		pw,
+  		email
   	from
   		user
   	where
-  		userid=#{id}
+  		id=#{id}
   		and
-  		userpw=#{pw}
+  		pw=#{pw}
   	</select>
   	
-  	<update id="memberupdate" resultType=""
-  	
-  	
+  
   
   </mapper>
