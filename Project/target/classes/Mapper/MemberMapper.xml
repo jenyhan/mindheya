@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.my.map.Dao.MemberMapper">
+  
+  	<insert id="join" parameterType="HashMap">
+  	
+  	insert into user
+  	(id, pw, email)
+  	values
+  	(#{id}, #{pw}, #{email})
+  	
+  	</insert>
+  	
+  	<select id="login" resultType="String" parameterType="HashMap">
+  	select 
+  		userid
+  	from
+  		user
+  	where
+  		userid=#{id}
+  		and
+  		userpw=#{pw}
+  	</select>
+  	
+  	<update id="memberupdate" resultType=""
+  	
+  	
+  
+  </mapper>
