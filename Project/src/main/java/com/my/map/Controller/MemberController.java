@@ -33,7 +33,10 @@ public class MemberController {
 	@RequestMapping(value="register-form", method=RequestMethod.POST)
 	public String join(Member member, Model model) {
 		
+		System.out.println(member);
+		
 		int result = dao.join(member);
+		System.out.println(result);
 		if(result==0) {
 			model.addAttribute("warning", "중복된 ID가 있습니다.");
 			model.addAttribute("member", member);
@@ -46,19 +49,18 @@ public class MemberController {
 	//로그인폼 이동
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
-		return "JoinForm";
+		return "login";
 	}
 	
 	//로그인폼 액션
 	@RequestMapping(value="/login-form", method=RequestMethod.GET)
 	public String loginMember(Member member, HttpSession session, Model model) {
 		Member result = null;
-		
 		result=dao.login(member);
 		if(result==null) {
 			model.addAttribute("warning", "ID와 비밀번호를 확인해주세요.");
 			model.addAttribute("member", member);
-			return "JoinForm";
+			return "login";
 		}
 
 		session.setAttribute("loginId", member.getId());

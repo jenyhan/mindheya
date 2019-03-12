@@ -7,10 +7,17 @@
   
   	<insert id="join" parameterType="Member">
   	
-  	insert into user
-  	(id, pw, email)
+  	insert into member(
+  		id, 
+  		pw, 
+  		email
+  	)
   	values
-  	(#{id}, #{pw}, #{email})
+  	(
+  		#{id}, 
+  		#{pw}, 
+  		#{email}
+  	)
   	
   	</insert>
   	
@@ -20,7 +27,7 @@
   		pw,
   		email
   	from
-  		user
+  		member
   	where
   		id=#{id}
   		and
