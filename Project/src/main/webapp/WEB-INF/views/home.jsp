@@ -12,35 +12,53 @@
 </head>
 
 <style>
-.divBody, .divAccount{
+@import url
+.divLogo{
+	padding:0.3;
+}
+.divHeader, .divBody, .divAccount{
 	text-align:center;
+}
+.divMenu{
+	text-align:right;
 }
 </style>
 
 <body>
 <div class="divLogo">
-Marvelous
- 
+<img src="">Marvelous
 </div>
-
+<br>
+<div class="divMenu">
+	<div class="col s12">
+	<ul class="tabs">
+		<li class="tab col s1"><a href="#test1">About</a></li>
+        <li class="tab col s1"><a href="#test2">마인드맵</a></li>
+        <li class="tab col s1"><a href="#test3">스크랩</a></li>
+        <li class="tab col s1"><a href="#test4">공유</a></li>
+        <li class="tab col s1"><a href="logout">로그아웃</a></li>
+      </ul>
+    </div>
+</div> 
+<br>
 <div class="divHeader">
 Welcome to MindHeya
 </div>
-
+<br>
 <div class="divBody">
-<img src="https://bootstrapmade.com/demo/themes/eStartup/img/hero-img.png" class="mainImg"><br>
+<img src="https://bootstrapmade.com/demo/themes/eStartup/img/hero-img.png" class="mainImg">
 <br>
 </div>
-
+<br>
 <div class="divAccount">
-<button class="waves-effect waves-green btn" name="goJoin">GET STARTED</button>
-<button class="waves-effect waves-green btn" name="login">LOGIN</button>
+<a href="goJoin" class="account">GET STARTED</a>
+<a href="login" class="account">GET LOGIN</a>
 </div>
 
 
 
-<!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </body>
 </html>
