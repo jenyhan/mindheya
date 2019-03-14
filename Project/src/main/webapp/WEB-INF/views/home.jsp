@@ -12,22 +12,29 @@
 </head>
 
 <style>
-.divBody{
+.divBody, .divAccount{
 	text-align:center;
 }
 </style>
 
 <body>
-<div class="divHeader">
+<div class="divLogo">
 Marvelous
+ 
 </div>
-<div class="divBody">
-<p>
+
+<div class="divHeader">
 Welcome to MindHeya
-</p>
+</div>
+
+<div class="divBody">
 <img src="https://bootstrapmade.com/demo/themes/eStartup/img/hero-img.png" class="mainImg"><br>
-<button class="waves-effect waves-light btn" name="goJoin">GET STARTED</button>
-<button class="waves-effect waves-light btn" name="login">LOGIN</button>
+<br>
+</div>
+
+<div class="divAccount">
+<button class="waves-effect waves-green btn" name="goJoin">GET STARTED</button>
+<button class="waves-effect waves-green btn" name="login">LOGIN</button>
 </div>
 
 
