@@ -8,7 +8,7 @@
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.register-page {
+.login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
@@ -60,7 +60,9 @@
   color: #4CAF50;
   text-decoration: none;
 }
-
+.form .register-form {
+  display: none;
+}
 .container {
   position: relative;
   z-index: 1;
@@ -105,26 +107,17 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 </style>
- <script> 
- $('.message').click(function(){
-$('form').animate({height: "toggle", opacity: "toggle"}, "slow"); 
-	});
-	
 
-</script>  
 <body>
-
-<div class="register-page">
+<div class="login-page">
   <div class="form">
-  
-    <form class="register-form" action="register-form" method="post">
-      <input type="text" placeholder="username" name="id"/>
-      <input type="password" placeholder="password" name="pw"/>
-      <input type="text" placeholder="email" name="email"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="login">login</a></p>
+   
+    <form class="login-form" action="login-form" method="get">
+      <input type="text" placeholder="username" name="id" value="${member.id}"><font color="red">${warning}</font><br>
+      <input type="password" placeholder="password" name="pw" value="${member.pw}"><br>
+      <button>login</button>
+      <p class="message">Not registered? <a href="goJoin">Create an account</a></p>
     </form>
-  
   </div>
 </div>
 </body>

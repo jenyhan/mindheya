@@ -8,7 +8,7 @@
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.login-page {
+.register-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
@@ -60,9 +60,7 @@
   color: #4CAF50;
   text-decoration: none;
 }
-.form .register-form {
-  display: none;
-}
+
 .container {
   position: relative;
   z-index: 1;
@@ -107,21 +105,42 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 </style>
-<script>
-$('.message').click(function(){
-	   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-	});
-</script>
+ <script> 
+
+ function login(){
+	
+	 var id = $("#id").val();
+	 var pw =$("#pw").val();
+		var email=$("#email").val();
+		
+		if(id.length<1||id.length>13||id.value==""){
+			alert("ID를 다시 입력하세요");
+			return;
+		}
+		if(pw.length<1||pw.length>13||pw.value==""){
+			alert("PW를 다시 입력하세요");
+			return;
+		}
+		if(email.length<1||email.length>13||email.value==""){
+			alert("EMAIL을 다시 입력하세요");
+			return;
+ 		}
+		$("#loginForm").submit;
+ }
+</script>  
 <body>
-<div class="login-page">
+<div class="register-page">
   <div class="form">
-   
-    <form class="login-form" action="login-form" method="get">
-      <input type="text" placeholder="username" name="id"/>
-      <input type="password" placeholder="password" name="pw"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="goJoin">Create an account</a></p>
+  
+    <form class="register-form" id="loginForm" action="register-form" method="post">
+      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><font color="red">${warning}</font><br>>
+      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
+      
+      <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
+      <button onclick="javascript:login()">create</button>
+      <p class="message">Already registered? <a href="login">login</a></p>
     </form>
+  
   </div>
 </div>
 </body>
