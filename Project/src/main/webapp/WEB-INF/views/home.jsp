@@ -12,12 +12,15 @@
 </head>
 
 <style>
-@import url
+@import url('https://fonts.googleapis.com/css?family=Bitter');
 .divLogo{
 	padding:0.3;
 }
 .divHeader, .divBody, .divAccount{
 	text-align:center;
+}
+.divHeader{
+	font-family: 'Bitter', serif;
 }
 .divMenu{
 	text-align:right;
