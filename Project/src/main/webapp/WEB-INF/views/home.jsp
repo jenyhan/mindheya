@@ -55,7 +55,7 @@ Welcome to MindHeya
 <br>
 <div class="divAccount">
 <a href="goJoin" class="account">GET STARTED</a>
-<a href="login" class="account">GET LOGIN</a>
+<a href="login" class="account">LOGIN</a>
 </div>
 
 

@@ -133,7 +133,7 @@ body {
   <div class="form">
   
     <form class="register-form" id="loginForm" action="register-form" method="post">
-      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><font color="red">${warning}</font><br>>
+      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><font color="red">${warning}</font><br>
       <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
       
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
