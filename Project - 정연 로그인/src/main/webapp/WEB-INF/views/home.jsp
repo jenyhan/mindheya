@@ -32,8 +32,10 @@
 	background-repeat: no-repeat;
 }
 .divMenu{
-	color:#535461;
 	text-align:right;
+}
+.tabs a{
+	color:#535461;
 }
 .divAccount a{
    color: #71C55D;
@@ -54,9 +56,9 @@
         <li class="tab col s1"><a href="#test2">마인드맵</a></li>
         <li class="tab col s1"><a href="#test3">스크랩</a></li>
         <li class="tab col s1"><a href="#test4">공유</a></li>
-        <li class="tab col s1"><a href="logout">로그아웃</a></li>
-      </ul>
-    </div>
+        <li class="tab col s1"><a href="/logout">로그아웃</a></li>
+	</ul>
+	</div>
 </div> 
 <br>
 <div class="divHeader">
@@ -68,10 +70,12 @@ Welcome to MindHeya
 <br>
 </div>
 <br>
+<c:if test="${sessionScope.member==null}">
 <div class="divAccount">
 <a href="goJoin">GET STARTED</a>
 <a href="login">LOGIN</a>
 </div>
+</c:if>
 
 
 
