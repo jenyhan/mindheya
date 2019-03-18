@@ -14,6 +14,9 @@
 <style>
 @import url('https://fonts.googleapis.com/css?family=Bitter');
 
+
+
+
 .divLogo img{
 	margin:0.5;
 	width:15%;
