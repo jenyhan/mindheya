@@ -113,17 +113,14 @@ body {
 	 var pw =$("#pw").val();
 		var email=$("#email").val();
 		
-		if(id.length<1||id.length>13||id.value==""){
+		if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
-			return;
 		}
-		if(pw.length<1||pw.length>13||pw.value==""){
+		if(pw.length<1||pw.length>50||pw.value==""){
 			alert("PW를 다시 입력하세요");
-			return;
 		}
-		if(email.length<1||email.length>13||email.value==""){
+		if(email.length<1||email.length>100||email.value==""){
 			alert("EMAIL을 다시 입력하세요");
-			return;
  		}
 		$("#loginForm").submit;
  }
