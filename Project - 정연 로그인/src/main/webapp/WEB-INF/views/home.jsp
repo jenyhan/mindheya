@@ -14,11 +14,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css?family=Bitter');
 
-
-
-
-
-
+//정연상 자리에서 연습삼아 깃허브
 
 .divLogo img{
 	margin:0.5;
