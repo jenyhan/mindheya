@@ -69,5 +69,6 @@ public class MemberController {
 		return "mindMap";
 		//승현 깃연습
 		//다시 회인 깃연습
+		//정연 깃연습
 	}
 }
