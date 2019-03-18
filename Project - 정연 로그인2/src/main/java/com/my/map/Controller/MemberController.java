@@ -1,6 +1,7 @@
 package com.my.map.Controller;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +16,20 @@ public class MemberController {
 	@Autowired
 	MemberDAO dao;
 	
-	//íšŒì›ê°€ì… í¼ ì´ë™
+	//È¸¿ø°¡ÀÔ Æû ÀÌµ¿
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
 	public String goJoin() {
 		return "JoinForm";
 	}
 	
-	//ë¡œê·¸ì•„ì›ƒ ì•¡ì…˜
+	//·Î±×¾Æ¿ô ¾×¼Ç
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "home";
 	}
 	
-	//íšŒì›ê°€ì… ì•¡ì…˜
+	//È¸¿ø°¡ÀÔ ¾×¼Ç
 	@RequestMapping(value="register-form", method=RequestMethod.POST)
 	public String join(Member member, Model model) {
 		
@@ -37,7 +38,7 @@ public class MemberController {
 		int result = dao.join(member);
 		System.out.println(result);
 		if(result==0) {
-			model.addAttribute("warning", "IDì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+			model.addAttribute("warning", "ID¿Í ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
 			model.addAttribute("member", member);
 			
 			return "JoinForm";
@@ -45,25 +46,26 @@ public class MemberController {
 		return "home";
 	}
 	
-	//ë¡œê·¸ì¸í¼ ì´ë™
+	//·Î±×ÀÎÆû ÀÌµ¿
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "login";
 	}
 	
-	//ë¡œê·¸ì¸í¼ ì•¡ì…˜
+	//·Î±×ÀÎÆû ¾×¼Ç
 	@RequestMapping(value="/login-form", method=RequestMethod.GET)
 	public String loginMember(Member member, HttpSession session, Model model) {
 		Member result = null;
 		result=dao.login(member);
 		if(result==null) {
-			model.addAttribute("warning", "IDì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+			model.addAttribute("warning", "ID¿Í ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
 			model.addAttribute("member", member);
 			return "login";
 		}
 
 		session.setAttribute("loginId", member.getId());
 		
-		return "mindMap";
+		return "home";
 	}
 }
+	
