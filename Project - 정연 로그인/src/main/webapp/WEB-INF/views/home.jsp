@@ -70,12 +70,13 @@ Welcome to MindHeya
 <br>
 </div>
 <br>
-<c:if test="${sessionScope.member==null}">
+<c:if test="${sessionScope.loginId==null}">
 <div class="divAccount">
 <a href="goJoin">GET STARTED</a>
 <a href="login">LOGIN</a>
 </div>
 </c:if>
+
 
 
 
