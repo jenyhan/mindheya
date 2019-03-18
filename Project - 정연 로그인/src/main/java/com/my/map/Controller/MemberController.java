@@ -71,5 +71,6 @@ public class MemberController {
 		//다시 회인 깃연습
 		//정연 깃연습
 		//정연씨 제발ㅜ
+		//재원씨 제발
 	}
 }
