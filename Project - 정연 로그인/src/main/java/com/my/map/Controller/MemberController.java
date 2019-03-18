@@ -67,5 +67,6 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "mindMap";
+		//승현 깃연습
 	}
 }
