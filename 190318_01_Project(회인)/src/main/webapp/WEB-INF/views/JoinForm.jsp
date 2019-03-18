@@ -4,7 +4,7 @@
 <html>
 <head>
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
@@ -114,15 +114,15 @@ body {
 		var email=$("#email").val();
 		
 		if(id.length<1||id.length>13||id.value==""){
-			alert("ID¸¦ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä");
+			alert("IDë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”");
 			return;
 		}
 		if(pw.length<1||pw.length>13||pw.value==""){
-			alert("PW¸¦ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä");
+			alert("PWë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”");
 			return;
 		}
 		if(email.length<1||email.length>13||email.value==""){
-			alert("EMAILÀ» ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä");
+			alert("EMAILì„ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”");
 			return;
  		}
 		$("#loginForm").submit;

@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.register-page {
+.login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
@@ -60,7 +60,9 @@
   color: #4CAF50;
   text-decoration: none;
 }
-
+.form .register-form {
+  display: none;
+}
 .container {
   position: relative;
   z-index: 1;
@@ -105,42 +107,17 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 </style>
- <script> 
 
- function login(){
-	
-	 var id = $("#id").val();
-	 var pw =$("#pw").val();
-		var email=$("#email").val();
-		
-		if(id.length<1||id.length>13||id.value==""){
-			alert("ID를 다시 입력하세요");
-			return;
-		}
-		if(pw.length<1||pw.length>13||pw.value==""){
-			alert("PW를 다시 입력하세요");
-			return;
-		}
-		if(email.length<1||email.length>13||email.value==""){
-			alert("EMAIL을 다시 입력하세요");
-			return;
- 		}
-		$("#loginForm").submit;
- }
-</script>  
 <body>
-<div class="register-page">
+<div class="login-page">
   <div class="form">
-  
-    <form class="register-form" id="loginForm" action="register-form" method="post">
-      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><font color="red">${warning}</font><br>
-      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
-      
-      <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
-      <button onclick="javascript:login()">create</button>
-      <p class="message">Already registered? <a href="login">login</a></p>
+   
+    <form class="login-form" action="login-form" method="get">
+      <input type="text" placeholder="username" name="id" value="${member.id}"><font color="red">${warning}</font><br>
+      <input type="password" placeholder="password" name="pw" value="${member.pw}"><br>
+      <button>login</button>
+      <p class="message">Not registered? <a href="goJoin">Create an account</a></p>
     </form>
-  
   </div>
 </div>
 </body>

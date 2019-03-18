@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.my.map.Dao.MemberMapper">
+  
+  	<insert id="join" parameterType="Member">
+  	
+  	insert into member(
+  		id, 
+  		pw, 
+  		email
+  	)
+  	values
+  	(
+  		#{id}, 
+  		#{pw}, 
+  		#{email}
+  	)
+  	
+  	</insert>
+  	
+  	<select id="login" resultType="Member" parameterType="Member">
+  	select 
+  		id,
+  		pw,
+  		email
+  	from
+  		member
+  	where
+  		id=#{id}
+  		and
+  		pw=#{pw}
+  	</select>
+  	
+  
+  
+  </mapper>
