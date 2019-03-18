@@ -70,6 +70,6 @@ public class MemberController {
 		//승현 깃연습
 		//다시 회인 깃연습
 		//정연 깃연습
-		//정연씨 제발
+		//정연씨 제발ㅜ
 	}
 }
