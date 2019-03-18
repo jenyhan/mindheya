@@ -21,6 +21,8 @@ public class MemberController {
 		return "JoinForm";
 	}
 	
+	
+	
 	//로그아웃 액션
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
