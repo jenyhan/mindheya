@@ -47,7 +47,7 @@ public class MemberController {
 		return "home";
 	}
 	
-	//로그인폼 이동
+	//로그인폼 이동//
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "login";
