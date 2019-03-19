@@ -97,6 +97,7 @@ $(function(){
 	//회인컴퓨터
 	//회인회인컴퓨터
 	//회인회인회인컴퓨터
+	//정
 </script>
 <form id="hiddenForm" action="logout" method="get">
 </form>
