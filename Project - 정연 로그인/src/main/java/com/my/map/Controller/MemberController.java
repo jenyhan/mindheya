@@ -15,13 +15,13 @@ public class MemberController {
 	@Autowired
 	MemberDAO dao;
 	
+	//재원씨 컴퓨터 푸시 확인. 17:50
+	
 	//회원가입 폼 이동
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
 	public String goJoin() {
 		return "JoinForm";
 	}
-	
-	
 	
 	//로그아웃 액션
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
@@ -67,10 +67,5 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "mindMap";
-		//승현 깃연습
-		//다시 회인 깃연습
-		//정연 깃연습
-		//정연씨 제발ㅜ
-		//재원씨 제발
 	}
 }
