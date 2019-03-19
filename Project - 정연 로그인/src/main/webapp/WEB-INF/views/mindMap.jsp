@@ -78,13 +78,12 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"
-
+	    apiKey: "",
+	    authDomain: "",
+	    databaseURL: "",
+	    projectId: "",
+	    storageBucket: "",
+	    messagingSenderId: ""
 	  };
 	
 
@@ -788,7 +787,7 @@ canvas {
 				}
 		}
 	 */
-
+	
 	</script>
 <body>
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
