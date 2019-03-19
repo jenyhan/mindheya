@@ -4,7 +4,7 @@
 <html>
 <head>
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
@@ -112,17 +112,22 @@ body {
 	 var id = $("#id").val();
 	 var pw =$("#pw").val();
 		var email=$("#email").val();
-		
-		if(id.length<1||id.length>50||id.value==""){
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if(id.length<1||id.length>13||id.value==""){
 			alert("ID를 다시 입력하세요");
+			return;
 		}
-		if(pw.length<1||pw.length>50||pw.value==""){
+		if(pw.length<1||pw.length>13||pw.value==""){
 			alert("PW를 다시 입력하세요");
+			return;
 		}
-		if(email.length<1||email.length>100||email.value==""){
+		if(email.length<1||email.length>13||email.value==""||!re.test($email)){
 			alert("EMAIL을 다시 입력하세요");
+			return;
  		}
-		$("#loginForm").submit;
+		
+		$("#loginForm").submit();
  }
 </script>  
 <body>
@@ -134,8 +139,8 @@ body {
       <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
       
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
-      <button onclick="javascript:login()">create</button>
-      <p class="message">Already registered? <a href="login">login</a></p>
+      <input type="button" onclick="javascript:login()" value="create">
+      <p class="message">Already registered? <a href="login">login</a><a href="home">   home</a></p>
     </form>
   
   </div>

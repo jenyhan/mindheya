@@ -112,11 +112,11 @@ body {
 <div class="login-page">
   <div class="form">
    
-    <form class="login-form" action="login-form" method="get">
+    <form class="login-form" action="login-form" method="post">
       <input type="text" placeholder="username" name="id" value="${member.id}"><font color="red">${warning}</font><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><br>
       <button>login</button>
-      <p class="message">Not registered? <a href="goJoin">Create an account</a></p>
+      <p class="message">Not registered? <a href="goJoin">Create an account</a><a href="home">   home</a></p>
     </form>
   </div>
 </div>

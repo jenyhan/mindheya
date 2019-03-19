@@ -15,14 +15,13 @@ public class MemberController {
 	@Autowired
 	MemberDAO dao;
 	
-	//재원씨 컴퓨터 푸시 확인. 17:50
-	//정연씨 컴퓨터 푸시 확인. 18:01
-	
 	//회원가입 폼 이동
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
 	public String goJoin() {
 		return "JoinForm";
 	}
+	
+	
 	
 	//로그아웃 액션
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
@@ -55,7 +54,7 @@ public class MemberController {
 	}
 	
 	//로그인폼 액션
-	@RequestMapping(value="/login-form", method=RequestMethod.GET)
+	@RequestMapping(value="/login-form", method=RequestMethod.POST)
 	public String loginMember(Member member, HttpSession session, Model model) {
 		Member result = null;
 		result=dao.login(member);
@@ -68,5 +67,11 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "mindMap";
+
+	}
+	//홈으로 이동
+	@RequestMapping(value="home", method=RequestMethod.GET)
+	public String home() {
+		return "home";
 	}
 }
