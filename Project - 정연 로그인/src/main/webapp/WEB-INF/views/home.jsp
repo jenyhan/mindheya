@@ -92,10 +92,16 @@ $(function(){
 		});
 	});
 	//정연컴퓨터
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	//정연정연컴퓨터
 	//정연정연컴퓨터
 	//회인컴퓨터
 	//회인회인컴퓨터
+<<<<<<< HEAD
+	//회인회인회인컴퓨터
+	//정
+=======
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	//정
 </script>
 <form id="hiddenForm" action="logout" method="get">
