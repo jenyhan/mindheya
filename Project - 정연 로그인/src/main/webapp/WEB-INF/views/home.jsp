@@ -92,7 +92,11 @@ $(function(){
 		});
 	});
 	//정연컴퓨터
+<<<<<<< HEAD
 	//정연정연컴퓨터
+=======
+	//정연정연컴퓨터
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	//회인컴퓨터
 	//회인회인컴퓨터
 </script>
