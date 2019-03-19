@@ -91,6 +91,9 @@ $(function(){
 			$('#hiddenForm').submit();
 		});
 	});
+<<<<<<< HEAD
+	//정연컴퓨터
+=======
 	//정연컴퓨터
 >>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	//정연정연컴퓨터
