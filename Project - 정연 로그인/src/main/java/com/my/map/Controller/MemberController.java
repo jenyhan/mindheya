@@ -64,6 +64,12 @@ public class MemberController {
 
 		session.setAttribute("loginId", member.getId());
 		
+		return "home";
+	}
+	
+	//마인드맵 이동
+	@RequestMapping(value="/gomindMap", method=RequestMethod.GET)
+	public String mindMap() {
 		return "mindMap";
 	}
 }
