@@ -21,8 +21,6 @@ public class MemberController {
 		return "JoinForm";
 	}
 	
-	
-	
 	//로그아웃 액션
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -67,10 +65,5 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "mindMap";
-		//승현 깃연습
-		//다시 회인 깃연습
-		//정연 깃연습
-		//정연씨 제발ㅜ
-		//재원씨 제발
 	}
 }
