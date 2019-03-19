@@ -15,6 +15,8 @@ public class MemberController {
 	@Autowired
 	MemberDAO dao;
 	
+	//재원씨 컴퓨터 푸시 확인. 17:50
+	
 	//회원가입 폼 이동
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
 	public String goJoin() {
