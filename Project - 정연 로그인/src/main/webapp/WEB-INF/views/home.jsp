@@ -91,6 +91,7 @@ $(function(){
 			$('#hiddenForm').submit();
 		});
 	});
+	//정연컴퓨터
 </script>
 <form id="hiddenForm" action="logout" method="get">
 </form>
