@@ -49,6 +49,11 @@ canvas {
 	width: 100%;
 	text-align: center;
 }
+
+.newsListDiv td{
+	border: 1px solid black;
+}
+
 </style>
 </head>
 <!-- Firebase App is always required and must be first -->
@@ -78,12 +83,13 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-	    apiKey: "",
+ 	    apiKey: "",
 	    authDomain: "",
 	    databaseURL: "",
 	    projectId: "",
 	    storageBucket: "",
 	    messagingSenderId: ""
+
 	  };
 	
 
@@ -179,6 +185,7 @@ canvas {
 
 
 		$('#putBtn').on('click', function(){
+						
 			
 			//flag 1 : 마인드맵 삽입
 			flag = 1;
@@ -231,7 +238,9 @@ canvas {
 		//3.수정을 해야할 때 flag 3
 		canvas.onmousedown = function(e) {
 			e.preventDefault();
-				
+			
+			
+			
 			// 시작 x, y좌표 구함
 			sx = e.clientX;
 			sy = e.clientY;
@@ -240,6 +249,10 @@ canvas {
 
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx,sy);
+
+				$('#searchTxt').val(selectedObj.id);
+				
+				
 				
 				//움직임을 boolean으로 설정
 				draggable = true;
@@ -765,6 +778,44 @@ canvas {
 	    	}
 			}
 			
+			
+			
+ /* ----------------------------기사 테스트------------------------------ */
+		$('#searchBtn').on("click", function(){
+		
+			var keyWord = $("#searchTxt").val();
+
+			$.ajax({
+				url : "selectContent",
+				data : {title:keyWord},
+				type : "get",
+				success : function(result) {
+
+				output(result); 
+				}
+			});
+			
+		});
+		
+ 
+		function output(result){			
+			
+			var content = '<tr>';
+			content += '<th class="big">뉴스 제목</th>';				
+			content += '</tr>';
+			
+			if(result != ""){
+				$.each(result, function(index, item){
+					content += '<tr>';
+					content += '<td class="title">' + item.summary + '</td>';
+					content += '</tr>';
+				});
+			}
+			$(".newsListDiv").html(content);
+		}
+ 
+ 
+ 
 	}	
 
 	//무시하시면 됩니다.
@@ -788,6 +839,10 @@ canvas {
 		}
 	 */
 	
+
+	 
+	 
+	 
 	</script>
 <body>
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
@@ -811,6 +866,8 @@ canvas {
 		<div id="search">
 			<input type="text" id="searchTxt">
 			<button id="searchBtn">검색</button>
+			<div class="newsListDiv">
+			</div>
 		</div>
 		<div id="searchResult">
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
