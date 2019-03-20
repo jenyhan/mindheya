@@ -4,12 +4,9 @@
 <html>
 <head>
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-
-
 
 .register-page {
   width: 360px;
@@ -117,15 +114,15 @@ body {
 		var email=$("#email").val();
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-		if(id.length<1||id.length>13||id.value==""){
+		if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
 			return;
 		}
-		if(pw.length<1||pw.length>13||pw.value==""){
+		if(pw.length<1||pw.length>50||pw.value==""){
 			alert("PW를 다시 입력하세요");
 			return;
 		}
-		if(email.length<1||email.length>13||email.value==""||!re.test($email)){
+		if(email.length<1||email.length>100||email.value==""||!re.test($email)){
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}

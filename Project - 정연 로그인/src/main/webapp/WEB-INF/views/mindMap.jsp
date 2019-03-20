@@ -5,10 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <title>drawlines</title>
+<!-- Required meta tags -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 <style>
+@import url('https://fonts.googleapis.com/css?family=Bitter');
+
+.divHeader {
+	font-size: 150%;
+	text-align: center;
+	font-family: 'Bitter', serif;
+	margin-top: 0.5%;
+	margin-left: 0.5%;
+}
+
+.dropdown {
+	text-align: right;
+}
+
 canvas {
 	border: 5px solid magenta;
-	float: left;
+	float: center;
 }
 
 #menuBoard {
@@ -34,6 +56,7 @@ canvas {
 	width: 15%;
 	float: left;
 	border: 2px solid black;
+	margin: 0.5%
 }
 
 #mainFunc, #search {
@@ -71,19 +94,25 @@ canvas {
 <!-- Firebase App is always required and must be first -->
 
 <!-- 제이쿼리 사용 임포트 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!--Optional JavaScript for Bootstrap
+    jQuery first, then Popper.js, then Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script>
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-	    apiKey: "",
-	    authDomain: "",
-	    databaseURL: "",
-	    projectId: "",
-	    storageBucket: "",
-	    messagingSenderId: ""
+			    apiKey: ,
+			    authDomain: ,
+			    databaseURL: ,
+			    projectId: ,
+			    storageBucket: ,
+			    messagingSenderId: 
+
 	  };
 	
 
@@ -787,9 +816,25 @@ canvas {
 				}
 		}
 	 */
-	
+
 	</script>
 <body>
+	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
+	<br>
+		<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button"
+			id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">메뉴</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" href="#">Home</a>
+			<a class="dropdown-item" href="#">스크랩</a>
+			<a class="dropdown-item" href="#">공유</a>
+			<a class="dropdown-item" href="#">환경설정</a>
+		<div class="dropdown-divider"></div>
+   			<a class="dropdown-item" href="#">로그아웃</a>
+		</div>
+	</div>
+	
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
 	<!-- <div id="menuBoard">
 		<div>김회인님, 안녕하세요!</div>
@@ -816,5 +861,6 @@ canvas {
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 		</div>
 	</div>
+
 </body>
 </html>
