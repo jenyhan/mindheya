@@ -39,7 +39,7 @@ public class MemberController {
 		int result = dao.join(member);
 		System.out.println(result);
 		if(result==0) {
-			model.addAttribute("warning", "ID와 비밀번호를 확인해주세요.");
+			model.addAttribute("warning", "중복된 ID가 있습니다.");
 			model.addAttribute("member", member);
 			
 			return "JoinForm";
@@ -66,7 +66,7 @@ public class MemberController {
 
 		session.setAttribute("loginId", member.getId());
 		
-		return "mindMap";
+		return "home";
 
 	}
 	//홈으로 이동
