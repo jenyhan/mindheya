@@ -41,7 +41,6 @@ public class MemberController {
 		if(result==0) {
 			model.addAttribute("warning", "중복된 ID가 있습니다.");
 			model.addAttribute("member", member);
-			
 			return "JoinForm";
 		}
 		return "home";

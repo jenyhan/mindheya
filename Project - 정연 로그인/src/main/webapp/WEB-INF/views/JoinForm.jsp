@@ -114,8 +114,8 @@ body {
 	
 	 var id = $("#id").val();
 	 var pw =$("#pw").val();
-		var email=$("#email").val();
-
+	 var email=$("#email").val();
+	 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
 			return;
@@ -128,7 +128,12 @@ body {
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}
-		
+		if(!getMail.test($("#email").val())){
+	        alert("이메일형식에 맞게 입력해주세요")
+	        $("#mail").val("");
+	        $("#mail").focus();
+	        return false;
+	      }
 		$("#register-form").submit();
  }
 </script>  
@@ -137,8 +142,8 @@ body {
   <div class="form">
   
     <form class="register-form" id="register-form" action="register-form" method="post">
-      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><font color="red">${warning}</font><br>
-      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
+      <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><br>
+      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
       
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
       <input type="button" onclick="javascript:login()" value="create">
