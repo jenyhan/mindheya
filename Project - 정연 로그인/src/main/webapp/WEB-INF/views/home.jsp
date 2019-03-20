@@ -95,7 +95,6 @@ $(function(){
 			$('#hiddengoMindmap').submit();
 		});
 	});
-
 </script>
 <form id="hiddenlogout" action="logout" method="get"></form>
 <form id="hiddengoMindmap" action="goMindmap" method="get"></form>
