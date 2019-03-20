@@ -56,29 +56,14 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-<div class="divLogo">
-<a href="/map"><img src="resources/image/marvelous.png"></a>
-</div>
-<div class="divMenu">
-	<div class="col s12">
-	<ul class="tabs">
-		<li class="tab col s1"><a href="#test1">About</a></li>
-        <li class="tab col s1"><a href="goMindmap" id="goMindmap">마인드맵</a></li>
-        <li class="tab col s1"><a href="#test3">스크랩</a></li>
-        <li class="tab col s1"><a href="#test4">공유</a></li>
-        <li class="tab col s1"><a href="logout" id="logout">로그아웃</a></li>
-	</ul>
-=======
 	<div class="divLogo">
 		<a href="home"><img src="resources/image/marvelousmonday.png"></a>
->>>>>>> refs/heads/working_190320
 	</div>
 	<div class="divMenu">
 		<div class="col s12">
 			<ul class="tabs">
 				<li class="tab col s1"><a href="#test1" class="teal-text text-lighten-2">About</a></li>
-				<li class="tab col s1"><a href="#test2" class="teal-text text-lighten-2">마인드맵</a></li>
+				<li class="tab col s1"><a href="#test2" id="goMindmap" class="teal-text text-lighten-2">마인드맵</a></li>
 				<li class="tab col s1"><a href="#test3" class="teal-text text-lighten-2">스크랩</a></li>
 				<li class="tab col s1"><a href="#test4" class="teal-text text-lighten-2">공유</a></li>
 				<li class="tab col s1"><a href="logout" id="logout" class="teal-text text-lighten-2">로그아웃</a></li>
@@ -100,14 +85,11 @@
 		</div>
 	</c:if>
 
-
-
 	<!--Import jQuery before materialize.js-->
-<<<<<<< HEAD
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 <script>
-$(function(){
+	$(function(){
 		$('#logout').on("click", function(){
 			alert('로그아웃합니다.');
 			$('#hiddenlogout').submit();
@@ -115,27 +97,11 @@ $(function(){
 		$('#goMindmap').on("click", function(){
 			alert('마인드맵 페이지로 이동합니다.');
 			$('#hiddengoMindmap').submit();
-=======
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-	<script>
-		$(function() {
-			$('#logout').on("click", function() {
-				alert('로그아웃합니다.');
-				$('#hiddenForm').submit();
-			});
->>>>>>> refs/heads/working_190320
 		});
-<<<<<<< HEAD
 	});
 </script>
 <form id="hiddenlogout" action="logout" method="get"></form>
-<form id="hiddengoMindmap" action="goMindmap" method="get"></form>
-=======
-	</script>
-	<form id="hiddenForm" action="logout" method="get"></form>
->>>>>>> refs/heads/working_190320
+<form id="hiddengoMindmap" action="goMindmap" method="get"></form>	
+<form id="hiddenForm" action="logout" method="get"></form>
 </body>
 </html>
