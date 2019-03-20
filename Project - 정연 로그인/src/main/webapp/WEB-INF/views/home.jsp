@@ -55,7 +55,7 @@
 	<div class="col s12">
 	<ul class="tabs">
 		<li class="tab col s1"><a href="#test1">About</a></li>
-        <li class="tab col s1"><a href="#test2">마인드맵</a></li>
+        <li class="tab col s1"><a href="goMindmap" id="goMindmap">마인드맵</a></li>
         <li class="tab col s1"><a href="#test3">스크랩</a></li>
         <li class="tab col s1"><a href="#test4">공유</a></li>
         <li class="tab col s1"><a href="logout" id="logout">로그아웃</a></li>
@@ -88,26 +88,16 @@ Welcome to MindHeya
 $(function(){
 		$('#logout').on("click", function(){
 			alert('로그아웃합니다.');
-			$('#hiddenForm').submit();
+			$('#hiddenlogout').submit();
+		});
+		$('#goMindmap').on("click", function(){
+			alert('마인드맵 페이지로 이동합니다.');
+			$('#hiddengoMindmap').submit();
 		});
 	});
-<<<<<<< HEAD
-	//정연컴퓨터
-=======
-	//정연컴퓨터
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-	//정연정연컴퓨터
-	//정연정연컴퓨터
-	//회인컴퓨터
-	//회인회인컴퓨터
-<<<<<<< HEAD
-	//회인회인회인컴퓨터
-	//정
-=======
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-	//정
+
 </script>
-<form id="hiddenForm" action="logout" method="get">
-</form>
+<form id="hiddenlogout" action="logout" method="get"></form>
+<form id="hiddengoMindmap" action="goMindmap" method="get"></form>
 </body>
 </html>
