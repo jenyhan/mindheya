@@ -14,12 +14,12 @@
 <style>
 @import url('https://fonts.googleapis.com/css?family=Bitter');
 
-//정연상 자리에서 연습삼아 깃허브
-
 .divLogo img{
-	margin:0.5;
 	width:15%;
 	height:15%;
+}
+.divLogo{
+	margin:0.5%;
 }
 .divHeader, .divBody, .divAccount{
 	text-align:center;
@@ -36,9 +36,6 @@
 .divMenu{
 	text-align:right;
 }
-.tabs a{
-	color:#535461;
-}
 .divAccount a{
    color: #71C55D;
    padding: 1%;
@@ -49,7 +46,7 @@
 
 <body>
 <div class="divLogo">
-<a href="/map"><img src="resources/image/marvelous.png"></a>
+<a href="/map"><img src="resources/image/marvelousmonday.png"></a>
 </div>
 <div class="divMenu">
 	<div class="col s12">
@@ -91,21 +88,7 @@ $(function(){
 			$('#hiddenForm').submit();
 		});
 	});
-<<<<<<< HEAD
-	//정연컴퓨터
-=======
-	//정연컴퓨터
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-	//정연정연컴퓨터
-	//정연정연컴퓨터
-	//회인컴퓨터
-	//회인회인컴퓨터
-<<<<<<< HEAD
-	//회인회인회인컴퓨터
-	//정
-=======
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-	//정
+
 </script>
 <form id="hiddenForm" action="logout" method="get">
 </form>
