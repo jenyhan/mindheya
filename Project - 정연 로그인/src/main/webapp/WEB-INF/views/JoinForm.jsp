@@ -111,13 +111,14 @@ body {
 	
 	 var id = $("#id").val();
 	 var pw =$("#pw").val();
-
 	 var email=$("#email").val();
 	 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+	 
 		if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
 			return;
 		}
+		
 		if(pw.length<1||pw.length>50||pw.value==""){
 			alert("PW를 다시 입력하세요");
 			return;
@@ -127,6 +128,7 @@ body {
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}
+ 		
 		if(!getMail.test($("#email").val())){
 	        alert("이메일형식에 맞게 입력해주세요")
 	        $("#mail").val("");

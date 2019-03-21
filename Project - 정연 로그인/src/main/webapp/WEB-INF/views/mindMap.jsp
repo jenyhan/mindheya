@@ -111,21 +111,12 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-<<<<<<< HEAD
  	    apiKey: "",
 	    authDomain: "",
 	    databaseURL: "",
 	    projectId: "",
 	    storageBucket: "",
 	    messagingSenderId: ""
-=======
-			    apiKey: ,
-			    authDomain: ,
-			    databaseURL: ,
-			    projectId: ,
-			    storageBucket: ,
-			    messagingSenderId: 
->>>>>>> refs/heads/working_190320
 
 	  };
 	
@@ -690,7 +681,6 @@ canvas {
 	
 					ctx.fillText('id : ' + array.id, array.afterX - 3, array.afterY + 3);
 					ctx.fillText('parent : ' + array.parent, array.afterX - 3, array.afterY +13);
-	
 				}
 			}	
 
@@ -875,15 +865,7 @@ canvas {
 				}
 		}
 	 */
-<<<<<<< HEAD
-	
 
-	 
-	 
-	 
-=======
-
->>>>>>> refs/heads/working_190320
 	</script>
 <body>
 	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
@@ -903,13 +885,6 @@ canvas {
 	</div>
 	
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
-	<!-- <div id="menuBoard">
-		<div>김회인님, 안녕하세요!</div>
-		<div>마인드맵</div>
-		<div>스크랩</div>
-		<div>공동작업</div>
-		<div>환경설정</div>
-	</div>  -->
 	<canvas id="canvas" width="1000px" height="700px">;
 		이 브라우저는 캔버스를 지원하지 않습니다.
 	</canvas>
