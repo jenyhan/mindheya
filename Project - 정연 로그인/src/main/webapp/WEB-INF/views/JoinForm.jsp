@@ -123,10 +123,7 @@ body {
 			return;
 		}
 
-		if(email.length<1||email.length>100||email.value==""){			
-=======
 		if(email.length<1||email.length>100||email.value==""||!re.test($email)){
->>>>>>> refs/heads/working_190320
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}
