@@ -64,7 +64,6 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "home";
-
 	}
 	
 	//홈으로 이동

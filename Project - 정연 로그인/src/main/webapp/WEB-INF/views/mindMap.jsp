@@ -29,7 +29,7 @@
 }
 
 canvas {
-	border: 5px solid magenta;
+	border: 5px solid #71C55D;
 	float: center;
 }
 
@@ -84,14 +84,10 @@ canvas {
 
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
 
 <!-- Comment out (or don't include) services that you don't want to use -->
 <!-- <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script> -->
@@ -101,12 +97,18 @@ canvas {
 <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!--Optional JavaScript for Bootstrap
-    jQuery first, then Popper.js, then Bootstrap JS-->
+<!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+<script>
+		$(function() {
+			$('#logout').on("click", function() {
+				alert('로그아웃합니다.');
+				$('#hiddenlogout').submit();
+			});
+		});
+</script>
 <script>
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
@@ -167,11 +169,16 @@ canvas {
 	//jsp가 로드된 후에 실행
 	window.onload = function() {
 				
+		var gotSeq = $("#gotSeq").val();
+		var leader = $("#leader").val();
+		var groupName = $("#groupName").val();
+		var numLimit = $("#numLimit").val();
+		
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId);
+		var mindRef = firebase.database().ref('/users/' + userId + '/' + groupName + '/MapTree');
 
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -510,7 +517,6 @@ canvas {
 				var parentX = (typeof(selectedObj) == 'undefined'||selectedObj == null)? ex : selectedObj.afterX;
 				var parentY = (typeof(selectedObj) == 'undefined'||selectedObj == null)? ey : selectedObj.afterY;
 
-
 				// Firebase에 저장할 객체
 				// x      : 부모 객체의 x좌표
 				// y      : 부모 객체의 y좌표
@@ -526,9 +532,9 @@ canvas {
 						parent: parentId,
 						id: saveId
 					};
-				
 				// 새로 만든 객체를 savedArray에 추가한 후, Firebase에 저장
 				savedArray.push(newObj);
+				alert(JSON.stringify(savedArray));
 				writeMindMap(savedArray);
 
 				//유효성 체크를 닫는다.
@@ -584,46 +590,7 @@ canvas {
 				//전역변수 selectedObj에 선택된 객체를 세팅해준다.
 				selectedObj = selectOne;			
 			} 
-
-			//무시하시면 됩니다.			
-			/* 		//자신을 제외하는 피타고라스
-					function pita2(cx, cy, obj){
-						//선택하는 애
-						var selectOne;
 			
-						// 거리값 버퍼
-						var buf = 0;
-			
-						//배열을 돌며 거리 값을 비교
-						if(savedArray.length==0){
-							return; 
-						}
-			
-						//3.12새로운 피타고라스 : 자신의 값과 같은 녀석은 피타고라스 검사에서 제외해야 한다.			
-			
-						for(var i = 0; i < savedArray.length; i++){
-							if(obj.id==savedArray[i].id){
-								continue;
-							}
-						 	var calX = savedArray[i].afterX - cx;
-						 	var calY = savedArray[i].afterY - cy;
-						 	var pitagoras = (calX * calX) + (calY * calY);
-			
-						 	if(i==0){
-						 		selectOne = savedArray[i];
-						 		buf = pitagoras;
-						 		continue;
-						 	}
-			
-						 	if(pitagoras < buf){					
-								buf = pitagoras;
-						 		selectOne = savedArray[i];
-						 	}
-						};			
-						selectedObj = selectOne;			
-					} 
-			 */
-
 			//Firebase에 값이 update(삽입, 삭제)될 때마다 실행되는 메서드
 			mindRef.on('value', function(snapshot) {
 	
@@ -696,8 +663,8 @@ canvas {
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/' + mindObjs[i].id).set({
-			    
+						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
 				    	afterX:mindObjs[i].afterX,
@@ -709,7 +676,7 @@ canvas {
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
 			    
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
@@ -868,7 +835,7 @@ canvas {
 
 	</script>
 <body>
-	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
+	<div class="divHeader">${sessionScope.loginId}님의 마인드맵</div>
 	<br>
 		<div class="dropdown">
 		<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -880,7 +847,7 @@ canvas {
 			<a class="dropdown-item" href="#">공유</a>
 			<a class="dropdown-item" href="#">환경설정</a>
 		<div class="dropdown-divider"></div>
-   			<a class="dropdown-item" href="#">로그아웃</a>
+   			<a class="dropdown-item" href="logout" id="logout">로그아웃</a>
 		</div>
 	</div>
 	
@@ -905,6 +872,12 @@ canvas {
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 		</div>
 	</div>
-
+	<form>
+		<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
+		<input type="hidden" id="leader" name="leader" value="${mindMap.leader}">
+		<input type="hidden" id="groupName" name="groupName" value="${mindMap.groupName}">
+		<input type="hidden" id="numLimit" name="numLimit" value="${mindMap.numLimit}">
+	</form>
+	<form id="hiddenlogout" action="logout" method="get"></form>
 </body>
 </html>
