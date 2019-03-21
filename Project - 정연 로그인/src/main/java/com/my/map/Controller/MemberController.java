@@ -64,11 +64,8 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "home";
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	}
+
 	//홈으로 이동
 	@RequestMapping(value="home", method=RequestMethod.GET)
 	public String home() {

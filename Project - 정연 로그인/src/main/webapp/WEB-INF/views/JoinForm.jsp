@@ -113,8 +113,7 @@ body {
 	 var pw =$("#pw").val();
 	 var email=$("#email").val();
 	 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-		
-	 if(id.length<1||id.length>50||id.value==""){
+		if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
 			return;
 		}
