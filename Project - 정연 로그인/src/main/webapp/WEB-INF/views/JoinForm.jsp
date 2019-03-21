@@ -111,30 +111,24 @@ body {
 	
 	 var id = $("#id").val();
 	 var pw =$("#pw").val();
-<<<<<<< HEAD
 	 var email=$("#email").val();
 	 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-=======
-		var email=$("#email").val();
-		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
->>>>>>> refs/heads/working_190320
-		if(id.length<1||id.length>50||id.value==""){
+		
+	 if(id.length<1||id.length>50||id.value==""){
 			alert("ID를 다시 입력하세요");
 			return;
 		}
+		
 		if(pw.length<1||pw.length>50||pw.value==""){
 			alert("PW를 다시 입력하세요");
 			return;
 		}
-<<<<<<< HEAD
+		
 		if(email.length<1||email.length>100||email.value==""){			
-=======
-		if(email.length<1||email.length>100||email.value==""||!re.test($email)){
->>>>>>> refs/heads/working_190320
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}
+		
 		if(!getMail.test($("#email").val())){
 	        alert("이메일형식에 맞게 입력해주세요")
 	        $("#mail").val("");
@@ -142,7 +136,7 @@ body {
 	        return false;
 	      }
 		$("#register-form").submit();
- }
+  }
 </script>  
 <body>
 <div class="register-page">
