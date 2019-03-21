@@ -681,7 +681,6 @@ canvas {
 	
 					ctx.fillText('id : ' + array.id, array.afterX - 3, array.afterY + 3);
 					ctx.fillText('parent : ' + array.parent, array.afterX - 3, array.afterY +13);
-	
 				}
 			}	
 
