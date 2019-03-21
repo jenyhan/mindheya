@@ -149,7 +149,6 @@ body {
       <input type="button" onclick="javascript:login()" value="create">
       <p class="message">Already registered? <a href="login">login</a><a href="home">   home</a></p>
     </form>
-  
   </div>
 </div>
 </body>
