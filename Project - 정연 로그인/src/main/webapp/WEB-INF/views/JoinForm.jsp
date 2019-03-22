@@ -4,12 +4,9 @@
 <html>
 <head>
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-
-
 
 .register-page {
   width: 360px;
@@ -120,14 +117,17 @@ body {
 			alert("ID를 다시 입력하세요");
 			return;
 		}
+		
 		if(pw.length<1||pw.length>50||pw.value==""){
 			alert("PW를 다시 입력하세요");
 			return;
 		}
+		
 		if(email.length<1||email.length>100||email.value==""){			
 			alert("EMAIL을 다시 입력하세요");
 			return;
  		}
+		
 		if(!getMail.test($("#email").val())){
 	        alert("이메일형식에 맞게 입력해주세요")
 	        $("#mail").val("");
@@ -135,7 +135,7 @@ body {
 	        return false;
 	      }
 		$("#register-form").submit();
- }
+  }
 </script>  
 <body>
 <div class="register-page">

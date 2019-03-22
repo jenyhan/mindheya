@@ -21,8 +21,6 @@ public class MemberController {
 		return "JoinForm";
 	}
 	
-	
-	
 	//로그아웃 액션
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -66,11 +64,18 @@ public class MemberController {
 		session.setAttribute("loginId", member.getId());
 		
 		return "home";
-
 	}
+
 	//홈으로 이동
 	@RequestMapping(value="home", method=RequestMethod.GET)
 	public String home() {
 		return "home";
+	}
+
+	
+	//마인드맵 이동//
+	@RequestMapping(value="/mindmap", method=RequestMethod.GET)
+	public String mindmap() {
+		return "mindMap";
 	}
 }
