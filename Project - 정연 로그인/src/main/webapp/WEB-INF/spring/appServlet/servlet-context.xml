@@ -22,7 +22,20 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.my.map" />
-	
+	<!-- 인터셉터 빈 등록 :code here -->
+	<beans:bean id="LoginInterceptor" class="com.my.map.interceptor.LoginInterceptor">
+	</beans:bean>
+
+	<!-- 인터셉터 경로 설정  :code here -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/*"/>
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/login"/>
+			<exclude-mapping path="/goJoin"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
