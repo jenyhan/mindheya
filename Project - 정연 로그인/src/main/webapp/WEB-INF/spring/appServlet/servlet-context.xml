@@ -29,11 +29,12 @@
 	<!-- 인터셉터 경로 설정  :code here -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/*"/>
-			<exclude-mapping path="/"/>
-			<exclude-mapping path="/login"/>
-			<exclude-mapping path="/goJoin"/>
-			<beans:ref bean="LoginInterceptor"/>
+			<mapping path="/*"/> 
+  			<exclude-mapping path="/"/> 
+  			<exclude-mapping path="/home"/>  
+ 			<exclude-mapping path="/login"/> 
+			<exclude-mapping path="/goJoin"/> 
+			<beans:ref bean="LoginInterceptor"/> 
 		</interceptor>
 	</interceptors>
 	
