@@ -31,7 +31,6 @@ public class MindMapController {
 	
 	@RequestMapping(value="/selectShare", method=RequestMethod.GET)
 	public @ResponseBody String selectShare(String shareId) {
-		System.out.println(shareId);
 
 		Member result = dao.selectShare(shareId);
 		
