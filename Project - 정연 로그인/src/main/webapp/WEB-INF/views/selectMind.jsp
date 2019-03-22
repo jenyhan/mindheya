@@ -32,10 +32,9 @@
 
 <!-- <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- -->
 <!--Optional JavaScript for Bootstrap
     jQuery first, then Popper.js, then Bootstrap JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script>
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
@@ -57,12 +56,18 @@
 	  
 	  //객체별 마인드맵 리스트를 배열로 받는다.
 	  var savedList = [];
+	  
+	  var notificationList = [];
+	  
 /* --------------------------------------------------------------------------------------- */
 	$(function(){
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();	
 		//파이어베이스에서 가져올 DB 경로 설정
 		var mindRef = firebase.database().ref('/users/' + userId);
+		
+		var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
+
 		
 		
 		var seq = 0;
@@ -186,17 +191,27 @@
 								if(question){
 									alert('메세지를 보냅니다.');
 									
-									firebase.database().ref('users/' + shareId + '/notification/' +  groupName).set({
-										
-										seq : gotSeq,
-										leader : leader,
-										groupName : groupName,
-										numLimit : numLimit
-
-									});
-
-									//인원수 체크하는 로직을 구현해야 한다.
+									var messageObj = {
+											seq : gotSeq,
+											leader : leader,
+											groupName : groupName,
+											numLimit : numLimit
+									};
 									
+									notificationList.push(messageObj);
+									
+									
+									for(var i = 0; i < notificationList.length; i++){
+										
+										firebase.database().ref('users/' + shareId + '/notification/' +  notificationList[i].leader + '/' + notificationList[i].seq).set({
+											
+											seq : notificationList[i].seq,
+											leader : notificationList[i].leader,
+											groupName : notificationList[i].groupName,
+											numLimit : notificationList[i].numLimit
+	
+										});
+									}									
 									
 								} else{
 									alert('공유 취소');
@@ -210,6 +225,35 @@
 				
 			});
 		}
+//notificationList 뿌리기
+		notificationRef.on('value', function(snapshot) {
+			
+			loadNotification(snapshot);
+			
+		}); 
+		
+		function loadNotification(snapshot){
+			var notiList =JSON.parse(JSON.stringify(snapshot));
+			//배열 초기화
+			
+			notificationList = [];
+
+			
+			//seq세팅
+			for (var key in notiList){
+
+				var notiList2 = JSON.parse(JSON.stringify(notiList[key]));
+				
+				for(var key2 in notiList2){
+
+					var notiObject = notiList2[key2];
+					notificationList.push(notiObject);
+					
+				}
+			}
+
+		}
+
 		
 		
 		
@@ -278,7 +322,7 @@
 	<button id="deleteMindMap">삭제</button>
 	<button id="shareMindMap">공유</button>
 	<div class="mindMapList"></div>
-	
+	<div class="notificationList"></div>
 	<form id="goMap" action="goMap" method="GET">
 		<input type="hidden" id="gotSeq" name="gotSeq">
 		<input type="hidden" id="leader" name="leader">
