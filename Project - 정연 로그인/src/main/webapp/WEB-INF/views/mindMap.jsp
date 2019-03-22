@@ -29,7 +29,7 @@
 }
 
 canvas {
-	border: 5px solid magenta;
+	border: 5px solid #71C55D;
 	float: center;
 }
 
@@ -84,15 +84,10 @@ canvas {
 
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
-<script
-	src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
 <!-- Comment out (or don't include) services that you don't want to use -->
 <!-- <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script> -->
 <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
@@ -106,7 +101,14 @@ canvas {
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+<script>
+		$(function() {
+			$('#logout').on("click", function() {
+				alert('로그아웃합니다.');
+				$('#hiddenlogout').submit();
+			});
+		});
+</script>
 <script>
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
@@ -165,11 +167,17 @@ canvas {
 	//jsp가 로드된 후에 실행
 	window.onload = function() {
 				
+		
+		var gotSeq = $("#gotSeq").val();
+		var leader = $("#leader").val();
+		var groupName = $("#groupName").val();
+		var numLimit = $("#numLimit").val();
+		
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId);
+		var mindRef = firebase.database().ref('/users/' + userId + '/' + groupName + '/MapTree');
 
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -694,7 +702,7 @@ canvas {
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
 			    
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
@@ -707,8 +715,8 @@ canvas {
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/' + mindObjs[i].id).set({
-			    
+						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
 				 		   	afterX:mindObjs[i].afterX,
@@ -866,7 +874,7 @@ canvas {
 
 	</script>
 <body>
-	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
+	<div class="divHeader">${sessionScope.loginId}님의 마인드맵</div>
 	<br>
 		<div class="dropdown">
 		<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -878,7 +886,7 @@ canvas {
 			<a class="dropdown-item" href="#">공유</a>
 			<a class="dropdown-item" href="#">환경설정</a>
 		<div class="dropdown-divider"></div>
-   			<a class="dropdown-item" href="#">로그아웃</a>
+   			<a class="dropdown-item" href="logout" id="logout">로그아웃</a>
 		</div>
 	</div>
 	

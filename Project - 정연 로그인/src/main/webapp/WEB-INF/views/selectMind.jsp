@@ -30,12 +30,12 @@
 <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
 <!-- Firebase App is always required and must be first -->
 
-<!-- 제이쿼리 사용 임포트 -->
+<!-- <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+ -->
 <!--Optional JavaScript for Bootstrap
     jQuery first, then Popper.js, then Bootstrap JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
@@ -54,6 +54,9 @@
 	  // You can retrieve services via the defaultApp variable...
 	  var defaultStorage = defaultApp.storage();
 	  var defaultDatabase = defaultApp.database();		
+	  
+	  //객체별 마인드맵 리스트를 배열로 받는다.
+	  var savedList = [];
 /* --------------------------------------------------------------------------------------- */
 	$(function(){
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
@@ -61,20 +64,27 @@
 		//파이어베이스에서 가져올 DB 경로 설정
 		var mindRef = firebase.database().ref('/users/' + userId);
 		
-		//객체별 마인드맵 리스트를 배열로 받는다.
-		var savedList = [];
+		
 		var seq = 0;
 		
-		function createMind(newMap){
+		var selectFlag = 0;
+				
+		
+		function createMind(){			
+
+			for(var i = 0; i < savedList.length; i++){
+				firebase.database().ref('users/' + userId + '/' + savedList[i].groupName).set({
+					
+					seq : savedList[i].seq,
+					leader : savedList[i].leader,
+					groupName : savedList[i].groupName,
+					numLimit : savedList[i].numLimit
+					
+				});
+
+			}
+			
 			//파이어베이스 저장하기
-			firebase.database().ref('users/' + userId + '/' + newMap.groupName).set({	    
-				
-				seq : ++seq,
-				leader : userId,
-				groupName : newMap.groupName,
-				numLimit : newMap.numLimit
-				
-			});
 		}
 		
 		//파이어베이스 업데이트 값 불러오기
@@ -86,7 +96,7 @@
 		
 		function loadList(snapshot){
 			var mindMapList =JSON.parse(JSON.stringify(snapshot));
-			
+			//배열 초기화
 			savedList = [];
 			
 			//seq세팅
@@ -98,11 +108,11 @@
 				}
 			}
 			
-			//jArrays를 돌리면서 savedArray에 저장해줄 것.
+			//jArrays를 돌리면서 savedList에 저장해줄 것.
 			for (var key in mindMapList) {
 				var groupObject = mindMapList[key];
 				savedList.push(groupObject); 								
-			}
+			}			
 			
 			showMap();
 		}
@@ -125,35 +135,140 @@
 				var groupName = $('.mindgroupName', this).attr('name-value');
 				var numLimit = $('.mindMapNumLimit', this).attr('limit-value');
 				
-				if(confirm('이동하시겠습니까?')){
-					$('#gotSeq').val(gotSeq);
-					$('#leader').val(leader);
-					$('#groupName').val(groupName);
-					$('#numLimit').val(numLimit);					
-					$('#goMap').submit();
+				
+				if(selectFlag==0){
+					if(confirm('이동하시겠습니까?')){
+						$('#gotSeq').val(gotSeq);
+						$('#leader').val(leader);
+						$('#groupName').val(groupName);
+						$('#numLimit').val(numLimit);					
+						$('#goMap').submit();
+						
+					} else{
+						alert('이동을 취소합니다.');					
+					}
+				
+				} else if(selectFlag==1){
 					
-				} else{
-					alert('이동을 취소합니다.');					
+					selectFlag = 0;
+					if(confirm('삭제하시겠습니까?')){
+															
+						for(var i = 0; i < savedList.length; i++){
+							if(savedList[i].leader == leader){
+								if(savedList[i].seq == gotSeq){
+									savedList.splice(i, 1);
+									mindRef.remove();
+									
+								}
+							}
+							
+						}
+						
+						
+					} else{
+						alert('삭제를 취소합니다.');					
+					}
+					
+				} else if(selectFlag == 2){				
+					var shareId = prompt("공유할 아이디를 입력해주세요.");
+					
+					$.ajax({
+						url : "selectShare",
+						data : {shareId : shareId},
+						type : "get",
+						success : function(result) {
+
+							if(result=="fail"){
+								alert('존재하지 않는 아이디입니다, 다시 선택해주세요.');
+							} else {
+								selectFlag = 0;
+								var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
+								if(question){
+									alert('메세지를 보냅니다.');
+									
+									firebase.database().ref('users/' + shareId + '/notification/' +  groupName).set({
+										
+										seq : gotSeq,
+										leader : leader,
+										groupName : groupName,
+										numLimit : numLimit
+
+									});
+
+									//인원수 체크하는 로직을 구현해야 한다.
+									
+									
+								} else{
+									alert('공유 취소');
+								}
+							}							
+						}
+					});
+
+					
 				}
 				
 			});
 		}
+		
+		
+		
+		
 		$("#createMindMap").on("click", function(){
-			var groupName = prompt("새로운 그룹명을 정해주세요.");
-			var numLimit = prompt("그룹 인원수를 정해주세요.");		
+			var groupName;
+			var checkName = true;
+			
+
+			
+			if(savedList.length == 0){
+				groupName = prompt("새로운 그룹명을 정해주세요.");
+			} else {
+			
+				//동일한 마인드맵 이름 체크
+				while(checkName){
+					groupName = prompt("새로운 그룹명을 정해주세요.");
+					
+					for(var i = 0; i < savedList.length; i++){
+						
+						if(savedList[i].groupName==groupName){
+							alert('동일한 이름이 존재합니다.');
+							break;
+						}
+						
+						if(i == savedList.length - 1 && checkName == true){
+							checkName = false;
+						}
+					}
+				}				
+			}
+			
+
+			var numLimit = prompt("그룹 인원수를 정해주세요.");					
+			
+			seq = seq + 1;
 			var newMap = {
+					seq : seq,
+					leader : userId,
 					groupName : groupName,
 					numLimit : numLimit
 			}
 			
-			createMind(newMap);
+			savedList.push(newMap);
+			createMind();	
+
 		});
 		
+		$('#deleteMindMap').on("click", function(){
+			selectFlag = 1;	
+			alert('삭제할 마인드맵을 선택하세요');		
+		});
 		
+		$('#shareMindMap').on("click", function(){
+			selectFlag = 2;
+			alert('공유할 마인드맵을 선택하세요');
+		});
 		
 	});
-	
-	
 	
 	</script>
 <body>
@@ -161,6 +276,7 @@
 	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
 	<button id="createMindMap">추가</button>
 	<button id="deleteMindMap">삭제</button>
+	<button id="shareMindMap">공유</button>
 	<div class="mindMapList"></div>
 	
 	<form id="goMap" action="goMap" method="GET">
