@@ -6,13 +6,21 @@
 <meta charset="UTF-8">
 <title>selectMind</title>
 <style>
-	.mindMapDiv {
-		border: 1px solid black;
-		float: left;
-		width: 100px;
-		height: 100px;
-		margin: 10px;
-	}
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+.mindMapDiv {
+	border: 1px solid black;
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+}
+.divHeader {
+   font-size: 150%;
+   text-align: center;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 0.5%;
+   margin-left: 0.5%;
+}
 </style>
 </head>
 <!-- Firebase App is always required and must be first -->
@@ -32,8 +40,7 @@
 
 <!-- <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--Optional JavaScript for Bootstrap
-    jQuery first, then Popper.js, then Bootstrap JS-->
+<!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script>
 	  // 파이어베이스 초기화 세팅
@@ -317,7 +324,7 @@
 	</script>
 <body>
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
-	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
+	<div class="divHeader">${sessionScope.loginId}님의 마인드맵</div>
 	<button id="createMindMap">추가</button>
 	<button id="deleteMindMap">삭제</button>
 	<button id="shareMindMap">공유</button>
