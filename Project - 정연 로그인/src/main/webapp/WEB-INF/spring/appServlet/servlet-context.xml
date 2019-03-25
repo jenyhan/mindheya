@@ -37,5 +37,5 @@
 			<exclude-mapping path="/login-form"/> 
 			<beans:ref bean="LoginInterceptor"/> 
 		</interceptor>
-	</interceptors>	
+	</interceptors>
 </beans:beans>
