@@ -176,7 +176,7 @@ canvas {
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/' + groupName + '/MapTree');
+		var mindRef = firebase.database().ref('/users/' + userId + '/MapTree/' + groupName);
 
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -701,7 +701,7 @@ canvas {
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 			    
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
@@ -714,7 +714,7 @@ canvas {
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
