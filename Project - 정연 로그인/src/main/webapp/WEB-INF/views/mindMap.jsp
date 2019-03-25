@@ -113,14 +113,13 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
-			    authDomain: "firstpractice-190218.firebaseapp.com",
-			    databaseURL: "https://firstpractice-190218.firebaseio.com",
-			    projectId: "firstpractice-190218",
-			    storageBucket: "firstpractice-190218.appspot.com",
-			    messagingSenderId: "375340198473"
+			    apiKey: ,
+			    authDomain: ,
+			    databaseURL: ,
+			    projectId: ,
+			    storageBucket: ,
+			    messagingSenderId: 
 	  };
-	
 
 	  // Initialize the default app
 	  var defaultApp = firebase.initializeApp(config);
