@@ -14,14 +14,14 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Bitter');
+@import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
 
 .divHeader {
-	font-size: 150%;
-	text-align: center;
-	font-family: 'Bitter', serif;
-	margin-top: 0.5%;
-	margin-left: 0.5%;
+   font-size: 150%;
+   text-align: center;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 0.5%;
+   margin-left: 0.5%;
 }
 
 .dropdown {
@@ -96,9 +96,8 @@ canvas {
 <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!--Optional JavaScript for Bootstrap
-    jQuery first, then Popper.js, then Bootstrap JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
@@ -177,7 +176,7 @@ canvas {
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/' + groupName + '/MapTree');
+		var mindRef = firebase.database().ref('/users/' + userId + '/MapTree/' + groupName);
 
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -702,7 +701,7 @@ canvas {
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 			    
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
@@ -715,7 +714,7 @@ canvas {
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,

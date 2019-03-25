@@ -40,8 +40,7 @@
 
 <!-- <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--Optional JavaScript for Bootstrap
-    jQuery first, then Popper.js, then Bootstrap JS-->
+<!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script>
 	  // 파이어베이스 초기화 세팅
@@ -72,7 +71,7 @@
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();	
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId);
+		var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
 		
 		var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
@@ -85,8 +84,12 @@
 		
 		function createMind(){			
 
+			alert('삭제 후 다시 넣기 작업 :' + JSON.stringify(savedList));
+			
 			for(var i = 0; i < savedList.length; i++){
-				firebase.database().ref('users/' + userId + '/' + savedList[i].groupName).set({
+				alert('savedList[i] : ' + JSON.stringify(savedList[i]));
+				
+				firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
 					
 					seq : savedList[i].seq,
 					leader : savedList[i].leader,
@@ -102,7 +105,6 @@
 		
 		//파이어베이스 업데이트 값 불러오기
 		mindRef.on('value', function(snapshot) {
-			
 			loadList(snapshot);
 			
 		}); 
@@ -112,6 +114,7 @@
 			//배열 초기화
 			savedList = [];
 			
+						
 			//seq세팅
 			for (var key in mindMapList){
 				if(mindMapList[key].leader == userId){
@@ -131,6 +134,10 @@
 		}
 		
 		function showMap(){
+			
+			if(savedList.length == 0){
+				return;
+			}
 			var content = '';
 			
 			$.each(savedList, function(index, item){
@@ -140,6 +147,7 @@
 				content += '<div class="mindMapNumLimit" limit-value="' + item.numLimit +'"> 인원 제한 : ' + item.numLimit + ' 명 </div>';
 				content += '</div>';
 			});
+
 			$('.mindMapList').html(content);
 			
 			$('.mindMapDiv').on('click', function(){
@@ -169,9 +177,8 @@
 						for(var i = 0; i < savedList.length; i++){
 							if(savedList[i].leader == leader){
 								if(savedList[i].seq == gotSeq){
+									mindRef.child(savedList[i].groupName).remove();									
 									savedList.splice(i, 1);
-									mindRef.remove();
-									
 								}
 							}
 							
@@ -233,7 +240,6 @@
 				
 			});
 		}
-//notificationList 뿌리기
 		notificationRef.on('value', function(snapshot) {
 			
 			loadNotification(snapshot);
@@ -245,6 +251,7 @@
 			//배열 초기화
 			
 			notificationList = [];
+
 
 			
 			//seq세팅
@@ -259,6 +266,7 @@
 					
 				}
 			}
+			
 
 		}
 
@@ -325,7 +333,7 @@
 	</script>
 <body>
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
-	<div class="divHeader">${sessionScope.loginId}님의마인드맵</div>
+	<div class="divHeader">${sessionScope.loginId}님의 마인드맵</div>
 	<button id="createMindMap">추가</button>
 	<button id="deleteMindMap">삭제</button>
 	<button id="shareMindMap">공유</button>
