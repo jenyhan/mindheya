@@ -97,6 +97,7 @@
   color: #EF3B3A;
 }
 body {
+  
   background: #76b852; /* fallback for old browsers */
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
@@ -111,7 +112,6 @@ body {
 <body>
 <div class="login-page">
   <div class="form">
-   
     <form class="login-form" action="login-form" method="post">
       <input type="text" placeholder="username" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
