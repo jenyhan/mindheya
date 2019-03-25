@@ -6,7 +6,7 @@
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR);
 
 .register-page {
   width: 360px;
@@ -24,7 +24,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -34,8 +34,8 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
-  font-family: "Roboto", sans-serif;
+#register-button {
+  font-family: 'Noto Sans KR', sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -100,7 +100,7 @@ body {
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
@@ -146,8 +146,9 @@ body {
       <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
       
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
-      <input type="button" onclick="javascript:login()" value="create">
-      <p class="message">Already registered? <a href="login">login</a><a href="home">   home</a></p>
+      <input type="button" onclick="javascript:login()" value="create" id="register-button">
+      <p class="message">Already registered? <a href="login">login</a><br>
+      <a href="home">Home</a></p>
     </form>
   
   </div>
