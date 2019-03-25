@@ -71,7 +71,7 @@
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();	
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/mindMap');
+		var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
 		
 		var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
@@ -89,7 +89,7 @@
 			for(var i = 0; i < savedList.length; i++){
 				alert('savedList[i] : ' + JSON.stringify(savedList[i]));
 				
-				firebase.database().ref('users/' + userId + '/mindMap/' + savedList[i].groupName).set({
+				firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
 					
 					seq : savedList[i].seq,
 					leader : savedList[i].leader,
