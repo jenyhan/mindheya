@@ -3,15 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-	<!--Import Google Icon Font-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-	<!--Let browser know website is optimized for mobile-->
+<!--Import Google Icon Font-->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Bitter|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
 
 .logo {
 	height: 7.5%;
@@ -20,12 +20,11 @@
 .divLogo {
 	padding-top: 0.5%;
 	padding-left: 0.5%;
+	margin-botton: -0.5%;
 }
-
 .divHeader, .divBody, .divAccount{
 	text-align:center;
 }
-
 .divHeader{
 	font-family: 'Bitter', serif;
 	font-size: 300%;
@@ -36,14 +35,23 @@
 	background-repeat: no-repeat;
 }
 .divMenu{
-	text-align:right;
+	text-align: right;
+	padding: -0.5%;
+	margin-top: -1.5%;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weignt: bolder;
+	font-size: 150%;
 }
-
+.tabs .indicator{
+	background-color:#4db6ac;
+}   
 .divAccount a {
-	padding: 1%;
+	color: #71C55D;
+	padding: 0.8%;
 	border: 3.5px solid #71C55D;
 	border-radius: 20px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weignt: bolder;
 }
 </style>
 </head>
@@ -57,8 +65,8 @@
 	<div class="col s12">
 		<ul class="tabs">
 			<li class="tab col s1"><a href="#test1" class="teal-text text-lighten-2">About</a></li>
-			<li class="tab col s1"><a href="#test2" id="goMindmap" class="teal-text text-lighten-2">마인드맵</a></li>
-			<li class="tab col s1"><a href="#test3" class="teal-text text-lighten-2">스크랩</a></li>
+			<li class="tab col s1"><a href="goMindmap" id="goMindmap" class="teal-text text-lighten-2">마인드맵</a></li>
+			<li class="tab col s1"><a href="#test3" id="goScrap" class="teal-text text-lighten-2">스크랩</a></li>
 			<li class="tab col s1"><a href="#test4" class="teal-text text-lighten-2">공유</a></li>
 		
 			<c:if test="${sessionScope.loginId!=null}">
@@ -104,6 +112,11 @@
 				$('#hiddengoMindmap').submit();
 			});
 			
+			$('#goScrap').on("click", function() {
+				alert('스크랩 페이지로 이동합니다.');
+				$('#hiddengoScrap').submit();
+			});
+			
 			$('#login').on("click", function() {
 				$('#hiddengoLogin').submit();
 			});
@@ -111,6 +124,7 @@
 	</script>
 	<form id="hiddenlogout" action="logout" method="get"></form>
 	<form id="hiddengoMindmap" action="goMindmap" method="get"></form>
+	<form id="hiddengoScrap" action="goScrap" method="get"></form>
 	<form id="hiddengoLogin" action="login" method="get"></form>
 </body>
 </html>

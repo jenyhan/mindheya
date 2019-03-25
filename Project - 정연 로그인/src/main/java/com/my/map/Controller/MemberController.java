@@ -71,11 +71,4 @@ public class MemberController {
 	public String home() {
 		return "home";
 	}
-
-	
-	//마인드맵 이동//
-	@RequestMapping(value="/mindmap", method=RequestMethod.GET)
-	public String mindmap() {
-		return "mindMap";
-	}
 }
