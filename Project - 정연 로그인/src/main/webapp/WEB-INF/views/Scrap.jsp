@@ -108,7 +108,6 @@ Feeds
  <i data-uri="forms/createPersonalCollection" class="icon icon-md empty-state-icon icon-fx-rss-ios-md-black"></i>
  </p>
  <p>
-Keep up with your favorite sources and keyword alerts
  <a data-uri="forms/createPersonalCollection" class="button small secondary m-t-1">Create your first feed</a>
  </p>
 </div>
