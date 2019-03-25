@@ -16,7 +16,6 @@
 .logo {
 	height: 7.5%;
 }
-
 .divLogo {
 	padding-top: 0.5%;
 	padding-left: 0.5%;
