@@ -84,6 +84,8 @@
 		
 		function createMind(){			
 
+			alert('삭제 후 다시 넣기 작업 :' + JSON.stringify(savedList));
+			
 			for(var i = 0; i < savedList.length; i++){
 				alert('savedList[i] : ' + JSON.stringify(savedList[i]));
 				
@@ -103,7 +105,6 @@
 		
 		//파이어베이스 업데이트 값 불러오기
 		mindRef.on('value', function(snapshot) {
-			
 			loadList(snapshot);
 			
 		}); 
@@ -176,9 +177,8 @@
 						for(var i = 0; i < savedList.length; i++){
 							if(savedList[i].leader == leader){
 								if(savedList[i].seq == gotSeq){
+									mindRef.child(savedList[i].groupName).remove();									
 									savedList.splice(i, 1);
-									mindRef.remove();
-									
 								}
 							}
 							
