@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>selectMind</title>
 <style>
+
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
 .mindMapDiv {
 	border: 1px solid black;
