@@ -6,7 +6,7 @@
 <script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR);
 
 .login-page {
   width: 360px;
@@ -24,7 +24,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -35,7 +35,7 @@
   font-size: 14px;
 }
 .form button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -103,7 +103,7 @@ body {
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
@@ -115,8 +115,9 @@ body {
     <form class="login-form" action="login-form" method="post">
       <input type="text" placeholder="username" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
-      <button>login</button>
-      <p class="message">Not registered? <a href="goJoin">Create an account</a><a href="home">   home</a></p>
+      <button>Login</button>
+      <p class="message">Not registered? <a href="goJoin">Create an account</a><br>
+      <a href="home">Home</a></p>
     </form>
   </div>
 </div>
