@@ -71,10 +71,6 @@
 			<c:if test="${sessionScope.loginId!=null}">
 			<li class="tab col s1"><a href="logout" id="logout" class="teal-text text-lighten-2">로그아웃</a></li>
 			</c:if>
-		
-			<c:if test="${sessionScope.loginId==null}">
-			<li class="tab col s1"><a href="login" id="login" class="teal-text text-lighten-2">로그인</a></li>
-			</c:if>
 		</ul>
 	</div>
 </div>
@@ -88,7 +84,7 @@
 
 <c:if test="${sessionScope.loginId==null}">
 <div class="divAccount">
-	<a href="goJoin">GET STARTED</a>
+	<a href="login">GET STARTED</a>
 </div>
 </c:if>
 
