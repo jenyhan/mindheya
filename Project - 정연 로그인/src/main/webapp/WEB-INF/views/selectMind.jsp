@@ -46,12 +46,13 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"
+			    apiKey: ,
+			    authDomain: ,
+			    databaseURL: ,
+			    projectId: ,
+			    storageBucket: ,
+			    messagingSenderId: 
+
 	  };
 	
 	  // Initialize the default app
@@ -71,7 +72,7 @@
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();	
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
+		var mindRef = firebase.database().ref('/users/' + userId + '/mindMap');
 		
 		var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
@@ -89,7 +90,7 @@
 			for(var i = 0; i < savedList.length; i++){
 				alert('savedList[i] : ' + JSON.stringify(savedList[i]));
 				
-				firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
+				firebase.database().ref('users/' + userId + '/mindMap/' + savedList[i].groupName).set({
 					
 					seq : savedList[i].seq,
 					leader : savedList[i].leader,
@@ -226,7 +227,16 @@
 											numLimit : notificationList[i].numLimit
 	
 										});
-									}									
+									}
+									
+									//알림 처리 기능
+									
+									
+									//공유 받을 사람 칼럼 추가
+								    /* var ref = new Firebase('https://firstpractice-190218.firebaseio.com'); */
+								    mindRef.on('child_added', function(snapshot) {
+								        snapshot.ref().update({shared: shareId});
+								    });
 									
 								} else{
 									alert('공유 취소');
@@ -346,4 +356,3 @@
 		<input type="hidden" id="numLimit" name="numLimit">
 	</form>
 </body>
-</html>
