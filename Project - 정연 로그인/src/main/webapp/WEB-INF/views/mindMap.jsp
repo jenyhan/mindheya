@@ -17,11 +17,11 @@
 @import url('https://fonts.googleapis.com/css?family=Bitter');
 
 .divHeader {
-	font-size: 150%;
-	text-align: center;
-	font-family: 'Bitter', serif;
-	margin-top: 0.5%;
-	margin-left: 0.5%;
+   font-size: 150%;
+   text-align: center;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 0.5%;
+   margin-left: 0.5%;
 }
 
 .dropdown {
@@ -113,14 +113,13 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			authDomain: "web-crawling-6562b.firebaseapp.com",
-			databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			projectId: "web-crawling-6562b",
-			storageBucket: "web-crawling-6562b.appspot.com",
-			messagingSenderId: "407695243177"
+			    apiKey: ,
+			    authDomain: ,
+			    databaseURL: ,
+			    projectId: ,
+			    storageBucket: ,
+			    messagingSenderId: 
 	  };
-	
 
 	  // Initialize the default app
 	  var defaultApp = firebase.initializeApp(config);
@@ -177,7 +176,7 @@ canvas {
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/' + groupName + '/MapTree');
+		var mindRef = firebase.database().ref('/users/' + userId + '/MapTree/' + groupName);
 
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -702,7 +701,7 @@ canvas {
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 			    
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
@@ -715,7 +714,7 @@ canvas {
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/' + groupName + '/MapTree' + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
