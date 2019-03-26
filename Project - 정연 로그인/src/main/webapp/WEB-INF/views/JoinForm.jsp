@@ -8,6 +8,14 @@
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR);
 
+.optionSet{
+	margin: 30px;
+	font-size: 15px;
+}
+.logo{
+  width: 200px;
+  height: 70px;
+}
 .register-page {
   width: 360px;
   padding: 8% 0 0;
@@ -142,13 +150,14 @@ body {
   <div class="form">
   
     <form class="register-form" id="register-form" action="register-form" method="post">
+	  <img src="resources/image/marvelousmonday.png" class="logo"><br><br> 
       <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
       
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
       <input type="button" onclick="javascript:login()" value="create" id="register-button">
-      <p class="message">Already registered? <a href="login">login</a><br>
-      <a href="home">Home</a></p>
+      <p class="message">Already registered?<br> 
+      <a href="login" class="optionSet">login</a><a href="home" class="optionSet">Home</a></p>
     </form>
   
   </div>

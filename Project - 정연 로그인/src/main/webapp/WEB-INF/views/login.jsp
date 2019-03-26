@@ -8,6 +8,16 @@
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR);
 
+
+.optionSet{
+	margin: 30px;
+	font-size: 15px;
+}
+
+.logo{
+  width: 200px;
+  height: 70px;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -52,7 +62,7 @@
   background: #43A047;
 }
 .form .message {
-  margin: 15px 0 0;
+  margin: 20px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
@@ -113,11 +123,11 @@ body {
 <div class="login-page">
   <div class="form">
     <form class="login-form" action="login-form" method="post">
+	  <img src="resources/image/marvelousmonday.png" class="logo"><br><br>
       <input type="text" placeholder="username" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
       <button>Login</button>
-      <p class="message">Not registered? <a href="goJoin">Create an account</a><br>
-      <a href="home">Home</a></p>
+      <p class="message">Not registered? <br><a href="goJoin" class="optionSet">Register</a> <a href="home" class="optionSet">Home</a></p>
     </form>
   </div>
 </div>
