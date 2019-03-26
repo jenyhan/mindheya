@@ -396,7 +396,10 @@
 				//동일한 마인드맵 이름 체크
 				while(checkName){
 					groupName = prompt("새로운 그룹명을 정해주세요.");
-					
+					if(groupName==null){
+						alert('등록을 취소합니다.');
+						return;
+					}					
 					for(var i = 0; i < savedList.length; i++){
 						
 						if(savedList[i].groupName==groupName){
@@ -412,8 +415,11 @@
 			}
 			
 
-			var numLimit = prompt("그룹 인원수를 정해주세요.");					
-			
+			var numLimit = prompt("그룹 인원수를 정해주세요.");	
+			if(numLimit==null){
+				alert('등록을 취소합니다.');
+				return;
+			}
 			seq = seq + 1;
 			var newMap = {
 					seq : seq,
