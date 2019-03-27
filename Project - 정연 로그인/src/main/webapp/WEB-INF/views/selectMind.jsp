@@ -146,21 +146,13 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-<<<<<<< HEAD
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"
-=======
+
 			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
 			    authDomain: "firstpractice-190218.firebaseapp.com",
 			    databaseURL: "https://firstpractice-190218.firebaseio.com",
 			    projectId: "firstpractice-190218",
 			    storageBucket: "firstpractice-190218.appspot.com",
 			    messagingSenderId: "375340198473"
->>>>>>> working_190326
 
 	  };
 	
@@ -194,15 +186,12 @@
 		
 		function createMind(){			
 
-<<<<<<< HEAD
+
 			
 			for(var i = 0; i < savedList.length; i++){
-=======
-			//alert('삭제 후 다시 넣기 작업 :' + JSON.stringify(savedList));
-			
+		
 			for(var i = 0; i < savedList.length; i++){
 				//alert('savedList[i] : ' + JSON.stringify(savedList[i]));
->>>>>>> working_190326
 				
 				firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
 					

@@ -9,9 +9,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 <!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <style>
 @import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
+
+.mainImg{
+	width: 800px;
+	height: 500px;
+}
 
 .logo {
 	height: 7.5%;
@@ -44,17 +48,8 @@
 .tabs .indicator{
 	background-color:#4db6ac;
 }   
-.divAccount a {
-	color: #71C55D;
-	padding: 0.8%;
-	border: 3.5px solid #71C55D;
-	border-radius: 20px;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weignt: bolder;
-}
 </style>
 </head>
-
 <body>
 <div class="divLogo">
 	<a href="home"><img src="resources/image/marvelousmonday.png" class="logo"></a>
@@ -78,14 +73,10 @@
 <div class="divHeader">Welcome to MindHeya</div>
 <br>
 <div class="divBody">
-	<img src="https://bootstrapmade.com/demo/themes/eStartup/img/hero-img.png" class="mainImg"><br> <br>
+	<a href="login"><img src="resources/image/mainImage.png" class="mainImg"></a>
 </div>
-<br>
 
 <c:if test="${sessionScope.loginId==null}">
-<div class="divAccount">
-	<a href="login">GET STARTED</a>
-</div>
 </c:if>
 
 

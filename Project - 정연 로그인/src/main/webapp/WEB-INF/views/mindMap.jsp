@@ -914,6 +914,6 @@ canvas {
 	<input type="hidden" id="groupName" name="groupName" value="${mindMap.groupName}">
 	<input type="hidden" id="numLimit" name="numLimit" value="${mindMap.numLimit}">
 	<form id="hiddenlogout" action="logout" method="get"></form>
+
 </body>
 </html>
-
