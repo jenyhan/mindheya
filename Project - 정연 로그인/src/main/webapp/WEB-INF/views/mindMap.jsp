@@ -14,7 +14,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Bitter');
+@import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
 
 .divHeader {
    font-size: 150%;
@@ -96,9 +96,8 @@ canvas {
 <!-- 제이쿼리 사용 임포트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!--Optional JavaScript for Bootstrap
-    jQuery first, then Popper.js, then Bootstrap JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
@@ -113,13 +112,12 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: ,
-			    authDomain: ,
-			    databaseURL: ,
-			    projectId: ,
-			    storageBucket: ,
-			    messagingSenderId: 
-
+			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
+			    authDomain: "firstpractice-190218.firebaseapp.com",
+			    databaseURL: "https://firstpractice-190218.firebaseio.com",
+			    projectId: "firstpractice-190218",
+			    storageBucket: "firstpractice-190218.appspot.com",
+			    messagingSenderId: "375340198473"
 	  };
 
 	  // Initialize the default app
@@ -916,5 +914,9 @@ canvas {
 	<input type="hidden" id="groupName" name="groupName" value="${mindMap.groupName}">
 	<input type="hidden" id="numLimit" name="numLimit" value="${mindMap.numLimit}">
 	<form id="hiddenlogout" action="logout" method="get"></form>
+<<<<<<< HEAD
 </body>
 </html>
+=======
+</body>
+>>>>>>> working_190326
