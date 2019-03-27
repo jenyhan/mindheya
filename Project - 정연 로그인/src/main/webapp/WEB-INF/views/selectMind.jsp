@@ -5,15 +5,76 @@
 <head>
 <meta charset="UTF-8">
 <title>selectMind</title>
+<!--Import Google Icon Font-->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
-.mindMapDiv {
-	border: 1px solid black;
-	float: left;
-	width: 100px;
-	height: 100px;
-	margin: 10px;
+
+
+.optionBtn{
+	text-align: center;
 }
+
+#createMindMap, #deleteMindMap, #shareMindMap{
+	color: white;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px;
+	font-size: 25px;
+	float: center;
+	width: 300px;
+	height: 100px;
+	margin: 50px;
+
+}
+
+
+#createMindMap {
+	border: 2px solid #40BBB4;
+	background-color: #40BBB4;
+}
+
+#deleteMindMap {
+	border: 2px solid #F78181;
+	background-color: #F78181;
+}
+
+#shareMindMap {
+	border: 2px solid #3B6EB5;
+	background-color: #3B6EB5;
+}
+
+
+.mindMapList {
+	margin-left: 5%;
+}
+
+.mindGroupName {
+	margin-top: 100px;
+}
+.mindMapDiv {
+
+	border-radius: 50%;
+	box-shadow: 0 5px 15px;
+	vertical-align: middle;
+	border: 2px solid black;
+	float: left;
+	width: 250px;
+	height: 250px;
+	margin: 40px;
+	text-align: center;
+}
+
+.leaderImg {
+	width: 30px;
+	height: 30px;
+}
+
+
 .divHeader {
    font-size: 150%;
    text-align: center;
@@ -21,6 +82,45 @@
    margin-top: 0.5%;
    margin-left: 0.5%;
 }
+
+
+/* ----------------------- */
+.mainImg{
+	width: 800px;
+	height: 500px;
+}
+
+.logo {
+	height: 7.5%;
+}
+.divLogo {
+	padding-top: 0.5%;
+	padding-left: 0.5%;
+	margin-botton: -0.5%;
+}
+.divHeader, .divBody, .divAccount{
+	text-align:center;
+}
+.divHeader{
+	font-family: 'Bitter', serif;
+	font-size: 300%;
+}
+.divBody{
+	background-image: url("resources/image/hero-bg.png");
+	background-position: bottom;
+	background-repeat: no-repeat;
+}
+.divMenu{
+	text-align: right;
+	padding: -0.5%;
+	margin-top: -1.5%;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weignt: bolder;
+	font-size: 150%;
+}
+.tabs .indicator{
+	background-color:#4db6ac;
+}   
 </style>
 </head>
 <!-- Firebase App is always required and must be first -->
@@ -46,12 +146,21 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: ,
-			    authDomain: ,
-			    databaseURL: ,
-			    projectId: ,
-			    storageBucket: ,
-			    messagingSenderId: 
+<<<<<<< HEAD
+			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
+			    authDomain: "web-crawling-6562b.firebaseapp.com",
+			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
+			    projectId: "web-crawling-6562b",
+			    storageBucket: "web-crawling-6562b.appspot.com",
+			    messagingSenderId: "407695243177"
+=======
+			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
+			    authDomain: "firstpractice-190218.firebaseapp.com",
+			    databaseURL: "https://firstpractice-190218.firebaseio.com",
+			    projectId: "firstpractice-190218",
+			    storageBucket: "firstpractice-190218.appspot.com",
+			    messagingSenderId: "375340198473"
+>>>>>>> working_190326
 
 	  };
 	
@@ -72,7 +181,7 @@
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();	
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/mindMap');
+		var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
 		
 		var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
@@ -85,12 +194,17 @@
 		
 		function createMind(){			
 
-			alert('삭제 후 다시 넣기 작업 :' + JSON.stringify(savedList));
+<<<<<<< HEAD
 			
 			for(var i = 0; i < savedList.length; i++){
-				alert('savedList[i] : ' + JSON.stringify(savedList[i]));
+=======
+			//alert('삭제 후 다시 넣기 작업 :' + JSON.stringify(savedList));
+			
+			for(var i = 0; i < savedList.length; i++){
+				//alert('savedList[i] : ' + JSON.stringify(savedList[i]));
+>>>>>>> working_190326
 				
-				firebase.database().ref('users/' + userId + '/mindMap/' + savedList[i].groupName).set({
+				firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
 					
 					seq : savedList[i].seq,
 					leader : savedList[i].leader,
@@ -143,10 +257,11 @@
 			
 			$.each(savedList, function(index, item){
 				content += '<div class="mindMapDiv" mind-value="' + item.seq +  '">';
-				content += '<div class="mindMapLeader" leader-value="' + item.leader + '"> 리더 : ' + item.leader + '</div>';
-				content += '<div class="mindgroupName" name-value="' + item.groupName + '"> 제목 : ' + item.groupName + '</div>';
-				content += '<div class="mindMapNumLimit" limit-value="' + item.numLimit +'"> 인원 제한 : ' + item.numLimit + ' 명 </div>';
+				content += '<div class="mindGroupName" name-value="' + item.groupName + '"><h3>' + item.groupName + '</h3></div>';
+				content += '<div class="mindMapLeader" leader-value="' + item.leader + '"><img src="resources/image/leader.png" class="leaderImg">' + item.leader + '</div>';
+				content += '<div class="mindMapNumLimit" limit-value="' + item.numLimit +'">Member<br> ' + item.numLimit + '</div>';
 				content += '</div>';
+				
 			});
 
 			$('.mindMapList').html(content);
@@ -297,7 +412,10 @@
 				//동일한 마인드맵 이름 체크
 				while(checkName){
 					groupName = prompt("새로운 그룹명을 정해주세요.");
-					
+					if(groupName==null){
+						alert('등록을 취소합니다.');
+						return;
+					}					
 					for(var i = 0; i < savedList.length; i++){
 						
 						if(savedList[i].groupName==groupName){
@@ -313,8 +431,11 @@
 			}
 			
 
-			var numLimit = prompt("그룹 인원수를 정해주세요.");					
-			
+			var numLimit = prompt("그룹 인원수를 정해주세요.");	
+			if(numLimit==null){
+				alert('등록을 취소합니다.');
+				return;
+			}
 			seq = seq + 1;
 			var newMap = {
 					seq : seq,
@@ -342,11 +463,32 @@
 	
 	</script>
 <body>
+<div class="divLogo">
+	<a href="home"><img src="resources/image/marvelousmonday.png" class="logo"></a>
+</div>
+<br>
+<div class="divMenu">
+	<div class="col s12">
+		<ul class="tabs">
+			<li class="tab col s1"><a href="#test1" class="teal-text text-lighten-2">About</a></li>
+			<li class="tab col s1"><a href="goMindmap" id="goMindmap" class="teal-text text-lighten-2">마인드맵</a></li>
+			<li class="tab col s1"><a href="#test3" id="goScrap" class="teal-text text-lighten-2">스크랩</a></li>
+			<li class="tab col s1"><a href="#test4" class="teal-text text-lighten-2">공유</a></li>
+		
+			<c:if test="${sessionScope.loginId!=null}">
+			<li class="tab col s1"><a href="logout" id="logout" class="teal-text text-lighten-2">로그아웃</a></li>
+			</c:if>
+		</ul>
+	</div>
+</div>
+<br>
 	<input type='hidden' id='userId' value='${sessionScope.loginId}'>
 	<div class="divHeader">${sessionScope.loginId}님의 마인드맵</div>
+	<div class="optionBtn">
 	<button id="createMindMap">추가</button>
 	<button id="deleteMindMap">삭제</button>
 	<button id="shareMindMap">공유</button>
+	</div>
 	<div class="mindMapList"></div>
 	<div class="notificationList"></div>
 	<form id="goMap" action="goMap" method="GET">
@@ -356,3 +498,4 @@
 		<input type="hidden" id="numLimit" name="numLimit">
 	</form>
 </body>
+</html>
