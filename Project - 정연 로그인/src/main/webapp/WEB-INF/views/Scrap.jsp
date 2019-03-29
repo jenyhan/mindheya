@@ -19,6 +19,9 @@
 <style>
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
 
+
+
+
 #regist{
    color: white;
    box-shadow: 0 5px 15px;
