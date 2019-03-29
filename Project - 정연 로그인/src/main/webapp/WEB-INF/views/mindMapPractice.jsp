@@ -30,7 +30,7 @@
 
 canvas {
 	border: 5px solid #71C55D;
-	float: center;
+	float: left;
 }
 
 #menuBoard {
@@ -112,12 +112,12 @@ canvas {
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
-			    authDomain: "firstpractice-190218.firebaseapp.com",
-			    databaseURL: "https://firstpractice-190218.firebaseio.com",
-			    projectId: "firstpractice-190218",
-			    storageBucket: "firstpractice-190218.appspot.com",
-			    messagingSenderId: "375340198473"
+			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
+			    authDomain: "web-crawling-6562b.firebaseapp.com",
+			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
+			    projectId: "web-crawling-6562b",
+			    storageBucket: "web-crawling-6562b.appspot.com",
+			    messagingSenderId: "407695243177"
 	  };
 
 	  // Initialize the default app
@@ -892,6 +892,8 @@ canvas {
 	<canvas id="canvas" width="1000px" height="700px">;
 		이 브라우저는 캔버스를 지원하지 않습니다.
 	</canvas>
+
+	
 	<div id="options">
 		<div id="mainFunc">
 			<input type="text" id="putTxt">
@@ -909,11 +911,11 @@ canvas {
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 		</div>
 	</div>
+	
 	<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
 	<input type="hidden" id="leader" name="leader" value="${mindMap.leader}">
 	<input type="hidden" id="groupName" name="groupName" value="${mindMap.groupName}">
 	<input type="hidden" id="numLimit" name="numLimit" value="${mindMap.numLimit}">
 	<form id="hiddenlogout" action="logout" method="get"></form>
-
 </body>
 </html>
