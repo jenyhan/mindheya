@@ -23,7 +23,7 @@
 
 
 #regist{
-   color: white;
+   color: black;
    box-shadow: 0 5px 15px;
    font-size: 25px;
    float: center;
