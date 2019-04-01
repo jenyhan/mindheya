@@ -92,7 +92,7 @@
 		  var userId = $('#userId').val();	
 		  
 	 	  // 파이어베이스에서 가져올 DB 경로 설정
-		  var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
+		  var notificationRef = firebase.database().ref('/users/' + userId + '/notification').on('value', loadNotification(snapshot));
 	    	
 			function loadNotification(snapshot){
 				var notiList =JSON.parse(JSON.stringify(snapshot));
@@ -101,6 +101,11 @@
 
 					var leader = notiList[key];
 					
+					for (var key2 in leader) {
+						
+						var seq = leader[key2].seq;
+						alert(leader, seq);
+					}
 				}
 				
 				
