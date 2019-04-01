@@ -104,7 +104,8 @@
 					for (var key2 in leader) {
 						
 						var seq = leader[key2].seq;
-						alert(leader, seq);
+						var groupName = leader[key2].groupName;
+						var numLimit = leader[key2].numLimit;
 					}
 				}
 				
