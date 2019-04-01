@@ -188,6 +188,100 @@
 				alert('로그아웃합니다.');
 				$('#hiddenlogout').submit();
 			});
+			
+			 /* ----------------------------기사 테스트------------------------------ */
+			$('#searchBtn').on("click", function(){
+				
+				var keyWord = $("#searchTxt").val();
+
+				$.ajax({
+					url : "selectContent",
+					data : {title:keyWord},
+					type : "get",
+					success : function(result) {
+
+					output(result); 
+					}
+				});
+			});
+	 
+	 
+			function output(result){			
+				
+  				var content = '<table><tr>';
+				content += '<th class="big"><h3>뉴스</h3></th>';				
+				content += '</tr>';
+				content += '<tr>';
+				content += 	'<th> 제목 </th>';
+				content += 	'<th> 내용 </th>';
+				content += 	'<th> 신문사 </th>';
+				content += '</tr>';
+				
+				if(result != ""){
+					$.each(result, function(index, item){
+						content += 	'<tr>';
+						content += 		'<div class="newsDiv">';
+						content += 			'<td class="title">' + item.title + '</td>';
+						content += 			'<td class="summary">' + item.summary + '</td>';
+						content += 			'<td class="press">' + item.press + '</td>';
+						content += 			'<td class="address"><a href="https://news.google.com'+item.address+'">기사 본문보기</a><button class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '">북마크 추가</button></td>';
+						content += 		'</div>';
+				 		content += 	'</tr>';
+					});														
+				}
+ 				
+				content += '</table>';
+	
+ 					
+ 				/* var content = '<button class="bmBtn">생성확인용</button>'; */
+ 
+				$(".newsListDiv").html(content);
+
+				$(".bmBtn").on("click", function(){
+				
+ 				/* var bmSeq = $(this).attr('bm-value');
+					애초에 insert전 이라서 seq값이 생길리가 없음
+					alert("bmSeq 확인 : " + bmSeq); */
+					
+					var bmTitle = $(this).attr('bm-title');
+					var bmSummary = $(this).attr('bm-summary');
+					var bmPress = $(this).attr('bm-press');
+					var bmAddress = $(this).attr('bm-address');
+					
+					
+					alert("title : " + bmTitle);
+					alert("summary : " + bmSummary);
+					alert("press : " + bmPress);
+					alert("address : " + bmAddress);
+					
+					
+				 $.ajax({
+					url : "insertBM",
+					data : {title:bmTitle
+							,summary:bmSummary
+							,press:bmPress
+							,address:bmAddress
+						},
+					type : "post",
+					success : function(resultData) {
+					
+						alert(resultData);
+						
+					/* 나중에 BookMarkList가 들어가졋을때 select으로 불러오자 */
+					/* output(result); */ 
+					}
+					}); 
+			 
+				});
+				
+				
+				
+				
+				
+				
+				}
+			
+			
 		});
 </script>
 <script>
@@ -505,6 +599,7 @@
 					} else {
 						alert('루트는 이동할 수 없습니다.');
 						draggable = false;
+						selectedObj=null;
 						return;
 					}				
 					///////////////////////////////////////////////////////
