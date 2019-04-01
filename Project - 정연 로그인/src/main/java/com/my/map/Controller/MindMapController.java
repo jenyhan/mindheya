@@ -44,4 +44,8 @@ public class MindMapController {
 	
 	
 
+	@RequestMapping(value="/goShare", method=RequestMethod.GET)
+	public String goShare() {
+		return "shareBoard";
+	}
 }
