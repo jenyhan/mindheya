@@ -135,4 +135,12 @@ public class CrawlingController {
 		return 0;
 	}
 	
+	@RequestMapping(value="/goScrap", method=RequestMethod.GET)
+	public String goScrap() {
+		
+		
+		
+		return "Scrap";
+	}
+	
 }
