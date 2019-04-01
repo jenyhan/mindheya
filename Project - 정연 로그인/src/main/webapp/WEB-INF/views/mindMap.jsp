@@ -190,9 +190,9 @@
 			});
 			
 			 /* ----------------------------기사 테스트------------------------------ */
-			$('#searchBtn').on("click", function(){
+			$('.searchButton').on("click", function(){
 				
-				var keyWord = $("#searchTxt").val();
+				var keyWord = $(".searchTerm").val();
 
 				$.ajax({
 					url : "selectContent",
@@ -476,7 +476,7 @@
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx,sy);
 
-				$('#putTxt').val(selectedObj.id);
+				$('.searchTerm').val(selectedObj.id);
 				
 				
 				//움직임을 boolean으로 설정
@@ -966,81 +966,10 @@
 		    		
 		    	}
 			}
-
-/* 			//수정과 관련된 메서드
-			//prompt에서 입력받은 수정 내용을 해당 객체 id에 전달
-			function updateArray(updateObj){
-				
-				for(var i = 0; i < savedArray.length; i++){
-					if(savedArray[i].id == updateObj.id){
-						savedArray[i].id = updateObj.id;
-					}
-				}
-
-			}
- */
-
 			
 			
-			
- /* ----------------------------기사 테스트------------------------------ */
-		$('#searchBtn').on("click", function(){
-		
-			var keyWord = $("#searchTxt").val();
-
-			$.ajax({
-				url : "selectContent",
-				data : {title:keyWord},
-				type : "get",
-				success : function(result) {
-
-				output(result); 
-				}
-			});
-			
-		});
-		
- 
-		function output(result){			
-			
-			var content = '<tr>';
-			content += '<th class="big">뉴스 제목</th>';				
-			content += '</tr>';
-			
-			if(result != ""){
-				$.each(result, function(index, item){
-					content += '<tr>';
-					content += '<td class="title">' + item.summary + '</td>';
-					content += '</tr>';
-				});
-			}
-			$(".newsListDiv").html(content);
-		}
- 
- 
- 
 	}	
 
-	//무시하시면 됩니다.
-	/* 	//수정
-		function updateLocation(obj){
-			
-			for(var i=0; i<savedArray.length; i++){
-	
-					if(savedArray[i].id==obj.id){
-						firebase.database().ref('users/' + userId + '/' + savedArray[i].id).set({
-						
-						x: obj.x,
-			    		y: obj.y,
-			    		afterX: obj.afterX,
-			   	 		afterY: obj.afterY,
-			   	 		parent: obj.parent,
-			   	 		id: obj.id
-			   	 }); 
-					}
-				}
-		}
-	 */
 
 	</script>
 <body id="home" class="homepage">
@@ -1111,6 +1040,7 @@
 		</div>
 		<div id="searchResult">
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
+			<div class="newsListDiv"></div>
 		</div>
 	</div>
 	<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
