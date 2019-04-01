@@ -1,70 +1,44 @@
 package com.my.map.vo;
 
-
 public class News {
 
-	String gdid;
-	String articleId;
-	String officeId;
-	String officeName;
-	String title;
-	String summary;
-	String serviceTime;
-	String imageUrl;
-	String type;
-	String sessionId;
-	String modelVersion;
-	String airsServiceType;
-	
-	public News() {}
+	private String bmSeq;
+	private String id;
+	private String title;
+	private String summary;
+	private String press;
+	private String address;
+	private String indate;
 
-	public News(String gdid, String articleId, String officeId, String officeName, String title, String summary,
-			String serviceTime, String imageUrl, String type, String sessionId, String modelVersion,
-			String airsServiceType) {
-		this.gdid = gdid;
-		this.articleId = articleId;
-		this.officeId = officeId;
-		this.officeName = officeName;
+	public News(String bmSeq, String id, String title, String summary, String press, String address, String indate) {
+		super();
+		this.bmSeq = bmSeq;
+		this.id = id;
 		this.title = title;
 		this.summary = summary;
-		this.serviceTime = serviceTime;
-		this.imageUrl = imageUrl;
-		this.type = type;
-		this.sessionId = sessionId;
-		this.modelVersion = modelVersion;
-		this.airsServiceType = airsServiceType;
+		this.press = press;
+		this.address = address;
+		this.indate = indate;
 	}
 
-	public String getGdid() {
-		return gdid;
+	public News() {
+		super();
 	}
 
-	public void setGdid(String gdid) {
-		this.gdid = gdid;
+	public String getbmSeq() {
+		return bmSeq;
 	}
 
-	public String getArticleId() {
-		return articleId;
+	public void setbmSeq(String bmSeq) {
+		this.bmSeq = bmSeq;
 	}
 
-	public void setArticleId(String articleId) {
-		this.articleId = articleId;
+	public String getId() {
+		return id;
 	}
 
-	public String getOfficeId() {
-		return officeId;
-	}
-
-	public void setOfficeId(String officeId) {
-		this.officeId = officeId;
-	}
-
-	public String getOfficeName() {
-		return officeName;
-	}
-
-	public void setOfficeName(String officeName) {
-		this.officeName = officeName;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -83,60 +57,34 @@ public class News {
 		this.summary = summary;
 	}
 
-	public String getServiceTime() {
-		return serviceTime;
+	public String getPress() {
+		return press;
 	}
 
-	public void setServiceTime(String serviceTime) {
-		this.serviceTime = serviceTime;
+	public void setPress(String press) {
+		this.press = press;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getType() {
-		return type;
+	public String getIndate() {
+		return indate;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-
-	public String getModelVersion() {
-		return modelVersion;
-	}
-
-	public void setModelVersion(String modelVersion) {
-		this.modelVersion = modelVersion;
-	}
-
-	public String getAirsServiceType() {
-		return airsServiceType;
-	}
-
-	public void setAirsServiceType(String airsServiceType) {
-		this.airsServiceType = airsServiceType;
+	public void setIndate(String indate) {
+		this.indate = indate;
 	}
 
 	@Override
 	public String toString() {
-		return "News [gdid=" + gdid + ", articleId=" + articleId + ", officeId=" + officeId + ", officeName="
-				+ officeName + ", title=" + title + ", summary=" + summary + ", serviceTime=" + serviceTime
-				+ ", imageUrl=" + imageUrl + ", type=" + type + ", sessionId=" + sessionId + ", modelVersion="
-				+ modelVersion + ", airsServiceType=" + airsServiceType + "]";
+		return "News [bmSeq=" + bmSeq + ", id=" + id + ", title=" + title + ", summary=" + summary + ", press=" + press
+				+ ", address=" + address + ", indate=" + indate + "]";
 	}
-	
+
 }

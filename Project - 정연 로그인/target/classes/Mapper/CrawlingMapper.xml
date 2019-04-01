@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.my.map.Dao.CrawlingMapper">
+  
+  	<insert id="insertBM" parameterType="News">
+  	
+  	insert into BMList(
+  		bmSeq
+  		,id 
+    	,title
+    	,summary
+    	,press
+    	,address
+    	,indate
+	  	)
+	  	values
+	  	(
+	  	bmSeq.nextval
+  		,#{id} 
+  		,#{title}
+  		,#{summary}
+  		,#{press}
+  		,#{address}
+  		,sysdate
+  		)
+  	
+  	</insert>
+  	
+  	<!-- bookmark 전체 출력 // 한 개만 검색하기 도 만들까 말까??? -->
+  	<select id="selectAllBM" resultType="News">
+  
+  	select 
+  		bmSeq
+  		,id 
+    	,title
+    	,summary
+    	,press
+    	,address
+    	,indate
+  	from
+  		BMList
+  	order by 
+  		bmSeq
+  		
+  	</select>
+  	
+  
+  
+  </mapper>
