@@ -288,15 +288,11 @@
 					y:canvas.height/2,
 					afterX:canvas.width/2,
 					afterY:canvas.height/2,
-					parent: 1,
-					id: 1,
+					parent: 'root',
+					id: 'Root Item',
 					root:true
 		};
 		
-
-		//init 관련된 작업을 시작
-		init();
-
 
 		$('#putBtn').on('click', function(){
 						
@@ -335,6 +331,26 @@
 
 		});
 
+		
+		//캔버스 x값
+		function canvasX(clientX) {
+
+		     var bound = canvas.getBoundingClientRect();
+
+		     return (clientX - bound.left) * (canvas.width / bound.width);
+
+		}
+
+		 
+		//캔버스 y값
+		function canvasY(clientY) {
+
+		     var bound = canvas.getBoundingClientRect();
+
+		     return (clientY - bound.top) * (canvas.height / bound.height);
+
+		}
+
 		//회인 왈 : 여기 세줄은 패스하셔도 됩니다.
 		//알고리즘을 다시 바꾸어야 한다.
 		//먼저 저장할 때 알고리즘을 바꾸어야 한다.
@@ -355,17 +371,18 @@
 			
 			
 			
+			
+			
 			// 시작 x, y좌표 구함
-			sx = e.clientX;
-			sy = e.clientY;
+			sx = canvasX(e.clientX);
+			sy = canvasY(e.clientY);
 
 			if(flag==0){
 
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx,sy);
 
-				$('#searchTxt').val(selectedObj.id);
-				
+				$('#putTxt').val(selectedObj.id);
 				
 				
 				//움직임을 boolean으로 설정
@@ -401,7 +418,7 @@
 				
 				//루트 객체는 root 필드를 갖는다.
 				//루트 객체는 삭제할 수 없다.
-				if(typeof(selectedObj.root)!='undefined'){
+				if(typeof(selectedObj.root) !== 'undefined'){
 
 				 	alert('루트는 삭제할 수 없습니다.');
 				 	flag = 0;
@@ -478,8 +495,20 @@
 			canvas.onmousemove = function(e) {
 				e.preventDefault();
 
+				
 				if(flag==0){
 
+					///////////////////////////////////////////////////////					
+					//질문 : 
+					if(typeof(selectedObj.root) == 'undefined'||selectedObj.root == null){
+						
+					} else {
+						alert('루트는 이동할 수 없습니다.');
+						draggable = false;
+						return;
+					}				
+					///////////////////////////////////////////////////////
+						
 					//1.1 onmousedown에서 draggable에 true가 되어 있다면
 					if (draggable) {
 						
@@ -489,17 +518,16 @@
 						//1.3 마우스를 누른 순간 가장 가까운 아이를 선택한 상태에서 무브 메서드 발동
 						//1.4 selectedObj에는 선택한 아이가 저장되어 있다.
 
-						ex = e.clientX;
-						ey = e.clientY;
-
+						ex = canvasX(e.clientX);
+						ey = canvasY(e.clientY);
 						//아직 설명 부족하므로 참고만 하세요.
 						//1.5 선택된 객체를 제외한 아이들 중 부모 객체를 찾는 메서드 발동
 						//결과로 selectedObj 에는 엄마 객체가 저장. 아이는 buf에 저장되어 있음.
 						
 						//bufObj에는 onmousedown에서 선택된 객체가 저장되어 있다.
 						//해당 객체의 위치 변경후 좌표를 afterX, afterY에 저장
-						bufObj.afterX = e.clientX;
-						bufObj.afterY = e.clientY;
+						bufObj.afterX = ex;
+						bufObj.afterY = ey;
 
 						
 						//1. 버퍼에 저장되어 있는 id를 savedArray에서 찾아 bufObj로 대체
@@ -529,9 +557,10 @@
 					if(!checkPut){
 					return;
 					}
-				
-					ex = e.clientX;
-					ey = e.clientY;
+
+					ex = canvasX(e.clientX);
+					ey = canvasY(e.clientY);
+					
 
 					// 백업한 상태에서 선 그림
 					if (drawing) {
@@ -555,8 +584,9 @@
 			//flag 2: flag를 0으로 세팅하고 마침(return)
 			//flag 3: 작업중
 			canvas.onmouseup = function(e) {
-				ex = e.clientX;
-				ey = e.clientY;
+				ex = canvasX(e.clientX);
+				ey = canvasY(e.clientY);
+				
 				drawing = false;
 				draggable = false;
 
@@ -671,44 +701,10 @@
 				selectedObj = selectOne;			
 			} 
 
-			//무시하시면 됩니다.			
-			/* 		//자신을 제외하는 피타고라스
-					function pita2(cx, cy, obj){
-						//선택하는 애
-						var selectOne;
 			
-						// 거리값 버퍼
-						var buf = 0;
 			
-						//배열을 돌며 거리 값을 비교
-						if(savedArray.length==0){
-							return; 
-						}
 			
-						//3.12새로운 피타고라스 : 자신의 값과 같은 녀석은 피타고라스 검사에서 제외해야 한다.			
-			
-						for(var i = 0; i < savedArray.length; i++){
-							if(obj.id==savedArray[i].id){
-								continue;
-							}
-						 	var calX = savedArray[i].afterX - cx;
-						 	var calY = savedArray[i].afterY - cy;
-						 	var pitagoras = (calX * calX) + (calY * calY);
-			
-						 	if(i==0){
-						 		selectOne = savedArray[i];
-						 		buf = pitagoras;
-						 		continue;
-						 	}
-			
-						 	if(pitagoras < buf){					
-								buf = pitagoras;
-						 		selectOne = savedArray[i];
-						 	}
-						};			
-						selectedObj = selectOne;			
-					} 
-			 */
+/* ---------------------------------파이어베이스 함수------------------------------------ */
 
 			//Firebase에 값이 update(삽입, 삭제)될 때마다 실행되는 메서드
 			mindRef.on('value', function(snapshot) {
@@ -729,36 +725,46 @@
 				//JSON 객체를 script에서 읽어올 수 있는 작업을 한다.
 				var jArrays=JSON.parse(JSON.stringify(arrayOri));
 				
-				//받아올 객체가 없을 경우에는 그냥 return을 한다.
-				if(jArrays==null){
-					return;
-				}
-				
 				//Firebase 받아와서 savedArray에 저장하기 전에, savedArray를 비워줘야 한다.
 				savedArray = [];
-				
-				//jArrays를 돌리면서 savedArray에 저장해줄 것.
-				for (var key in jArrays) {
-					var array=jArrays[key];
-					savedArray.push(array); 				
-					
-					//savedArray에 객체가 없으면 init()을 돌린다.
-					init();				
-					
-					//canvas에 그려주는 작업
-					//beginPath() : 그려주기 세팅 작업
-					ctx.beginPath();
-					
-					//moveTo() : 그리기 시작할 점 값을 입력(부모의 x, y)
-					ctx.moveTo(array.x, array.y);
-					
-					//lineTo() : 그리기 끝낼 점 값을 입력(본인의 afterX, afterY)
-					ctx.lineTo(array.afterX, array.afterY);
-					
-					//stroke() : 줄을 그려준다.
-					ctx.stroke();
-				}
 
+				
+				//받아올 객체가 없을 경우에는 그냥 return을 한다.
+				if(jArrays==null){
+					init();
+
+				} else {
+					
+					//jArrays를 돌리면서 savedArray에 저장해줄 것.
+					for (var key in jArrays) {
+						var array=jArrays[key];
+						savedArray.push(array); 				
+											
+						//canvas에 그려주는 작업
+						//beginPath() : 그려주기 세팅 작업
+						ctx.beginPath();
+						
+						//moveTo() : 그리기 시작할 점 값을 입력(부모의 x, y)
+						ctx.moveTo(array.x, array.y);
+						
+						//lineTo() : 그리기 끝낼 점 값을 입력(본인의 afterX, afterY)
+						ctx.lineTo(array.afterX, array.afterY);
+						
+						//stroke() : 줄을 그려준다.
+						ctx.stroke();
+					}
+				}
+				
+				
+				for(var i = 0; i < savedArray.length; i++){
+					ctx.strokeRect(savedArray[i].afterX - (rect.width/2), savedArray[i].afterY - (rect.height/2), rect.width, rect.height);
+					ctx.clearRect(savedArray[i].afterX - (rect.width/2), savedArray[i].afterY - (rect.height/2), rect.width, rect.height);
+	
+					ctx.fillText(savedArray[i].id, savedArray[i].afterX - 3, savedArray[i].afterY + 5);
+/* 					ctx.fillText('parent : ' + savedArray[i].parent, savedArray[i].afterX - 3, savedArray[i].afterY +13);
+ */				
+				}
+/* 
 				//마찬가지로 해당 위치에 네모를 그려줘야 한다.
 				for (var key in jArrays) {
 					var array=jArrays[key];
@@ -768,7 +774,7 @@
 					ctx.fillText('id : ' + array.id, array.afterX - 3, array.afterY + 3);
 					ctx.fillText('parent : ' + array.parent, array.afterX - 3, array.afterY +13);
 				}
-			}	
+ */			}	
 
 			
 			//파이어베이스 저장 메서드(파라미터 : savedArray)
@@ -807,10 +813,14 @@
 
 					    });
 					}
+					
 				}
 			};
 			
 
+/* ----------------------------------파이어베이스 함수-------------------------------------- */			
+			
+			
 			//1. 해당 마인드맵의 아이디 번호를 받아서 삭제해야 한다.
 			//2. 해당 아이디의 번호를 부모로 갖는 마인드맵들을 삭제해야 한다.
 			//3. 그 마인드맵들의 번호를 부모를 갖는 마인드맵들을 삭제해야 한다.
@@ -821,29 +831,9 @@
 				
 				//피타고라스로 선택된 selectedObj를 null로 변경
 				selectedObj = null;
-
-				//Firebase DB를 삭제하고, 다시 savedArray를 저장해줘야 한다.
-				mindRef.remove();
-
-				//savedArray에 부모가 없으면 부모(root)를 넣어서 저장해준다.
-				if(savedArray.length==0){
-					savedArray.push(root);
-				}
 				
-				writeMindMap(savedArray);			
 			}
-
-			//수정과 관련된 메서드
-			//prompt에서 입력받은 수정 내용을 해당 객체 id에 전달
-			function updateArray(updateObj){
-				
-				for(var i = 0; i < savedArray.length; i++){
-					if(savedArray[i].id == updateObj.id){
-						savedArray[i].id = updateObj.id;
-					}
-				}
-			}
-
+			
 			//삭제 메서드
 			//삭제할 대상 마인드맵 id를 바탕으로 삭제 작업
 			//본인도 삭제되면서 자식 객체들도 삭제되어야 한다.
@@ -853,43 +843,48 @@
 
 				function filter(target){
 		        let toDelete = [];
-	     	   for(let i = 0; i < savedArray.length; i++){
-						
-							count++;
+
+			        for(let i = 0; i < savedArray.length; i++){
 							
-							if(count>100){
-								alert('overFlow');
-								alert('에러 발생 : 부모와 자식값을 확인');
-								
-								return;
-							}
+						//target의 id와 array안의 id / parentid 값을 비교.
+		     	    	if(savedArray[i].id == target || savedArray[i].parent == target){
+	
+							//같은 경우에 delete해야할 리스트에 추가
+							toDelete.push(i);
+	
+							//target과 같지 않은 경우에는 if 문의 or 두번째 조건 : 객체의 부모id가 target과 같음을 의미한다.
+		     	        	if(savedArray[i].id != target){					
+		    	                toDelete = toDelete.concat(filter(savedArray[i].id).slice(1));
+		   	             	}
+		  	          	}
+			        }					
+	     	   		
+			        return toDelete;
+	    		}
 
-							//target의 id와 array안의 id / parentid 값을 비교.
-	     	      if(savedArray[i].id == target || savedArray[i].parent == target){
+	    		var targets = filter(id).sort();			
 
-									//같은 경우에 delete해야할 리스트에 추가
-						       toDelete.push(i);
-
-									 //target과 같지 않은 경우에는 if 문의 or 두번째 조건 : 객체의 부모id가 target과 같음을 의미한다.
-	     	           if(savedArray[i].id != target){
-												
-												//1. 재귀 함수를 통해 해당 아이디를 가지고 toDelete 리스트를 작성
-												//2. concat을 통해 계속적으로 기존 toDelete에 추가
-												//3.
-
-	    	                toDelete = toDelete.concat(filter(savedArray[i].id).slice(1));
-	   	             }
-	  	          }
-		        }					
-	     	   return toDelete;
-	    	}
-
-	    	var targets = filter(id).sort();			
-
-	    	for(var i = targets.length - 1; i >= 0; i--){								
-	    		savedArray.splice(targets[i],1);
-	    	}
+		    	for(var i = targets.length - 1; i >= 0; i--){								
+		    		
+		    		//그냥 파이어베이스에서 지우면 알아서 업데이트됨
+		    		mindRef.child(savedArray[targets[i]].id).remove();
+		    		
+		    	}
 			}
+
+/* 			//수정과 관련된 메서드
+			//prompt에서 입력받은 수정 내용을 해당 객체 id에 전달
+			function updateArray(updateObj){
+				
+				for(var i = 0; i < savedArray.length; i++){
+					if(savedArray[i].id == updateObj.id){
+						savedArray[i].id = updateObj.id;
+					}
+				}
+
+			}
+ */
+
 			
 			
 			
@@ -971,7 +966,7 @@
                     <ul class="nav navbar-nav" style="width: 100%;">
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="">Scrap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						

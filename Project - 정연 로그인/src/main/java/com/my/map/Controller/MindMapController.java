@@ -42,9 +42,6 @@ public class MindMapController {
 		
 	}
 	
-	@RequestMapping(value="/goScrap", method=RequestMethod.GET)
-	public String goScrap() {
-		return "Scrap";
-	}
+	
 
 }
