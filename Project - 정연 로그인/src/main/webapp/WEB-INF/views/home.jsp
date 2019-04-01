@@ -1,116 +1,117 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<!--Import Google Icon Font-->
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!--Import materialize.css-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<style>
-@import url('https://fonts.googleapis.com/css?family=Bitter|Noto+Sans+KR');
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>HR Theme Two</title>
+	<!-- CSS -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="resources/css/animate.min.css" rel="stylesheet">
+    <link href="resources/css/owl.carousel.css" rel="stylesheet">
+    <link href="resources/css/owl.transitions.css" rel="stylesheet">
+    <link href="resources/css/prettyPhoto.css" rel="stylesheet">
+    <link href="resources/css/main.css" rel="stylesheet">
+    <link href="resources/css/styles.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="resources/images/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="resources/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="resources/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="resources/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="resources/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
+<body id="home" class="homepage">
 
-.mainImg{
-	width: 800px;
-	height: 500px;
-}
+    <header id="header">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+                    <ul class="nav navbar-nav" style="width: 100%;">
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
+						<c:if test="${sessionScope.loginId==null}">
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
+						</c:if>
+						<c:if test="${sessionScope.loginId!=null}">
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="logout">Logout</a></li>                        						
+						</c:if>
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
 
-.logo {
-	height: 7.5%;
-}
-.divLogo {
-	padding-top: 0.5%;
-	padding-left: 0.5%;
-	margin-botton: -0.5%;
-}
-.divHeader, .divBody, .divAccount{
-	text-align:center;
-}
-.divHeader{
-	font-family: 'Bitter', serif;
-	font-size: 300%;
-}
-.divBody{
-	background-image: url("resources/image/hero-bg.png");
-	background-position: bottom;
-	background-repeat: no-repeat;
-}
-.divMenu{
-	text-align: right;
-	padding: -0.5%;
-	margin-top: -1.5%;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weignt: bolder;
-	font-size: 150%;
-}
-.tabs .indicator{
-	background-color:#4db6ac;
-}   
-</style>
-</head>
-<body>
-<div class="divLogo">
-	<a href="home"><img src="resources/image/marvelousmonday.png" class="logo"></a>
-</div>
-<br>
-<div class="divMenu">
-	<div class="col s12">
-		<ul class="tabs">
-			<li class="tab col s1"><a href="#test1" class="teal-text text-lighten-2">About</a></li>
-			<li class="tab col s1"><a href="goMindmap" id="goMindmap" class="teal-text text-lighten-2">마인드맵</a></li>
-			<li class="tab col s1"><a href="#test3" id="goScrap" class="teal-text text-lighten-2">스크랩</a></li>
-			<li class="tab col s1"><a href="#test4" class="teal-text text-lighten-2">공유</a></li>
-		
-			<c:if test="${sessionScope.loginId!=null}">
-			<li class="tab col s1"><a href="logout" id="logout" class="teal-text text-lighten-2">로그아웃</a></li>
-			</c:if>
-		</ul>
-	</div>
-</div>
-<br>
-<div class="divHeader">Welcome to MindHeya</div>
-<br>
-<div class="divBody">
-	<a href="login"><img src="resources/image/mainImage.png" class="mainImg"></a>
-</div>
-
-<c:if test="${sessionScope.loginId==null}">
-</c:if>
-
-
+    <section id="main-slider" style="height: 100%;">
+            <div class="item" style="background-image: url(resources/images/mainImg.jpg);">
+                <div class="slider-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h2 style="color:white;"><span>マインド部屋</span></h2>
+                                    <p><h2 style="color:white;"> あなたの部屋はだいじょうぶですか？ </h2></p>
+                                    <!-- <a class="btn btn-primary btn-lg" href="#">Read More</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.item-->
+    </section><!--/#main-slider-->
 
 
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-	<script>
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2019 MarvelousMonday.
+                </div>
+                <div class="col-sm-6">
+                    <!-- <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
 
-		$(function() {
-			$('#logout').on("click", function() {
-				alert('로그아웃합니다.');
-				$('#hiddenlogout').submit();
-			});
-			
-			$('#goMindmap').on("click", function() {
-				alert('마인드맵 페이지로 이동합니다.');
-				$('#hiddengoMindmap').submit();
-			});
-			
-			$('#goScrap').on("click", function() {
-				alert('스크랩 페이지로 이동합니다.');
-				$('#hiddengoScrap').submit();
-			});
-			
-			$('#login').on("click", function() {
-				$('#hiddengoLogin').submit();
-			});
-		});
-	</script>
-	<form id="hiddenlogout" action="logout" method="get"></form>
-	<form id="hiddengoMindmap" action="goMindmap" method="get"></form>
-	<form id="hiddengoScrap" action="goScrap" method="get"></form>
-	<form id="hiddengoLogin" action="login" method="get"></form>
+    <script src="resources/js/jquery.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="resources/js/owl.carousel.min.js"></script>
+    <script src="resources/js/mousescroll.js"></script>
+    <script src="resources/js/smoothscroll.js"></script>
+    <script src="resources/js/jquery.prettyPhoto.js"></script>
+    <script src="resources/js/jquery.isotope.min.js"></script>
+    <script src="resources/js/jquery.inview.min.js"></script>
+    <script src="resources/js/wow.min.js"></script>
+    <script src="resources/js/main.js"></script>
 </body>
 </html>
