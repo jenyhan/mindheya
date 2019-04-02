@@ -30,12 +30,9 @@ public class MemberController {
 	
 	//회원가입 액션
 	@RequestMapping(value="register-form", method=RequestMethod.POST)
-	public String join(Member member, Model model) {
-		
-		System.out.println(member);
-		
+	public String join(Member member, Model model) {		
 		int result = dao.join(member);
-		System.out.println(result);
+
 		if(result==0) {
 			model.addAttribute("warning", "중복된 ID가 있습니다.");
 			model.addAttribute("member", member);
@@ -67,7 +64,7 @@ public class MemberController {
 	}
 
 	//홈으로 이동
-	@RequestMapping(value="home", method=RequestMethod.GET)
+	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home() {
 		return "home";
 	}

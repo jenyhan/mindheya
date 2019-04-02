@@ -199,7 +199,8 @@
          $('.features').html(content);
          
          $('.mindMapDiv').on('click', function(){
-            var gotSeq = $(this).attr('mind-value');            
+
+         	var gotSeq = $(this).attr('mind-value');            
             var leader = $('.mindMapLeader', this).attr('leader-value');
             var groupName = $('.mindGroupName', this).attr('name-value');
             var numLimit = $('.mindMapNumLimit', this).attr('limit-value');
@@ -414,7 +415,7 @@
                     <ul class="nav navbar-nav" style="width: 100%;">
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="">Scrap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
