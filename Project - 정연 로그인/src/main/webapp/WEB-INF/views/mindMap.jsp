@@ -10,49 +10,54 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title>HR Theme Two</title>
-    <style>
+        <style>
 			
 		@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 		
 		#putTxt {
-			width:203px;
+			width:274px;
 			height: 40px;
-			border: 3px solid #41c121;
+			border: 3px solid #00B4CC;
 			font-size: 13px;
 			font-style: bold;
 		}
 		
-		#putBtn {
-			background-color: #41c121;
-			border: none;
-			color: white;
-			font-size: 15px;
-		    font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
-		    width: 70px;
-		    height: 40px;
+/* 		#putBtn { */
+/* 			background-color: white; */
+/* 			border: 3px solid #00B4CC; */
+/* 			color: #00B4CC; */
+/* 			font-size: 15px; */
+/* 		    font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif; */
+/* 		    width: 90px; */
+/* 		    height: 35px; */
 		
-		}
+/* 		} */
 		
 		
-		#deleteBtn, #updateBtn{
-		width: 137px;
+		#putBtn, #deleteBtn, #updateBtn{
+		width: 91px;
 		height: 35px;
 		border: none;
 		margin-top: 5px;
-		color: white;
+		border: 3px solid #00B4CC;
+		color: #00B4CC;
 		}
 		
 		#deleteBtn{
-			background-color: #c42e29;
+			background-color: white;
 		
 		}
 		
 		#updateBtn{
-			background-color: #2252c1;
+			background-color: white;
 		
 		}
 		
+		#putBtn{
+			background-color: white;
+		
+		}
 		
 		.search {
 		  width: 100%;
@@ -60,14 +65,14 @@
 		}
 		
 		.searchTerm:focus{
-		  color: #00B4CC;
+		  color: #41c121;
 		}
 		
 		.searchTerm {
 		
 		  width:239px;
 		  height: 40px;
-		  border: 3px solid #00B4CC;
+		  border: 3px solid #41c121;
 		  padding: 5px;
 		  border-radius: 10px;
 		  color: #9DBFAF;
@@ -77,10 +82,10 @@
 		.searchButton {
 		  width: 35px;
 		  height: 37px;
-		  border: 1px solid #00B4CC;
+		  border: 1px solid #41c121;
 		  border-radius: 5px;
 		  font-size: 20px;
-		  background: #00B4CC;
+		  background: #41c121;
 		  text-align: center;
 		  color: #fff;
 		  cursor: pointer;
@@ -104,15 +109,15 @@
 			
 		canvas {
 			background-color: #f2f2f2;
-			border: 5px solid black;
+/* 			border: 5px solid black; */
 			float: left;
 		}
 		
 		
 		#options {
 			width: 294px;
-	    	float: left;
-    		border: 5px solid black;
+			float: left;
+/*     		border: 5px solid black; */
 		}
 		
 		#search {
