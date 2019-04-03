@@ -232,16 +232,9 @@
  				
 				content += '</table>';
 	
- 					
- 				/* var content = '<button class="bmBtn">생성확인용</button>'; */
- 
 				$(".newsListDiv").html(content);
 
 				$(".bmBtn").on("click", function(){
-				
- 				/* var bmSeq = $(this).attr('bm-value');
-					애초에 insert전 이라서 seq값이 생길리가 없음
-					alert("bmSeq 확인 : " + bmSeq); */
 					
 					var bmTitle = $(this).attr('bm-title');
 					var bmSummary = $(this).attr('bm-summary');
@@ -265,7 +258,7 @@
 					type : "post",
 					success : function(resultData) {
 					
-						alert(resultData);
+						alert("return값 확인 : " + resultData);
 						
 					/* 나중에 BookMarkList가 들어가졋을때 select으로 불러오자 */
 					/* output(result); */ 
@@ -288,12 +281,12 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"
+			  apiKey: "AIzaSyCpRFSD9DTcGh40MRCHm0UwGitJarKT8Ak",
+			  authDomain: "myproject-cf946.firebaseapp.com",
+			  databaseURL: "https://myproject-cf946.firebaseio.com",
+			  projectId: "myproject-cf946",
+			  storageBucket: "myproject-cf946.appspot.com",
+			  messagingSenderId: "659201790301"
 	  };
 
 	  // Initialize the default app
