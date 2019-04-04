@@ -99,6 +99,14 @@
 			margin: 2px 10px;
 		}	
 			
+			
+		.searchResult {
+			width: 330px;
+			height: 59px;
+			float: left;
+			
+		}	
+			
 		#HR{
 		float: left;
 		width: 100%;
@@ -108,13 +116,11 @@
 		}
 			
 		#options {
-			background-color:5px solid #00B4CC;
-			width: 1200px;
- 			border-top: 5px solid #00B4CC;
- 			border-left: 5px solid #00B4CC;
- 			border-right: 5px solid #00B4CC;
+			background-color: #00B4CC;
+			width: 1500px;
+ 			border: 5px solid #00B4CC;
  			float: left; 
-/*     		border: 5px solid black; */
+
 		}
 		
 		#search {
@@ -136,26 +142,30 @@
 			width: 86%;
 		}
 		
-			canvas {
+		canvas {
 			background-color: #f2f2f2;
-			border-top: 5px solid #00B4CC;
 			float: left; 
 		}
 		
 		#resultBox {
-/* 			width: 100%; */
-			width: 319px;
+			width: 400px;
 			text-align: center;
-			float: right;
-			height: 59px;
+			float: left;
+			height: 58px;
 			border-top: 5px solid #00B4CC;
  			border-bottom: 5px solid #00B4CC;
  			border-right: 5px solid #00B4CC;
 		}
 		
+		.newsListDiv{
+			height: 1000px;
+			float: left;
+		}
+		
 		.newsListDiv td{
+			height: 200px;
 			border: 1px solid black;
-			float: right;
+			float: left;
 		}
 				    
     </style>
@@ -234,6 +244,8 @@
 				
 				if(result != ""){
 					$.each(result, function(index, item){
+
+						
 						content += 	'<tr>';
 						content += 		'<div class="newsDiv">';
 						content += 			'<td class="title">' + item.title + '</td>';
@@ -242,6 +254,11 @@
 						content += 			'<td class="address"><a href="https://news.google.com'+item.address+'">기사 본문보기</a><button class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '">북마크 추가</button></td>';
 						content += 		'</div>';
 				 		content += 	'</tr>';
+
+						if(index == 4){
+							return false;
+						}
+
 					});														
 				}
  				
@@ -296,21 +313,12 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-<<<<<<< HEAD
-			    apiKey: "AIzaSyBH7FlESsLcFqncNIBkPgd770RjRegX_ZU",
-			    authDomain: "fir-1400c.firebaseapp.com",
-			    databaseURL: "https://fir-1400c.firebaseio.com",
-			    projectId: "fir-1400c",
-			    storageBucket: "fir-1400c.appspot.com",
-			    messagingSenderId: "8678464484387"
-=======
-			  apiKey: "AIzaSyCpRFSD9DTcGh40MRCHm0UwGitJarKT8Ak",
-			  authDomain: "myproject-cf946.firebaseapp.com",
-			  databaseURL: "https://myproject-cf946.firebaseio.com",
-			  projectId: "myproject-cf946",
-			  storageBucket: "myproject-cf946.appspot.com",
-			  messagingSenderId: "659201790301"
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
+			    authDomain: "web-crawling-6562b.firebaseapp.com",
+			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
+			    projectId: "web-crawling-6562b",
+			    storageBucket: "web-crawling-6562b.appspot.com",
+			    messagingSenderId: "407695243177"			  
 	  };
 
 	  // Initialize the default app
@@ -1151,24 +1159,16 @@
 			</button>
 			<input type="text" class="searchTerm" placeholder="What are you looking for?">
 			</div>
-<!-- 			<div class="wrap"> -->
-<!-- 		   		<div class="search"> -->
-<!-- 		      		<button type="submit" class="searchButton"> -->
-<!-- 		        		<i class="fa fa-search"></i> -->
-<!-- 		     		</button> -->
-<!-- 			      	<input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
-<!-- 		  		</div> -->
-<!-- 			</div> -->
 		</div>
 	</div>
-	<div id="searchResult">
+	<div id="searchResult" class="searchResult">
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 			<div class="newsListDiv"></div>
-		</div>
-	<canvas id="canvas" width="1200px" height="700px">; 
+	</div>	
+	<canvas id="canvas" width="1500px" height="1000px">; 
 		이 브라우저는 캔버스를 지원하지 않습니다.
 	</canvas>
-	
+
 		
 	</div>
 	<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
