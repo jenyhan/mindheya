@@ -86,6 +86,22 @@
 
 <script>
 
+$(function(){
+	init();
+	
+	function init(){
+		$.ajax({
+			url:"selectAllBM",
+			type:"get",
+			success:function(resultData){
+				alert(resultData);
+			}
+		});
+	}
+	
+	
+});
+
 
 
 </script>
@@ -129,10 +145,28 @@
                 <p class="text-center wow fadeInDown"> Choose Your Mind</p>
             </div>
 	
-			<div class="News"></div>
+	
+<!-- -------------------------------- 스크랩한 리스트 뿌려주기 --------------------------------------- -->	
+			
 
             <div class="row">
                 <div class="features" style="width: 110%; margin-left:5%;">
+                	<div class="news">
+                		<div class="news-body">
+							<!-- <div class="news-body-title">
+								
+							</div>
+							<div class="news-body-summary">
+							
+							</div>
+							<div class="news-body-press">
+							
+							</div>
+							<div class="news-body-address">
+							
+							</div> -->
+                		</div>
+					</div>
                 </div>
             </div><!--/.row-->    
         </div><!--/.container-->

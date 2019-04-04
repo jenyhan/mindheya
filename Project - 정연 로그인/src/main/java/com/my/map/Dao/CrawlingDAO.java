@@ -29,13 +29,13 @@ public class CrawlingDAO {
 		return result;
 	}
 	
-	public ArrayList<News> selectAllBM(){
+	public ArrayList<News> selectAllBM(String loginId){
 		ArrayList<News> allBM = new ArrayList<News>();
 		
 		CrawlingMapper mapper = sqlSession.getMapper(CrawlingMapper.class);
 		
 		try {
-			allBM = mapper.selectAllBM();
+			allBM = mapper.selectAllBM(loginId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

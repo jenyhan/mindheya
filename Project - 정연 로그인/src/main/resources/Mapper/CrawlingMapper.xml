@@ -30,7 +30,7 @@
   	</insert>
   	
   	<!-- bookmark 전체 출력 // 한 개만 검색하기 도 만들까 말까??? -->
-  	<select id="selectAllBM" resultType="News">
+  	<select id="selectAllBM" parameterType="String" resultType="News">
   
   	select 
   		bmSeq
@@ -42,6 +42,8 @@
     	,indate
   	from
   		BMList
+  	where
+  		id = #{id}
   	order by 
   		bmSeq
   		

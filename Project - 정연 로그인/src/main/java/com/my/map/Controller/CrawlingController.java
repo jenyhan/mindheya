@@ -127,10 +127,12 @@ public class CrawlingController {
 	
 	@RequestMapping(value = "/insertBM", method = RequestMethod.POST)
 	public @ResponseBody int insertBM(News news, HttpSession session) {
-		String sessionId = (String) session.getAttribute("loginId");
-		news.setId(sessionId);
-		
+		String loginId = (String) session.getAttribute("loginId");
+		news.setId(loginId);
+	
 		dao.insertBM(news);
+		
+		// 여긴 return값을 원하는 걸로 바꿔서 보내는 걸루
 		
 		return 0;
 	}
@@ -138,9 +140,21 @@ public class CrawlingController {
 	@RequestMapping(value="/goScrap", method=RequestMethod.GET)
 	public String goScrap() {
 		
-		
-		
 		return "Scrap";
+	}
+	
+	
+	@RequestMapping(value = "/selectAllBM", method = RequestMethod.GET)
+	public @ResponseBody ArrayList<News> selectAllBM(HttpSession session) {
+		ArrayList<News> bmList = new ArrayList<News>();
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
+		bmList = dao.selectAllBM(loginId);
+
+//		제대로 bmList 값 들어오고 보내짐
+		
+		return bmList;
 	}
 		
 }
