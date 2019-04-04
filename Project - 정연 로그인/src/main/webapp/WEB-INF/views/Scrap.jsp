@@ -45,6 +45,12 @@
 		   border: 2px solid #3B6EB5;
 		   background-color: #3B6EB5;
 		}
+		
+		.news-body-seq {
+			border: 2px solid #3B6EB5;
+			display: inline-block;
+		
+		}
 			    
     </style>
     
@@ -94,16 +100,64 @@ $(function(){
 			url:"selectAllBM",
 			type:"get",
 			success:function(resultData){
-				alert(resultData);
+				alert(resultData); 
+				output(resultData);
 			}
 		});
 	}
 	
+	function output(resultData){
+		
+		var content = '';
+		
+		$.each(resultData, function(index, item){
+			content += '<div class="news-body-seq" data-wow-duration="300ms" data-wow-delay="500ms" news-value="' + item.bmSeq + '" style="width: 33%;">';
+			content += 		'<div class="news-body-title" news-title="'+ item.title +'"><h4>'+ item.title +'</h4></div>';
+			content += 		'<div class="news-body-summary" news-summary="'+ item.summary +'"><h5>' + item.summary + '</h5></div>';
+			content += 		'<div class="news-body-press" news-press="'+ item.press +'"><h5>' + item.press + '</h5></div>';
+			
+			content += '	<button class="selectBm" news-value="' + item.bmSeq + '">원문 보기</button>&nbsp<button class="bmDelete" news-value="' + item.bmSeq + '">삭제</button>';
+			content += '</div>';
+		});
+		
+		$('.news-body').html(content);
+		
+		/* bookmark 삭제  */
+		$('.bmDelete').on("click", function(){
+			var deleteSeq = $(this).attr('news-value');
+			
+			$.ajax({
+				url : "deleteBM",
+				data : {bmSeq:deleteSeq},
+				type : "post",
+				success : function(resultData){
+					init();
+				}
+			});
+		});
+		
+		/* 기사 원문보기 */
+		$('.selectBm').on("click", function(){
+			var newsLinkSeq = $(this).attr('news-value');
+			
+			$.ajax({
+				url: "selectLink",
+				data: {bmSeq:newsLinkSeq},
+				type: "get",
+				success : eventSuccess
+			});
+		});
+		
+		/* 기사를 새 창으로 띄워봅시다 */
+		function eventSuccess(data){
+			var newsLink = data;
+			
+			window.open(newsLink);
+		}
+	}
+	
 	
 });
-
-
-
 </script>
 <body id="home" class="homepage">
 
@@ -151,6 +205,12 @@ $(function(){
 
             <div class="row">
                 <div class="features" style="width: 110%; margin-left:5%;">
+                	
+                	<!-- 북마크 내에서 검색어로 제목 찾기 -->
+                	<div class="searchDiv">
+                		<input type="text" id="searchNews" name="searchNews">
+                	</div>
+                
                 	<div class="news">
                 		<div class="news-body">
 							<!-- <div class="news-body-title">
