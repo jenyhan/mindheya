@@ -18,7 +18,7 @@
 		#putTxt {
 			width:274px;
 			height: 40px;
-			border: 3px solid #00B4CC;
+			border: 3px solid #41c121;
 			font-size: 13px;
 			font-style: bold;
 		}
@@ -40,8 +40,8 @@
 		height: 35px;
 		border: none;
 		margin-top: 5px;
-		border: 3px solid #00B4CC;
-		color: #00B4CC;
+		border: 3px solid #41c121;
+		color: #41c121;
 		}
 		
 		#deleteBtn{
@@ -107,16 +107,13 @@
 		
 		}
 			
-		canvas {
-			background-color: #f2f2f2;
-/* 			border: 5px solid black; */
-			float: left;
-		}
-		
-		
 		#options {
-			width: 294px;
-			float: left;
+			background-color:5px solid #00B4CC;
+			width: 1200px;
+ 			border-top: 5px solid #00B4CC;
+ 			border-left: 5px solid #00B4CC;
+ 			border-right: 5px solid #00B4CC;
+ 			float: left; 
 /*     		border: 5px solid black; */
 		}
 		
@@ -130,7 +127,7 @@
 		}
 		
 		#searchTxt {
-			border: 3px solid #00B4CC;
+			border: 3px solid #41c121;
 			padding: 5px;
 			height: 20px;
 			border-radius: 5px;
@@ -139,13 +136,26 @@
 			width: 86%;
 		}
 		
+			canvas {
+			background-color: #f2f2f2;
+			border-top: 5px solid #00B4CC;
+			float: left; 
+		}
+		
 		#resultBox {
-			width: 100%;
+/* 			width: 100%; */
+			width: 319px;
 			text-align: center;
+			float: right;
+			height: 59px;
+			border-top: 5px solid #00B4CC;
+ 			border-bottom: 5px solid #00B4CC;
+ 			border-right: 5px solid #00B4CC;
 		}
 		
 		.newsListDiv td{
 			border: 1px solid black;
+			float: right;
 		}
 				    
     </style>
@@ -237,16 +247,9 @@
  				
 				content += '</table>';
 	
- 					
- 				/* var content = '<button class="bmBtn">생성확인용</button>'; */
- 
 				$(".newsListDiv").html(content);
 
 				$(".bmBtn").on("click", function(){
-				
- 				/* var bmSeq = $(this).attr('bm-value');
-					애초에 insert전 이라서 seq값이 생길리가 없음
-					alert("bmSeq 확인 : " + bmSeq); */
 					
 					var bmTitle = $(this).attr('bm-title');
 					var bmSummary = $(this).attr('bm-summary');
@@ -270,7 +273,7 @@
 					type : "post",
 					success : function(resultData) {
 					
-						alert(resultData);
+						alert("return값 확인 : " + resultData);
 						
 					/* 나중에 BookMarkList가 들어가졋을때 select으로 불러오자 */
 					/* output(result); */ 
@@ -312,12 +315,16 @@
 	var savedArray=[];
 
 	var root;	 // 루트 마인드맵을 저장
+	var chkRoot;
 	var canvas;  // 캔버스 객체
 	var ctx;     // 그리기 도구
 	var sx, sy;  // 드래그 시작점
 	var ex, ey;  // 드래그 끝점
 	var drawing; // 그리고 있는 중인가
 	var backup;  // 캔버스 객체 백업
+	var depColor = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
+	
+	
 		
 	///////////////
 	var area = Math.PI * 2; //파이 정보
@@ -325,8 +332,8 @@
 
 	//마인드맵 그릴 때의 네모 크기 프리셋
 	var rect = {
-		width: 70,
-		height: 70};
+		width: 40,
+		height: 40};
 
 	//삼각함수를 통해 선택된 가장 가까운 객체를 저장
 	var selectedObj;
@@ -357,7 +364,7 @@
 
 		//파이어베이스에서 가져올 DB 경로 설정
 		var mindRef = firebase.database().ref('/users/' + userId + '/MapTree/' + groupName);
-
+		
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
 		if (canvas == null || canvas.getContext == null){
@@ -389,6 +396,7 @@
 					afterY:canvas.height/2,
 					parent: 'root',
 					id: 'Root Item',
+					depth: 0,
 					root:true
 		};
 		
@@ -401,6 +409,15 @@
 		
 			//Input에서 값을 가져온다.
 			var putContent = $('#putTxt').val();
+			
+			for(var i = 0; i < savedArray.length; i++){
+				
+				if(savedArray[i].id == putContent){
+					alert('이미 존재하는 마인드입니다.');
+					flag = 0;
+					return;
+				}
+			}
 			
 			//Input에 대한 유효성 체크
 			if(putContent.trim()!=''){
@@ -466,10 +483,7 @@
 		//2.삭제를 해야할 때 flag 2
 		//3.수정을 해야할 때 flag 3
 		canvas.onmousedown = function(e) {
-			e.preventDefault();
-			
-			
-			
+			e.preventDefault();			
 			
 			
 			// 시작 x, y좌표 구함
@@ -477,10 +491,14 @@
 			sy = canvasY(e.clientY);
 
 			if(flag==0){
-
+				
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx,sy);
 
+				if(typeof(selectedObj.root) !== 'undefined'){
+					chkRoot = true;
+				}
+								
 				$('.searchTerm').val(selectedObj.id);
 				
 				
@@ -494,7 +512,7 @@
 				bufObj = selectedObj;
 
 			} else if(flag==1) {
-				
+			
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx, sy);
 
@@ -513,7 +531,6 @@
 
 				//피타고라스 함수로 가장 가까운 객체를 선택
 				pita(sx, sy);
-
 				
 				//루트 객체는 root 필드를 갖는다.
 				//루트 객체는 삭제할 수 없다.
@@ -533,9 +550,10 @@
 				return;
 
 			} else if(flag==3) {
-				
+			
 				//flag는 0으로
 				flag = 0;
+
 				
 				//피타고라스로 가장 가까운 객체 선택
 				pita(sx, sy);
@@ -558,36 +576,73 @@
 					}
 				}
 
-				//갱신되어야 할 것 : 선택된 객체의 id, 해당 객체를 부모로 갖고있는 자식들의 부모 id
+				
+				
+				
 				for(var i = 0; i < savedArray.length; i++){
+					if(savedArray[i].parent == selectedObj.id){
+						mindRef.child(savedArray[i].id).update({parent : updateId});
+					}										
+				}
+				
 
-					//1. 업데이트 해야할 객체를 찾는다.
-					if(savedArray[i].id == selectedObj.id){							
-
-					//2. 업데이트 될 객체의 id를 자식들의 parent에도 업데이트 해야 한다.
-					for(var j = 0; j < savedArray.length; j++){
-						if(savedArray[j].parent == selectedObj.id){
-							savedArray[j].parent = updateId;
-						}
-					}
-
-					//배열에서 해당 객체를 지우고 다시 넣어주는 작업
-					savedArray.splice(i,1);
-					selectedObj.id = updateId;
-					savedArray.push(selectedObj);
-
-					//작업 완료이므로 break
-					break;
+				
+				for(var i = 0; i < savedArray.length; i++){
+					if(savedArray[i].id == selectedObj.id){
+						
+						mindRef.child(savedArray[i].id).once('value').then(function(snapshot) {
+	
+							mindRef.child(savedArray[i].id).remove();
+							
+							mindRef.child(updateId).set(snapshot.val());  
+							mindRef.child(updateId).update({id:updateId});
+	
+						});
+						break;
 					}					
 				}
-					//Firebase에 저장되어있는 정보 전부 삭제
-					mindRef.remove();
-					//다시 savedArray에 저장된 객체들을 Firebase에 write
-					writeMindMap(savedArray);
-					
-				}
-			}
 
+
+				}
+
+				
+
+				
+/* 				//갱신되어야 할 것 : 선택된 객체의 id, 해당 객체를 부모로 갖고있는 자식들의 부모 id
+					for(var i = 0; i < savedArray.length; i++){
+
+					 //1. 업데이트 해야할 객체를 찾는다.
+					if(savedArray[i].id == selectedObj.id){						 
+																		 													
+						//2. 업데이트 될 객체의 id를 자식들의 parent에도 업데이트 해야 한다.
+						for(var j = 0; j < savedArray.length; j++){
+							if(savedArray[j].parent == selectedObj.id){
+								mindRef.child(savedArray[j].id).update({parent : updateId});
+							}
+						}
+	
+	
+					
+ 						//해당 객체의 내용만 빼서 새로운 노드 updateId를 생성. 내용을 복사
+						mindRef.child(savedArray[i].id).once('value').then(function(snapshot) {
+							mindRef.child(updateId).set(snapshot.val());  
+							mindRef.child(updateId).update({id:updateId});
+
+							mindRef.child(savedArray[i].id).remove();
+	
+							});
+							
+							break;
+
+						}
+				
+			
+					} */
+				}
+			
+
+/* 			}
+ */
 			//마우스가 움직일 때
 			//flag 0: 마인드맵의 위치를 변경
 			//flag 1: 입력
@@ -596,19 +651,19 @@
 
 				
 				if(flag==0){
-
-					///////////////////////////////////////////////////////					
-					//질문 : 
-					if(typeof(selectedObj.root) == 'undefined'||selectedObj.root == null){
 						
-					} else {
+					//루트 체크해서 이동 불가 처리
+					if(chkRoot){
+						
+						chkRoot = false;
 						alert('루트는 이동할 수 없습니다.');
 						draggable = false;
 						selectedObj=null;
 						return;
-					}				
-					///////////////////////////////////////////////////////
 						
+					}
+					
+					
 					//1.1 onmousedown에서 draggable에 true가 되어 있다면
 					if (draggable) {
 						
@@ -620,7 +675,6 @@
 
 						ex = canvasX(e.clientX);
 						ey = canvasY(e.clientY);
-						//아직 설명 부족하므로 참고만 하세요.
 						//1.5 선택된 객체를 제외한 아이들 중 부모 객체를 찾는 메서드 발동
 						//결과로 selectedObj 에는 엄마 객체가 저장. 아이는 buf에 저장되어 있음.
 						
@@ -636,23 +690,20 @@
 
 							//1.
 							if(savedArray[i].id == bufObj.id){
-								savedArray[i] = bufObj;
+								mindRef.child(savedArray[i].id).update(bufObj);								/* savedArray[i] = bufObj; */
 							}
 
 							//2.
-							if(savedArray[i].parent==bufObj.id){
-								savedArray[i].x = bufObj.afterX;
-								savedArray[i].y = bufObj.afterY;
+							if(savedArray[i].parent==bufObj.id){		
+								mindRef.child(savedArray[i].id).update({x:bufObj.afterX, y:bufObj.afterY});
 							}
 						}
-						
-						//세팅된 savedArray로 Firebase에 저장
-						writeMindMap(savedArray);
-
 					}
 					
 				} else if(flag==1){
 				
+					
+
 					//유효성검사 통과여부 체크
 					if(!checkPut){
 					return;
@@ -673,7 +724,7 @@
 
 				} else if(flag==3){
 					
-					// 아직 남겨둠.
+					// 작업이 필요없음.
 
 				}
 			}
@@ -725,7 +776,7 @@
 				var parentId = (typeof(selectedObj) == 'undefined'||selectedObj == null)? saveId : selectedObj.id;
 				var parentX = (typeof(selectedObj) == 'undefined'||selectedObj == null)? ex : selectedObj.afterX;
 				var parentY = (typeof(selectedObj) == 'undefined'||selectedObj == null)? ey : selectedObj.afterY;
-
+				var newDepth = (typeof(selectedObj) == 'undefined'||selectedObj == null)? 0 : selectedObj.depth + 1;
 
 				// Firebase에 저장할 객체
 				// x      : 부모 객체의 x좌표
@@ -740,7 +791,8 @@
 						afterX:ex,
 						afterY:ey,
 						parent: parentId,
-						id: saveId
+						id: saveId,
+						depth: newDepth % 7
 					};
 				
 				// 새로 만든 객체를 savedArray에 추가한 후, Firebase에 저장
@@ -849,7 +901,9 @@
 						
 						//lineTo() : 그리기 끝낼 점 값을 입력(본인의 afterX, afterY)
 						ctx.lineTo(array.afterX, array.afterY);
-						
+						ctx.strokeStyle = depColor[array.depth];
+						ctx.lineWidth = 3;
+
 						//stroke() : 줄을 그려준다.
 						ctx.stroke();
 					}
@@ -857,24 +911,72 @@
 				
 				
 				for(var i = 0; i < savedArray.length; i++){
-					ctx.strokeRect(savedArray[i].afterX - (rect.width/2), savedArray[i].afterY - (rect.height/2), rect.width, rect.height);
-					ctx.clearRect(savedArray[i].afterX - (rect.width/2), savedArray[i].afterY - (rect.height/2), rect.width, rect.height);
-	
+
+					//원으로 그릴 경우
+/* 					ctx.beginPath();
+					ctx.strokeStyle = depColor[savedArray[i].depth];					
+					ctx.lineWidth = 5;
+			
+					ctx.arc(savedArray[i].afterX, savedArray[i].afterY, 40, 0, Math.PI * 2);
+					ctx.stroke();
+					ctx.fillStyle = 'white';
+					ctx.fill();
+					ctx.restore();
+					ctx.fillStyle = 'black';
 					ctx.fillText(savedArray[i].id, savedArray[i].afterX - 3, savedArray[i].afterY + 5);
-/* 					ctx.fillText('parent : ' + savedArray[i].parent, savedArray[i].afterX - 3, savedArray[i].afterY +13);
  */				
+/*  					var txtWidth = ctx.measureText(savedArray[i].id).width;
+ 					var txtHeight = 30;
+ 
+ 					var width = txtWidth * 5;
+ 					var height = 100; */
+
+ 					
+
+ 					ctx.beginPath();
+ 					ctx.font = "15px Arial";
+					ctx.strokeStyle = depColor[savedArray[i].depth];										
+ 					
+ 					var txtWidth = ctx.measureText(savedArray[i].id).width;
+ 					var txtHeight = 50;
+ 					
+ 					var radius = 15;
+ 					
+ 					var leftX = savedArray[i].afterX - (txtWidth/2);
+ 					var rightX = savedArray[i].afterX + txtWidth + (txtWidth/2);
+ 					
+ 					var topY = savedArray[i].afterY - 40;
+					var bottomY = savedArray[i].afterY + 30;
+ 					
+					var leftRadiusX = leftX - 20;
+					var rightRadiusX = rightX + 20;
+
+					var topRadiusY = topY + 20;
+					var bottomRadiusY = bottomY - 20;
+						
+ 					ctx.moveTo(leftX - 5, topY);
+ 					ctx.lineTo(rightX, topY);
+ 					ctx.arcTo(rightRadiusX, topY, rightRadiusX, bottomRadiusY, radius);
+ 					ctx.lineTo(rightRadiusX, bottomRadiusY);
+  					ctx.arcTo(rightRadiusX, bottomY, rightX, bottomY, radius); 
+  					ctx.lineTo(leftX, bottomY);
+  					ctx.arcTo(leftRadiusX, bottomY, leftRadiusX, topRadiusY, radius);
+  					ctx.lineTo(leftRadiusX, topRadiusY);
+  					ctx.arcTo(leftRadiusX, topY, leftX, topY, radius); 
+  					
+  					ctx.stroke();
+					ctx.fillStyle = 'white';
+					ctx.fill();
+					ctx.restore();
+					ctx.fillStyle = 'black';
+ 					
+ 					ctx.fillText(savedArray[i].id, savedArray[i].afterX, savedArray[i].afterY);
+ 					ctx.closePath();
+ 					 
+ 
+ 
 				}
-/* 
-				//마찬가지로 해당 위치에 네모를 그려줘야 한다.
-				for (var key in jArrays) {
-					var array=jArrays[key];
-					ctx.strokeRect(array.afterX - (rect.width/2), array.afterY - (rect.height/2), rect.width, rect.height);
-					ctx.clearRect(array.afterX - (rect.width/2), array.afterY - (rect.height/2), rect.width, rect.height);
-	
-					ctx.fillText('id : ' + array.id, array.afterX - 3, array.afterY + 3);
-					ctx.fillText('parent : ' + array.parent, array.afterX - 3, array.afterY +13);
-				}
- */			}	
+			}	
 
 			
 			//파이어베이스 저장 메서드(파라미터 : savedArray)
@@ -895,7 +997,8 @@
 				    	afterX:mindObjs[i].afterX,
 				    	afterY:mindObjs[i].afterY,
 				    	parent:mindObjs[i].parent,
-				    	id:mindObjs[i].id
+				    	id:mindObjs[i].id,
+				    	depth:mindObjs[i].depth
 			    		
 						});
 
@@ -909,7 +1012,8 @@
 				   			afterY:mindObjs[i].afterY,
 				    		parent:mindObjs[i].parent,
 				    		id:mindObjs[i].id,
-							root:mindObjs[i].root
+							root:mindObjs[i].root,
+					    	depth:mindObjs[i].depth
 
 					    });
 					}
@@ -1033,20 +1137,31 @@
 				<input type="button" id="putBtn" value="등록">
 				<input type="button" id="updateBtn" value="수정">			
 				<input type="button" id="deleteBtn" value="삭제">
-			</div>	
-			<div class="wrap">
-		   		<div class="search">
-		      		<button type="submit" class="searchButton">
-		        		<i class="fa fa-search"></i>
-		     		</button>
-			      	<input type="text" class="searchTerm" placeholder="What are you looking for?">
-		  		</div>
+			
+			<button type="submit" class="searchButton">
+			<i class="fa fa-search"></i>
+			</button>
+			<input type="text" class="searchTerm" placeholder="What are you looking for?">
 			</div>
+<!-- 			<div class="wrap"> -->
+<!-- 		   		<div class="search"> -->
+<!-- 		      		<button type="submit" class="searchButton"> -->
+<!-- 		        		<i class="fa fa-search"></i> -->
+<!-- 		     		</button> -->
+<!-- 			      	<input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
+<!-- 		  		</div> -->
+<!-- 			</div> -->
 		</div>
-		<div id="searchResult">
+	</div>
+	<div id="searchResult">
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 			<div class="newsListDiv"></div>
 		</div>
+	<canvas id="canvas" width="1200px" height="700px">; 
+		이 브라우저는 캔버스를 지원하지 않습니다.
+	</canvas>
+	
+		
 	</div>
 	<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
 	<input type="hidden" id="leader" name="leader" value="${mindMap.leader}">
