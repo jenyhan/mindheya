@@ -89,11 +89,11 @@
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
     		 apiKey: "AIzaSyCpRFSD9DTcGh40MRCHm0UwGitJarKT8Ak",
-    		    authDomain: "myproject-cf946.firebaseapp.com",
-    		    databaseURL: "https://myproject-cf946.firebaseio.com",
-    		    projectId: "myproject-cf946",
-    		    storageBucket: "myproject-cf946.appspot.com",
-    		    messagingSenderId: "659201790301"
+			  authDomain: "myproject-cf946.firebaseapp.com",
+			  databaseURL: "https://myproject-cf946.firebaseio.com",
+			  projectId: "myproject-cf946",
+			  storageBucket: "myproject-cf946.appspot.com",
+			  messagingSenderId: "659201790301"
      };
    
      // Initialize the default app
