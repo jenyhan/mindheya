@@ -18,7 +18,7 @@
 		#putTxt {
 			width:274px;
 			height: 40px;
-			border: 3px solid #00B4CC;
+			border: 3px solid #41c121;
 			font-size: 13px;
 			font-style: bold;
 		}
@@ -40,8 +40,8 @@
 		height: 35px;
 		border: none;
 		margin-top: 5px;
-		border: 3px solid #00B4CC;
-		color: #00B4CC;
+		border: 3px solid #41c121;
+		color: #41c121;
 		}
 		
 		#deleteBtn{
@@ -107,16 +107,13 @@
 		
 		}
 			
-		canvas {
-			background-color: #f2f2f2;
-/* 			border: 5px solid black; */
-			float: left;
-		}
-		
-		
 		#options {
-			width: 294px;
-			float: left;
+			background-color:5px solid #00B4CC;
+			width: 1200px;
+ 			border-top: 5px solid #00B4CC;
+ 			border-left: 5px solid #00B4CC;
+ 			border-right: 5px solid #00B4CC;
+ 			float: left; 
 /*     		border: 5px solid black; */
 		}
 		
@@ -130,7 +127,7 @@
 		}
 		
 		#searchTxt {
-			border: 3px solid #00B4CC;
+			border: 3px solid #41c121;
 			padding: 5px;
 			height: 20px;
 			border-radius: 5px;
@@ -139,13 +136,26 @@
 			width: 86%;
 		}
 		
+			canvas {
+			background-color: #f2f2f2;
+			border-top: 5px solid #00B4CC;
+			float: left; 
+		}
+		
 		#resultBox {
-			width: 100%;
+/* 			width: 100%; */
+			width: 319px;
 			text-align: center;
+			float: right;
+			height: 59px;
+			border-top: 5px solid #00B4CC;
+ 			border-bottom: 5px solid #00B4CC;
+ 			border-right: 5px solid #00B4CC;
 		}
 		
 		.newsListDiv td{
 			border: 1px solid black;
+			float: right;
 		}
 				    
     </style>
@@ -293,12 +303,12 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"
+			    apiKey: "AIzaSyBH7FlESsLcFqncNIBkPgd770RjRegX_ZU",
+			    authDomain: "fir-1400c.firebaseapp.com",
+			    databaseURL: "https://fir-1400c.firebaseio.com",
+			    projectId: "fir-1400c",
+			    storageBucket: "fir-1400c.appspot.com",
+			    messagingSenderId: "8678464484387"
 	  };
 
 	  // Initialize the default app
@@ -1022,9 +1032,8 @@
             </div><!--/.row-->    
         </div><!--/.container-->
     </section><!--/#services-->
-	<canvas id="canvas" width="1200px" height="700px">;
-		이 브라우저는 캔버스를 지원하지 않습니다.
-	</canvas>
+	
+	<div class = "bar">
 	<div id="options">
 		<div id="mainFunc">
 		
@@ -1033,20 +1042,31 @@
 				<input type="button" id="putBtn" value="등록">
 				<input type="button" id="updateBtn" value="수정">			
 				<input type="button" id="deleteBtn" value="삭제">
-			</div>	
-			<div class="wrap">
-		   		<div class="search">
-		      		<button type="submit" class="searchButton">
-		        		<i class="fa fa-search"></i>
-		     		</button>
-			      	<input type="text" class="searchTerm" placeholder="What are you looking for?">
-		  		</div>
+			
+			<button type="submit" class="searchButton">
+			<i class="fa fa-search"></i>
+			</button>
+			<input type="text" class="searchTerm" placeholder="What are you looking for?">
 			</div>
+<!-- 			<div class="wrap"> -->
+<!-- 		   		<div class="search"> -->
+<!-- 		      		<button type="submit" class="searchButton"> -->
+<!-- 		        		<i class="fa fa-search"></i> -->
+<!-- 		     		</button> -->
+<!-- 			      	<input type="text" class="searchTerm" placeholder="What are you looking for?"> -->
+<!-- 		  		</div> -->
+<!-- 			</div> -->
 		</div>
-		<div id="searchResult">
+	</div>
+	<div id="searchResult">
 			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
 			<div class="newsListDiv"></div>
 		</div>
+	<canvas id="canvas" width="1200px" height="700px">; 
+		이 브라우저는 캔버스를 지원하지 않습니다.
+	</canvas>
+	
+		
 	</div>
 	<input type="hidden" id="gotSeq" name="gotSeq" value="${mindMap.gotSeq}">
 	<input type="hidden" id="leader" name="leader" value="${mindMap.leader}">
