@@ -5,8 +5,8 @@
   
   <mapper namespace="com.my.map.Dao.CrawlingMapper">
   
+  	<!-- 북마크 추가 -->
   	<insert id="insertBM" parameterType="News">
-  	
   	insert into BMList(
   		bmSeq
   		,id 
@@ -49,6 +49,29 @@
   		
   	</select>
   	
-  
-  
+  	<!-- 북마크 삭제 -->
+  	<delete id="deleteBM" parameterType="String">
+  		delete from
+  			BMList
+  		where
+  			bmSeq=#{bmSeq}
+  		
+  	</delete>
+  	
+  	<!-- 북마크리스트에 기사 원문 보기 -->
+  	<select id="selectLink" parameterType="String" resultType="News">
+  		select 
+  			bmSeq
+  			,id 
+    		,title
+    		,summary
+    		,press
+    		,address
+    		,indate
+		from
+			BMList
+		where
+			bmSeq=#{bmSeq}
+  	</select>
+  	
   </mapper>

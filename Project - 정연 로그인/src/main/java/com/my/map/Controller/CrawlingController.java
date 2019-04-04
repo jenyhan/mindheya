@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.my.map.Dao.CrawlingDAO;
 import com.my.map.vo.News;
 
@@ -34,12 +31,6 @@ public class CrawlingController {
 		
 	@RequestMapping(value = "/selectContent", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<News> selectContent(String title) {
-
-		//여기 주석은 무시
-		//JSON 보낼 때 UTF-8로 변환
-		//produces = "application/text; charset=UTF-8"
-
-		System.out.println(title);
 		
 		//Document 정보를 가져오는 객체
 		Document doc = null;
@@ -76,16 +67,12 @@ public class CrawlingController {
 				// 주소 맨 앞에 오는 . 제거
 				address = address.substring(1);
 				
-				String newsTitle = element.select("> h4").text();
+				// 0404 -   4월3일까지 제목은 h4태그안에 있었는데 4월4일에 h3로 바뀜 ..  구글이 바꾼거겟지?
+				// 반드시 TEST 할 것!!!!!!@!@!@!@!@!@!@ 
+				// 발표날 아침까지 확인해봐야 할 곳 !!!!!!!!!!!!!!!!!!!!!!!!!
+				String newsTitle = element.select("> h3").text();
 				String summary = element.select("> p").text();
 				String press = element.select(".xxIStf.AVN2gc.pNs0Jf").text();
-				
-
-				System.out.println("address : " + address);
-				System.out.println("newsTitle : " + newsTitle);
-				System.out.println("summary : " + summary);
-				System.out.println("press : " + press);
-				System.out.println("---------------------------------------------");
 				
 				news.setTitle(newsTitle);
 				news.setSummary(summary);
@@ -95,9 +82,9 @@ public class CrawlingController {
 				newsList.add(news);
 			}
 			
-			for (int i = 0; i < newsList.size(); i++) {
+			/*for (int i = 0; i < newsList.size(); i++) {
 				System.out.println((i+1) + "번째 뉴스 제목 : " + newsList.get(i).getTitle());
-			}
+			}*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,14 +114,16 @@ public class CrawlingController {
 	
 	@RequestMapping(value = "/insertBM", method = RequestMethod.POST)
 	public @ResponseBody int insertBM(News news, HttpSession session) {
+		int result = 0;
+		
 		String loginId = (String) session.getAttribute("loginId");
 		news.setId(loginId);
 	
-		dao.insertBM(news);
+		result = dao.insertBM(news);
 		
 		// 여긴 return값을 원하는 걸로 바꿔서 보내는 걸루
 		
-		return 0;
+		return result;
 	}
 	
 	@RequestMapping(value="/goScrap", method=RequestMethod.GET)
@@ -155,6 +144,26 @@ public class CrawlingController {
 //		제대로 bmList 값 들어오고 보내짐
 		
 		return bmList;
+	}
+	
+	@RequestMapping(value = "/deleteBM", method = RequestMethod.POST)
+	public @ResponseBody int deleteBM(String bmSeq) {
+		int result;
+		
+		result = dao.deleteBM(bmSeq);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/selectLink", method = RequestMethod.GET)
+	public @ResponseBody String selectLink(String bmSeq) {
+		News returnNews;
+		
+		returnNews = dao.selectLink(bmSeq);
+		
+		String result = returnNews.getAddress();
+		
+		return result;
 	}
 		
 }
