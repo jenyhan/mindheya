@@ -116,8 +116,10 @@
     		    databaseURL: "https://myproject-cf946.firebaseio.com",
     		    projectId: "myproject-cf946",
     		    storageBucket: "myproject-cf946.appspot.com",
-    		    messagingSenderId: "659201790301" */
-
+    		    messagingSenderId: "659201790301"
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
      };
    
      // Initialize the default app
