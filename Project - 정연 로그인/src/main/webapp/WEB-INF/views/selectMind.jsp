@@ -94,7 +94,6 @@
     		    projectId: ,
     		    storageBucket: ,
     		    messagingSenderId: 
-
      };
    
      // Initialize the default app

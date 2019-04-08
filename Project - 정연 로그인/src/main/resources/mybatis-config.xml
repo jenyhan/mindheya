@@ -5,9 +5,12 @@
 <configuration>	
 	<typeAliases>
 		<typeAlias type="com.my.map.vo.Member" alias="Member" />
+		<typeAlias type="com.my.map.vo.News" alias="News" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="Mapper/MemberMapper.xml" />
 		<mapper resource="Mapper/MindMapMapper.xml" />
+		<mapper resource="Mapper/CrawlingMapper.xml" />
+		
 	</mappers>
 </configuration>
