@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <!--Import Google Icon Font-->
@@ -42,10 +43,12 @@
 	background-color:#4db6ac;
 } 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
+
+
 <!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
-
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
@@ -86,61 +89,64 @@
 	  var groupName;  // 공유 맵 이름
 	  var numLimit;	  // 총 공유 인원
 	  //var numShare;	//현재 공유 인원
-	  //init();
+
 	  $(function(){
-	 	  // 로그인한 UserId를 input hidden 태그에서 가져온다.
-		  var userId = $('#userId').val();	
 		  
+	 	  // 로그인한 UserId를 input hidden 태그에서 가져온다.
+		  var userId = $('#userId').val();
+
 	 	  // 파이어베이스에서 가져올 DB 경로 설정
-		  var notificationRef = firebase.database().ref('/users/' + userId + '/notification').on('value', loadNotification(snapshot));
+		  var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 	    	
-			function loadNotification(snapshot){
-				var notiList =JSON.parse(JSON.stringify(snapshot));
-				
-				for(var key in notiList){
-
-					var leader = notiList[key];
+ 		  notificationRef.on('value', function(snapshot){
+			  loadNotification(snapshot);
+		  });
+		  
+ 	});
+	  
+	  //파이어베이스 데이터를 가져와서 변수에 저장하는 함수
+	  function loadNotification(snapshot){
+			
+			//JSON 객체로 리스트 저장
+			var notiList = JSON.parse(JSON.stringify(snapshot));
+			
+			//배열 초기화
+			notificationArray = [];
+			
+			for(var key in notiList){
 					
-					for (var key2 in leader) {
-						
-						var seq = leader[key2].seq;
-						var groupName = leader[key2].groupName;
-						var numLimit = leader[key2].numLimit;
-					}
-				}
+				var leader = notiList[key];
 				
-				
-				
-				
-				
-				
-				
-				notificationRef.once('value').then(function(snapshot){
-					var leader = snapshot.child('notification/leader');
-					alert(leader);
-				});
+				notificationArray.push(leader);
+
+				showNotification(notificationArray);
 			}
+		}		
 				
+			
+		function showNotification(notificationArray){
+	
+			var contents = '';
 				
-				
-				
-				
-				//배열 초기화			
-/* 				notificationList = [];
-
-				
-				//seq세팅
-				for (var key in notiList){
-					var notiList2 = JSON.parse(JSON.stringify(notiList[key]));
+			$.each(notificationArray, function(index, item){
 					
-					for(var key2 in notiList2){
+				for(var i in item){
 
-						var notiObject = notiList2[key2];
-						notificationList.push(notiObject);
-					}
-				}*/
+					contents += '<table>';
+					contents += '<tr>';
+					contents += 	'<td>'+item[i].leader+'<td>';
+					contents += 	'<td>'+item[i].groupName+'<td>';
+					contents += 	'<td>'+item[i].numLimit+'<td>';
+					//contents += 	'<td>'+item[i].numShared+'<td>';
+					contents += 	'<td><button>이동<td>';
+					contents += '</tr>';
+					contents += '</table>';
+					//contents += '<form id="goMap" action="goMap" method="GET">';
+				}
+			});
 				
-	  });
+			$('.shareTable').html(contents);
+		}
 
 </script>
 
@@ -173,10 +179,15 @@
 		<tr>
 			<td>공유하는 사람</td>
 			<td>공유 마인드맵 이름</td>
-			<td>공유된 인원/총 공유 인원</td>
+			<td>총 공유 인원</td>
+			<td>공유된 인원</td>
 			<td>이동</td>
 		</tr>
 	</table>
 </div>
+<div>
+<table class="shareTable"></table>
+</div>
+
 </body>
 </html>
