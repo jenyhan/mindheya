@@ -423,15 +423,7 @@
 			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
 			    projectId: "web-crawling-6562b",
 			    storageBucket: "web-crawling-6562b.appspot.com",
-<<<<<<< HEAD
-			    messagingSenderId: "407695243177"		  
-=======
-<<<<<<< HEAD
 			    messagingSenderId: "407695243177"			  
-=======
-			    messagingSenderId: "407695243177"			  
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	  };
 
 	  // Initialize the default app
