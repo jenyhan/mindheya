@@ -13,12 +13,14 @@
         <style>
 			
 		@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
+		@import url('https://fonts.googleapis.com/css?family=Jua&subset=korean');
+		@import url('https://fonts.googleapis.com/css?family=Cute+Font|Jua');
 		
 		#putTxt {
-			width:274px;
+			width:400px;
 			height: 40px;
 			border: 3px solid #41c121;
+			border-radius: 10px;
 			font-size: 13px;
 			font-style: bold;
 		}
@@ -36,12 +38,13 @@
 		
 		
 		#putBtn, #deleteBtn, #updateBtn{
-		width: 91px;
-		height: 35px;
+		width: 150px;
+		height: 40px;
 		border: none;
 		margin-top: 5px;
 		border: 3px solid #41c121;
 		color: #41c121;
+		border-radius: 10px;
 		}
 		
 		#deleteBtn{
@@ -69,9 +72,10 @@
 		}
 		
 		.searchTerm {
-		
-		  width:239px;
+		margin-top: 5px;
+		  width:300px;
 		  height: 40px;
+		  float: right;
 		  border: 3px solid #41c121;
 		  padding: 5px;
 		  border-radius: 10px;
@@ -80,16 +84,21 @@
 		
 		
 		.searchButton {
-		  width: 35px;
-		  height: 37px;
-		  border: 1px solid #41c121;
+		
+		font-family: 'Cute Font', cursive;
+		  width: 120px;
+		  height: 38px;
+		  float: right;
+		  border: 1px solid #00B4CC;
 		  border-radius: 5px;
-		  font-size: 20px;
-		  background: #41c121;
+		  font-size: 50px;
+		  color: white;
+		  background: #00B4CC;
 		  text-align: center;
-		  color: #fff;
-		  cursor: pointer;
+ 		  cursor: pointer; 
+		  margin-top: 5px;
 		}
+		
 
 		.wrap{
 			margin-bottom: 5px;
@@ -118,7 +127,7 @@
 		#options {
 			background-color: #00B4CC;
 			width: 1500px;
- 			border: 5px solid #00B4CC;
+ 			border: 4px solid #00B4CC;
  			float: left; 
 
 		}
@@ -148,25 +157,124 @@
 		}
 		
 		#resultBox {
+			
+			font-family: 'Cute Font', cursive;
+			background-color: #00B4CC;
+			color: white;
 			width: 400px;
 			text-align: center;
+			font-size: 50px;
+			font-weight: bold;
 			float: left;
 			height: 58px;
 			border-top: 5px solid #00B4CC;
  			border-bottom: 5px solid #00B4CC;
  			border-right: 5px solid #00B4CC;
+ 			border-left: 5px solid #00B4CC;
+		  
 		}
 		
 		.newsListDiv{
+			width: 399px;
 			height: 1000px;
+			background-color: grey;
 			float: left;
+			overflow: auto;
+			border-left: 2px dashed #00B4CC;
+			
+		}
+				
+		.newsDiv {
+			width: 369px;
+			background-color: #e8e1ae;
+			border: 2px solid grey;
+			margin-top : 5px;
+			margin-left : 5px;
+			vertical-align: middle;
+		}		
+		
+		.title {
+			width: 349px;
+			line-height: 30px;
+			background-color: #f2f2f2;
+			box-shadow: 5px 5px;
+			margin: 10px;
+			padding-top: 5px;
+			text-align: center;
+			font-family: 'Jua', sans-serif;
+			/* border: 2px solid grey; */
 		}
 		
-		.newsListDiv td{
-			height: 200px;
-			border: 1px solid black;
-			float: left;
+		.press {
+			margin-top: 5px;
+			text-align: right;
 		}
+
+		.address{
+
+			text-align: center;
+		}
+				  
+		.address a{			
+			font-family: 'Cute Font', cursive;
+			font-size: 25px;
+		}		  
+		
+		.addBtn {
+			text-align: right;
+		}
+				  
+		.summary{
+			line-height: 30px;
+			font-weight: bold;
+			font-size: 20px;
+			margin-left: 10px;
+			margin-right: 10px;
+			
+		}		  
+		
+		#loadingDiv{
+
+			float: left;
+			background-color: grey;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			vertical-align: middle;
+			
+		}
+
+		#loadingDiv h2{
+		
+			line-height: 500px;
+			text-align: center;
+			font-size: 70px;
+			color: white;
+			font-family: 'Cute Font', cursive;
+
+		}
+
+		#loadingDiv2{
+
+			float: left;
+			background-color: grey;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			vertical-align: middle;
+			
+		}
+
+		#loadingDiv2 h2{
+		
+			line-height: 500px;
+			text-align: center;
+			font-size: 70px;
+			color: white;
+			font-family: 'Cute Font', cursive;
+
+		}
+		
 				    
     </style>
     
@@ -216,16 +324,30 @@
 			
 			 /* ----------------------------기사 테스트------------------------------ */
 			$('.searchButton').on("click", function(){
+								
+				$(".newsListDiv").html("");
+
+				$(".newsListDiv").css("overflow","visible");
+				
+				var readyHtml = '<div id="loadingDiv">';
+				readyHtml += '<h2>Loading...</h2>';
+				readyHtml += '</div>';
+				
+				$(".newsListDiv").html(readyHtml);
+
+				$("#loadingDiv").addClass("readyHtml");
 				
 				var keyWord = $(".searchTerm").val();
-
 				$.ajax({
 					url : "selectContent",
 					data : {title:keyWord},
 					type : "get",
 					success : function(result) {
-
+						
 					output(result); 
+
+					$(".newsListDiv").css("overflow","auto");
+					
 					}
 				});
 			});
@@ -233,40 +355,30 @@
 	 
 			function output(result){			
 				
-  				var content = '<table><tr>';
-				content += '<th class="big"><h3>뉴스</h3></th>';				
-				content += '</tr>';
-				content += '<tr>';
-				content += 	'<th> 제목 </th>';
-				content += 	'<th> 내용 </th>';
-				content += 	'<th> 신문사 </th>';
-				content += '</tr>';
+
+				var content = ""; 
 				
 				if(result != ""){
 					$.each(result, function(index, item){
 
-						
-						content += 	'<tr>';
-						content += 		'<div class="newsDiv">';
-						content += 			'<td class="title">' + item.title + '</td>';
-						content += 			'<td class="summary">' + item.summary + '</td>';
-						content += 			'<td class="press">' + item.press + '</td>';
-						content += 			'<td class="address"><a href="https://news.google.com'+item.address+'">기사 본문보기</a><button class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '">북마크 추가</button></td>';
-						content += 		'</div>';
-				 		content += 	'</tr>';
+						content += 	'<div class="newsDiv">';
+						content += 		'<div class="title"><h4>' + item.title + '</h4></div>';
+						content += 		'<div class="summary">&nbsp;&nbsp;' + item.summary + '</div>';
+						content += 		'<div class="press">' + item.press + '</div>';
+						content += 		'<div class="address"><a href="https://news.google.com'+item.address+'" target="_blank" rel="noopener noreferrer">기사 본문보기</a></div>';
+						content += 		'<div class="addBtn"><button class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '">Scrap</button></div>';
+						content += 	'</div>';
 
 						if(index == 4){
 							return false;
 						}
 
 					});														
-				}
- 				
-				content += '</table>';
+				} 				
 	
 				$(".newsListDiv").html(content);
 
-				$(".bmBtn").on("click", function(){
+				$(".bmBtn").off("click").on("click", function(){
 					
 					var bmTitle = $(this).attr('bm-title');
 					var bmSummary = $(this).attr('bm-summary');
@@ -299,14 +411,7 @@
 			 
 				});
 				
-				
-				
-				
-				
-				
-				}
-			
-			
+			}
 		});
 </script>
 <script>
@@ -319,9 +424,13 @@
 			    projectId: "web-crawling-6562b",
 			    storageBucket: "web-crawling-6562b.appspot.com",
 <<<<<<< HEAD
+			    messagingSenderId: "407695243177"		  
+=======
+<<<<<<< HEAD
 			    messagingSenderId: "407695243177"			  
 =======
 			    messagingSenderId: "407695243177"			  
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 >>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 	  };
 
@@ -343,8 +452,7 @@
 	var ex, ey;  // 드래그 끝점
 	var drawing; // 그리고 있는 중인가
 	var backup;  // 캔버스 객체 백업
-	var depColor = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
-	
+	var depColor = ["#0061ff", "#2678ff", "#4e90fc", "#70a6ff", "#89b5ff", "#a8c8ff", "#bcd5ff"];
 	
 		
 	///////////////
@@ -521,7 +629,7 @@
 				}
 								
 				$('.searchTerm').val(selectedObj.id);
-				
+				$('.searchButton').trigger('click');
 				
 				//움직임을 boolean으로 설정
 				draggable = true;
@@ -922,8 +1030,9 @@
 						
 						//lineTo() : 그리기 끝낼 점 값을 입력(본인의 afterX, afterY)
 						ctx.lineTo(array.afterX, array.afterY);
-						ctx.strokeStyle = depColor[array.depth];
-						ctx.lineWidth = 3;
+						ctx.strokeStyle = depColor[array.depth];					
+
+ 						ctx.lineWidth = 3;
 
 						//stroke() : 줄을 그려준다.
 						ctx.stroke();
@@ -956,7 +1065,8 @@
 
  					ctx.beginPath();
  					ctx.font = "15px Arial";
-					ctx.strokeStyle = depColor[savedArray[i].depth];										
+					ctx.lineWidth = 5;
+ 					ctx.strokeStyle = depColor[savedArray[i].depth];										
  					
  					var txtWidth = ctx.measureText(savedArray[i].id).width;
  					var txtHeight = 50;
@@ -1106,33 +1216,27 @@
 
     <header id="header">
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
-            <div class="container">
+            <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 100%;">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
+                    <ul class="nav navbar-nav" style="width: 170%;">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
 						</c:if>
                     </ul>
                 </div>
             </div><!--/.container-->
-        </nav>        
-    </header>
+        </nav><!--/nav-->
+    </header><!--/header-->
+
 
 
     <section id="servicesMap" >
@@ -1158,16 +1262,18 @@
 				<input type="button" id="updateBtn" value="수정">			
 				<input type="button" id="deleteBtn" value="삭제">
 			
-			<button type="submit" class="searchButton">
-			<i class="fa fa-search"></i>
-			</button>
+			<input type="button" class="searchButton" value="Search"></input>
 			<input type="text" class="searchTerm" placeholder="What are you looking for?">
 			</div>
 		</div>
 	</div>
 	<div id="searchResult" class="searchResult">
-			<input type="text" id="resultBox" value="검색결과(최신 5개의 기사)" disabled>
-			<div class="newsListDiv"></div>
+			<input type="text" id="resultBox" value="News List" disabled>
+			<div class="newsListDiv">
+				<div id="loadingDiv2">
+					<h2>Click Your Mind</h2>
+				</div>
+			</div>
 	</div>	
 	<canvas id="canvas" width="1500px" height="1000px">; 
 		이 브라우저는 캔버스를 지원하지 않습니다.

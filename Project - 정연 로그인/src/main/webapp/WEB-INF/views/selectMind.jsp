@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +26,8 @@
 		   box-shadow: 0 5px 15px;
 		   font-size: 40px;
 		   float: center;
-		   width: 150px;
-		   height: 70px;
+		   width: 250px;
+		   height: 100px;
 		
 		}
 		
@@ -45,7 +45,35 @@
 		   border: 2px solid #3B6EB5;
 		   background-color: #3B6EB5;
 		}
+		
+		.chooseText {
+			font-size: 45px;
+      		font-family: 'Gamja Flower', cursive;
+
+		}
+				
+		.mindMapImg {
+			width: 70px;
+			height: 80px;
+		}
+		
+		.showDefault {
+			
+			width: 100%;
+			height: 500px;
+			margin-top: 120px;
+			text-align: center;
+			font-size: 50px;
+      		font-family: 'Gamja Flower', cursive;
+		
+		}
 			    
+		.mindMapDiv {
+			margin-left: 5.5%;
+			margin-bottom: 5.5%;
+		}		    
+	
+	
     </style>
     
 	<!-- CSS -->
@@ -88,12 +116,21 @@
      // 파이어베이스 초기화 세팅
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
+<<<<<<< HEAD
+    		    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
+    		    authDomain: "web-crawling-6562b.firebaseapp.com",
+    		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
+    		    projectId: "web-crawling-6562b",
+    		    storageBucket: "web-crawling-6562b.appspot.com",
+    		    messagingSenderId: "407695243177"
+=======
     		    apiKey: ,
     		    authDomain: ,
     		    databaseURL: ,
     		    projectId: ,
     		    storageBucket: ,
     		    messagingSenderId: 
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
      };
    
      // Initialize the default app
@@ -116,14 +153,17 @@
       var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
       
       var mapTreeRef = firebase.database().ref('/users/' + userId + '/MapTree');
-
+      		
       var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
+     
       
       
       var seq = 0;
       
       var selectFlag = 0;
+      
+      var numShare = 0;
             
       
       function createMind(){
@@ -135,7 +175,8 @@
                seq : savedList[i].seq,
                leader : savedList[i].leader,
                groupName : savedList[i].groupName,
-               numLimit : savedList[i].numLimit
+               numLimit : savedList[i].numLimit,
+               numShare : savedList[i].numShare
                
             });
 
@@ -155,7 +196,12 @@
          //배열 초기화
          savedList = [];
          
-                  
+         
+         if(mindMapList==null){
+            showDefault();
+            return;
+         }
+         
          //seq세팅
          for (var key in mindMapList){
             if(mindMapList[key].leader == userId){
@@ -164,6 +210,7 @@
                }
             }
          }
+         
          
          //jArrays를 돌리면서 savedList에 저장해줄 것.
          for (var key in mindMapList) {
@@ -174,6 +221,17 @@
          showMap();
       }
       
+      
+      function showDefault(){
+         
+         var content = '';
+         content += '<div class="showDefault">No MindMap on List';
+          content += '</div>'
+         
+         $('.features').html(content);
+         
+      }
+      
       function showMap(){
          
          if(savedList.length == 0){
@@ -181,15 +239,26 @@
          }
          var content = '';
          
-         $.each(savedList, function(index, item){
-             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 33%;">';
-             content += 	'<div class="media service-box" >';
+         $.each(savedList, function(index, item){       
+             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 370px;">';
+             content += 	'<div class="media service-box">';
              content +=			'<div class="pull-left">';
-             content +=				'<i class="fa fa-magic"></i>';
+             content +=				'<img src="resources/images/mindMapImg2.png" class="mindMapImg">';
              content +=			'</div>';
              content += 		'<div class="media-body">';
-             content += 			'<h4 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h4>';
-			 content +=				'<h5 class="mindMapLeader" leader-value="' + item.leader + '">'  + item.leader + '</h5>';
+             
+             if(item.groupName.length<13){
+	             content += 		'<h2 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h2>';
+            	 
+             } else if(item.groupName.length<19){
+	             content += 		'<h3 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h3>';
+            	 
+             } else {
+	             content += 		'<h6 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h6>';
+
+             }
+
+             content +=				'<h5 class="mindMapLeader" leader-value="' + item.leader + '">Leader : '  + item.leader + '</h5>';
              content +=				'<h5 class="mindMapNumLimit" limit-value="' + item.numLimit + '">Member :' + item.numLimit + '</h5>';
              content += 		'</div>';
              content += 	'</div>';
@@ -226,12 +295,10 @@
                   for(var i = 0; i < savedList.length; i++){
                      if(savedList[i].leader == leader){
                         if(savedList[i].seq == gotSeq){
-                           mindRef.child(savedList[i].groupName).remove();
-
-                           //삭제하면
-                     	   //MapTree 트리 안에 있는 마인드맵 객체도 삭제되어야 한다.
-
-                     	   savedList.splice(i, 1);
+                            
+                           mapTreeRef.child(savedList[i].groupName).remove();
+                            mindRef.child(savedList[i].groupName).remove();
+                            
                         }
                      }
                      
@@ -253,17 +320,25 @@
 
                      if(result=="fail"){
                         alert('존재하지 않는 아이디입니다, 다시 선택해주세요.');
+                     
+                     } else if(result=="same"){
+                       alert('본인에게 공유할 수 없습니다.');
+                        
+                        
                      } else {
                         selectFlag = 0;
                         var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
                         if(question){
                            alert('메세지를 보냅니다.');
                            
+                           numShare = numShare + 1;
+                           
                            var messageObj = {
                                  seq : gotSeq,
                                  leader : leader,
                                  groupName : groupName,
-                                 numLimit : numLimit
+                                 numLimit : numLimit,
+                                 numShare : numShare
                            };
                            
                            notificationList.push(messageObj);
@@ -276,7 +351,8 @@
                                  seq : notificationList[i].seq,
                                  leader : notificationList[i].leader,
                                  groupName : notificationList[i].groupName,
-                                 numLimit : notificationList[i].numLimit
+                                 numLimit : notificationList[i].numLimit,
+                                 numShare : notificationList[i].numShare
    
                               });
                            }
@@ -347,6 +423,7 @@
             //동일한 마인드맵 이름 체크
             while(checkName){
                groupName = prompt("새로운 그룹명을 정해주세요.");
+               
                if(groupName==null){
                   alert('등록을 취소합니다.');
                   return;
@@ -357,6 +434,7 @@
                      alert('동일한 이름이 존재합니다.');
                      break;
                   }
+                                   
                   
                   if(i == savedList.length - 1 && checkName == true){
                      checkName = false;
@@ -364,7 +442,8 @@
                }
             }            
          }
-         
+
+
 
          var numLimit = prompt("그룹 인원수를 정해주세요.");   
          if(numLimit==null){
@@ -376,7 +455,8 @@
                seq : seq,
                leader : userId,
                groupName : groupName,
-               numLimit : numLimit
+               numLimit : numLimit,
+               numShare : numShare
          }
          
          savedList.push(newMap);
@@ -401,28 +481,21 @@
 
     <header id="header">
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
-            <div class="container">
+            <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
-                <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 100%;">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
-						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
-						</c:if>
-						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="logout">Logout</a></li>                        						
-						</c:if>
+               <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+                    <ul class="nav navbar-nav" style="width: 170%;">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
+                  <c:if test="${sessionScope.loginId==null}">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                                          
+                  </c:if>
+                  <c:if test="${sessionScope.loginId!=null}">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                                          
+                  </c:if>
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -430,22 +503,19 @@
     </header><!--/header-->
 
     <section id="services" >
-        <div class="container">
+        <div class="container" style="width:100%;">
 
             <div class="section-header">
                 <h2 class="section-title text-center wow fadeInDown">${sessionScope.loginId}'s MindMap</h2>
-                <p class="text-center wow fadeInDown"> Choose Your Mind</p>
+                <p class="text-center wow fadeInDown chooseText">Choose Your Mind</p>
             </div>
 			<div class="optionBtn">
 			   <button id="createMindMap">추가</button>
 			   <button id="deleteMindMap">삭제</button>
 			   <button id="shareMindMap">공유</button>
 		   </div>
-
-
-
             <div class="row">
-                <div class="features" style="width: 110%; margin-left:5%;">
+                <div class="features" style="width: 100%;">
                 </div>
             </div><!--/.row-->    
         </div><!--/.container-->
@@ -465,15 +535,6 @@
                     &copy; 2019 MarvelousMonday.
                 </div>
                 <div class="col-sm-6">
-                    <!-- <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul> -->
                 </div>
             </div>
         </div>

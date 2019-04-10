@@ -49,7 +49,7 @@
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
+                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goShare">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
                         <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
 						</c:if>
