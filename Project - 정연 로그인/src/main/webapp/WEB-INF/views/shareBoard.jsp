@@ -138,7 +138,7 @@
 					contents += 	'<td>'+item[i].leader+'<td>';
 					contents += 	'<td>'+item[i].groupName+'<td>';
 					contents += 	'<td>'+item[i].numLimit+'<td>';
-					//contents += 	'<td>'+item[i].numShared+'<td>';
+					contents += 	'<td>'+item[i].numShared+'<td>';
 					contents += 	'<td><button>이동<td>';
 					contents += '</tr>';
 					contents += '</table>';

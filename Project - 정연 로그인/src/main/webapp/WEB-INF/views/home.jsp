@@ -44,13 +44,20 @@
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
             <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+
                     <ul class="nav navbar-nav" style="width: 170%;">
                         <li class="scroll" style="margin-left:15%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap">マインド部屋</a></li>
                         <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goShare">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
                         <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
 						</c:if>
