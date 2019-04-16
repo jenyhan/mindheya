@@ -41,28 +41,22 @@
 <body id="home" class="homepage">
 
     <header id="header">
-        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="height:100px;">
             <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home" style="padding-top: 15px;"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
 
                     <ul class="nav navbar-nav" style="width: 170%;">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap">マインド部屋</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goShare">Share</a></li>                        
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap" style="font-size: 90%">MindMap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;" ><a href="goScrap" style="font-size: 90%">Scrap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goShare" style="font-size: 90%">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="login?tabNum=0" style="font-size: 90%">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="logout" style="font-size: 90%">Logout</a></li>                        						
 						</c:if>
                     </ul>
                 </div>
@@ -77,8 +71,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="carousel-content">
-                                    <h2 style="color:white;"><span>マインド部屋</span></h2>
-                                     <!-- <p><h2 style="color:white;"> あなたの部屋はだいじょうぶですか？ </h2></p> -->
+                                     <!-- <h2 style="color:white;"><span>マインド部屋</span></h2> -->
+                                      <!-- <p><h2 style="color:white;"> あなたの部屋はだいじょうぶですか？ </h2></p> -->
                                 </div>
                             </div>
                         </div>
@@ -95,15 +89,6 @@
                     &copy; 2019 MarvelousMonday.
                 </div>
                 <div class="col-sm-6">
-                    <!-- <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul> -->
                 </div>
             </div>
         </div>
