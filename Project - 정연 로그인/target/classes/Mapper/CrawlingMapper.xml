@@ -74,4 +74,28 @@
 			bmSeq=#{bmSeq}
   	</select>
   	
+  	<!-- 원하는 북마크 1개만 title안에서 찾기  -->
+  	<select id="searchArticle" parameterType="News" resultType="News">
+  		select
+  			bmSeq
+  			,id 
+    		,title
+    		,summary
+    		,press
+    		,address
+    		,indate
+    	from
+    		BMList
+    	where
+    		id=#{id}
+    	and
+    		(title like '%' ||  #{title} || '%'
+    	or
+    		summary like '%' ||  #{title} ||'%')
+    	order by 
+  			bmSeq
+    
+  	</select>
+    		
+  	
   </mapper>

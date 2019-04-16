@@ -77,4 +77,19 @@ public class CrawlingDAO {
 		}
 		return news;
 	}
+	
+	// Scrap.jsp에서 제목으로 북마크 검색
+	public ArrayList<News> searchArticle(News news){
+		ArrayList<News> searchBM = new ArrayList<News>();
+		
+		CrawlingMapper mapper = sqlSession.getMapper(CrawlingMapper.class);
+		
+		try {
+			searchBM = mapper.searchArticle(news);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return searchBM;
+	}
 }

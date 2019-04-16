@@ -46,7 +46,7 @@ public class CrawlingController {
 		    String url1 = "https://news.google.com/search?q=";
 		    String url2 = "&hl=ko&gl=KR&ceid=KR%3Ako";
 		    String myUrl = url1 + encTitle + url2;
-//						https://news.google.com/search?q=    %EC%98%81%ED%99%94    &hl=ko&gl=KR&ceid=KR%3Ako
+//			https://news.google.com/search?q=    %EC%98%81%ED%99%94    &hl=ko&gl=KR&ceid=KR%3Ako
 		    ArrayList<News> newsList = new ArrayList<News>();
 		
 		try {
@@ -54,17 +54,22 @@ public class CrawlingController {
 			doc = Jsoup.connect(myUrl).get();
 			
 			// Body 가져옴
-//			Elements selectBody = doc.select(".T4LgNb .FVeGwb.CVnAc .ajwQHc.BL5WZb.RELBvb .tsldL.Oc0wGc.RELBvb .HKt8rc.CGNRMc .FffXzd .lBwEZb.BL5WZb.xP6mwf .NiLAwe.y6IFtc.R7GTQ.keNKEd.j7vNaf.nID9nc");
+			// article 태그 바로 위 div를 가져와야 a tag를 인식한다
 			Elements selectBody = doc.select(".MQsxIb.xTewfe.R7GTQ.keNKEd.j7vNaf.Cc0Z5d.EjqUne");
-//							.NiLAwe.y6IFtc.R7GTQ.keNKEd.j7vNaf.nID9nc 
-//			 										   MQsxIb xTewfe tXImLc R7GTQ keNKEd keNKEd  dIehj EjqUne
-//												       NiLAwe y6IFtc R7GTQ keNKEd j7vNaf nID9nc
+//											   NiLAwe y6IFtc R7GTQ keNKEd j7vNaf nID9nc
+			// selectBody여긴 문제 없음
 			
 			for (Element element : selectBody) {
+				
 				News news = new News();
+				
+				// 여긴 잘들어옴
+				// System.out.println("element : "+element);
+				
 				
 				String address = element.select("> a").attr("href");
 				// 주소 맨 앞에 오는 . 제거
+				
 				address = address.substring(1);
 				
 				// 0404 -   4월3일까지 제목은 h4태그안에 있었는데 4월4일에 h3로 바뀜 ..  구글이 바꾼거겟지?
@@ -165,5 +170,21 @@ public class CrawlingController {
 		
 		return result;
 	}
+	
+	@RequestMapping(value = "/searchArticle", method = RequestMethod.GET)
+	public @ResponseBody ArrayList<News> searchArticle(News news, HttpSession session) {
+		
+		ArrayList<News> bmList = new ArrayList<News>();
+		
+		String loginId = (String)session.getAttribute("loginId");
+		
+		news.setId(loginId);
+		
+		bmList = dao.searchArticle(news);
+		
+		return bmList;
+	}
+	
+	
 		
 }
