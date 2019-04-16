@@ -147,7 +147,11 @@
     		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
     		    projectId: "web-crawling-6562b",
     		    storageBucket: "web-crawling-6562b.appspot.com",
+<<<<<<< HEAD
     		    messagingSenderId: "407695243177"
+=======
+    		    messagingSenderId: "407695243177"
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
      };
    
      // Initialize the default app
@@ -545,7 +549,11 @@
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
                         <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="logout" style="font-size: 90%">Logout</a></li>                        						
+<<<<<<< HEAD
 						</c:if>
+=======
+						</c:if>
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
                     </ul>
                 </div>
             </div><!--/.container-->

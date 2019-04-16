@@ -137,12 +137,25 @@ body {
  		}
 		
 		if(!getMail.test($("#email").val())){
-	        alert("이메일형식에 맞게 입력해주세요")
+	        alert("이메일형식에 맞게 입력해주세요");
 	        $("#mail").val("");
 	        $("#mail").focus();
 	        return false;
-	      }
-		$("#register-form").submit();
+	    }
+		
+		$.ajax({
+			url : "checkEmail",
+			data : {email:email},
+			type : "get",
+			success : function(result) {
+				if(result=="ok"){
+					$("#register-form").submit();					
+				} else {
+					alert('이미 등록된 이메일입니다.');
+				}			
+			}
+		});
+				
   }
 </script>  
 <body>
@@ -152,9 +165,9 @@ body {
     <form class="register-form" id="register-form" action="register-form" method="post">
 	  <img src="resources/image/marvelousmonday.png" class="logo"><br><br> 
       <input type="text" placeholder="username" id="id" name="id" value="${member.id}"><br>
-      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
-      
+      <input type="password" placeholder="password" id="pw"name="pw" value="${member.pw}"><br>
       <input type="text" placeholder="email" id="email"name="email" value="${member.email}"><br>
+      <font color="red">${warning}</font>
       <input type="button" onclick="javascript:login()" value="create" id="register-button">
       <p class="message">Already registered?<br> 
       <a href="login" class="optionSet">login</a><a href="home" class="optionSet">Home</a></p>
