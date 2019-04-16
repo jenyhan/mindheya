@@ -90,7 +90,7 @@
 	  var seq;		  // 공유 맵 시퀀스
 	  var groupName;  // 공유 맵 이름
 	  var numLimit;	  // 총 공유 인원
-	  var numShare;	//현재 공유 인원
+	  var numShare;	  //현재 공유 인원
 
 	  $(function(){
 		  
@@ -139,7 +139,7 @@
 					contents += 	'<td>'+item[i].leader+'<td>';
 					contents += 	'<td>'+item[i].groupName+'<td>';
 					contents += 	'<td>'+item[i].numLimit+'<td>';
-					contents += 	'<td>'+item[i].numShared+'<td>';
+					contents += 	'<td>'+item[i].numShare+'<td>';
 					contents += 	'<td><button>이동<td>';
 					contents += '</tr>';
 					contents += '</table>';

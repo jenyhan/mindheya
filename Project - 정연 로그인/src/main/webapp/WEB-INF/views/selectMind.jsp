@@ -103,9 +103,9 @@
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
-<script   src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
-<script   src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
-<script   src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-functions.js"></script>
 
 <!-- Comment out (or don't include) services that you don't want to use -->
 <!-- <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-storage.js"></script> -->
@@ -116,21 +116,14 @@
      // 파이어베이스 초기화 세팅
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
-<<<<<<< HEAD
-    		    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-    		    authDomain: "web-crawling-6562b.firebaseapp.com",
-    		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-    		    projectId: "web-crawling-6562b",
-    		    storageBucket: "web-crawling-6562b.appspot.com",
-    		    messagingSenderId: "407695243177"
-=======
-    		    apiKey: ,
-    		    authDomain: ,
-    		    databaseURL: ,
-    		    projectId: ,
-    		    storageBucket: ,
-    		    messagingSenderId: 
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
+			    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
+			    authDomain: "firstpractice-190218.firebaseapp.com",
+			    databaseURL: "https://firstpractice-190218.firebaseio.com",
+			    projectId: "firstpractice-190218",
+			    storageBucket: "firstpractice-190218.appspot.com",
+			    messagingSenderId: "375340198473"
+
      };
    
      // Initialize the default app
@@ -145,6 +138,8 @@
      
      var notificationList = [];
      
+     var sharedList = [];
+     
 /* --------------------------------------------------------------------------------------- */
    $(function(){
       //로그인한 UserId를 input hidden 태그에서 가져온다.
@@ -153,16 +148,9 @@
       var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
       
       var mapTreeRef = firebase.database().ref('/users/' + userId + '/MapTree');
-<<<<<<< HEAD
-      		
-=======
-		
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
       var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
-     
-      
-      
       var seq = 0;
       
       var selectFlag = 0;
@@ -180,7 +168,6 @@
                leader : savedList[i].leader,
                groupName : savedList[i].groupName,
                numLimit : savedList[i].numLimit,
-               numShare : savedList[i].numShare
                
             });
 
@@ -202,13 +189,9 @@
          
          
          if(mindMapList==null){
-<<<<<<< HEAD
             showDefault();
             return;
-=======
-        	 showDefault();
-        	 return;
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
          }
          
          //seq세팅
@@ -218,6 +201,16 @@
                   seq = mindMapList[key].seq;
                }
             }
+         }
+         
+         
+         
+		//numShare 세팅
+         var notificationList = [];
+         for (var key in notificationList){
+        	 if(notificationList[key].numShare > numShare){
+        		 numShare = notificationList[key].numShare;
+        	 }
          }
          
          
@@ -232,23 +225,13 @@
       
       
       function showDefault(){
-<<<<<<< HEAD
          
          var content = '';
          content += '<div class="showDefault">No MindMap on List';
           content += '</div>'
          
          $('.features').html(content);
-         
-=======
-    	  
-    	  var content = '';
-    	  content += '<div class="showDefault">No MindMap on List';
-          content += '</div>'
-    	  
-         $('.features').html(content);
-			
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
       }
       
       function showMap(){
@@ -258,11 +241,8 @@
          }
          var content = '';
          
-<<<<<<< HEAD
          $.each(savedList, function(index, item){       
-=======
-         $.each(savedList, function(index, item){
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
              content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 370px;">';
              content += 	'<div class="media service-box">';
              content +=			'<div class="pull-left">';
@@ -319,12 +299,9 @@
                      if(savedList[i].leader == leader){
                         if(savedList[i].seq == gotSeq){
                             
-<<<<<<< HEAD
                            mapTreeRef.child(savedList[i].groupName).remove();
-=======
-                        	mapTreeRef.child(savedList[i].groupName).remove();
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-                            mindRef.child(savedList[i].groupName).remove();
+
+                           mindRef.child(savedList[i].groupName).remove();
                             
                         }
                      }
@@ -349,15 +326,8 @@
                         alert('존재하지 않는 아이디입니다, 다시 선택해주세요.');
                      
                      } else if(result=="same"){
-<<<<<<< HEAD
                        alert('본인에게 공유할 수 없습니다.');
-                        
-                        
-=======
-                    	alert('본인에게 공유할 수 없습니다.');
-                    	 
-                    	 
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
                      } else {
                         selectFlag = 0;
                         var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
@@ -388,16 +358,41 @@
                                  numShare : notificationList[i].numShare
    
                               });
-                           }
+                           } 
                            
                            //알림 처리 기능
                            
                            
                            //공유 받을 사람 칼럼 추가
-                            /* var ref = new Firebase('https://firstpractice-190218.firebaseio.com'); */
-                            mindRef.on('child_added', function(snapshot) {
-                                snapshot.ref().update({shared: shareId});
-                            });
+                           sharedList = [];
+                           
+                           mindRef.once("value").then(function(snapshot) {
+                        	  
+                        	  var exist = snapshot.child("shared").exists();
+                        	   alert(exist);
+                        	  if (exist) {	//if child exists
+                        		  
+                         		  for (var i = 0; i < savedList.length; i++) {
+                        			  
+                        			  sharedList.push(savedList[i].shared);
+                        		  }
+                        		  
+                        		  sharedList.push(shareId);
+                        		  alert(sharedList);
+/*                         		  firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).update({
+                        			  shared : sharedList
+                        		  }) */
+                        		  
+                        		  
+                        		  //mindRef.child(groupName).set({shared: sharedList});
+                        	  }
+                        	  
+                        	  else {		//if child does not exist
+ 								alert(exist);
+                        		  mindRef.child(groupName).update({shared: shareId});	  
+                        	  }
+                           })
+                        	  
                            
                         } else{
                            alert('공유 취소');
@@ -489,7 +484,7 @@
                leader : userId,
                groupName : groupName,
                numLimit : numLimit,
-               numShare : numShare
+
          }
          
          savedList.push(newMap);
@@ -518,7 +513,6 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
-<<<<<<< HEAD
                <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
                     <ul class="nav navbar-nav" style="width: 170%;">
                         <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
@@ -530,19 +524,7 @@
                   <c:if test="${sessionScope.loginId!=null}">
                         <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                                          
                   </c:if>
-=======
-            	<div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 170%;">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
-						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
-						</c:if>
-						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
-						</c:if>
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
                     </ul>
                 </div>
             </div><!--/.container-->
