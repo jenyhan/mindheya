@@ -34,6 +34,17 @@
   		pw=#{pw}
   	</select>
   	
+    <select id="checkEmail" resultType="String" parameterType="String">
+    SELECT
+    	email
+    
+    FROM
+    	MEMBER
+    
+    WHERE
+    	email = #{email}
+    
+    </select>
   
   
   </mapper>

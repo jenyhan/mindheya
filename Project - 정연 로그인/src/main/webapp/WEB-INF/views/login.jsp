@@ -126,9 +126,11 @@ body {
 	  <img src="resources/image/marvelousmonday.png" class="logo"><br><br>
       <input type="text" placeholder="username" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
+      <input type="hidden" name="tabNum" value="${tabNum}">
       <button>Login</button>
       <p class="message">Not registered? <br><a href="goJoin" class="optionSet">Register</a> <a href="home" class="optionSet">Home</a></p>
     </form>
+    
   </div>
 </div>
 </body>

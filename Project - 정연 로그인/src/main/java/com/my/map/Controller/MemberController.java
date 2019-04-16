@@ -1,11 +1,13 @@
 package com.my.map.Controller;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.map.Dao.MemberDAO;
 import com.my.map.vo.Member;
@@ -43,13 +45,16 @@ public class MemberController {
 	
 	//로그인폼 이동//
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(int tabNum, Model model) {
+
+		model.addAttribute("tabNum", tabNum);		
+
 		return "login";
 	}
 	
 	//로그인폼 액션
 	@RequestMapping(value="/login-form", method=RequestMethod.POST)
-	public String loginMember(Member member, HttpSession session, Model model) {
+	public String loginMember(Member member, HttpSession session, Model model, int tabNum) {
 		Member result = null;
 		result=dao.login(member);
 		if(result==null) {
@@ -60,12 +65,40 @@ public class MemberController {
 
 		session.setAttribute("loginId", member.getId());
 		
-		return "home";
+		if(tabNum==1) {
+			
+			return "selectMind";
+			
+		} else if(tabNum==2) {
+			
+			return "redirect/goScrap";
+		} else if(tabNum==3) {
+			
+			return "redirect/goShare";
+			
+		} else {
+			
+			return "home";
+		}
+		
 	}
 
 	//홈으로 이동
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home() {
 		return "home";
+	}
+	
+	@RequestMapping(value="checkEmail", method=RequestMethod.GET)
+	public @ResponseBody String checkEmail(String email, Model model) {
+
+		String result = dao.checkEmail(email);
+		
+		if(result==null) {
+			return "ok";
+		} else {
+			return "registered";
+		}
+		
 	}
 }
