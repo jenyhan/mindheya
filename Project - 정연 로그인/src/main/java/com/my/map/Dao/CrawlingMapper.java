@@ -14,4 +14,7 @@ public interface CrawlingMapper {
 	public int deleteBM(String bmSeq);
 	// Scrap.jsp에서 기사 원문보기
 	public News selectLink(String bmSeq);
+	// Scrap.jsp에서 제목으로 북마크 검색
+	public ArrayList<News> searchArticle(News news);
+	
 }
