@@ -129,6 +129,7 @@
 		function showNotification(notificationArray){
 	
 			var contents = '';
+			
 				
 			$.each(notificationArray, function(index, item){
 					
