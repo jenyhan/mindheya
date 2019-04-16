@@ -10,6 +10,14 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title>HR Theme Two</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
+    
+    
+    </style>
+    
+    
+    
 	<!-- CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -34,7 +42,7 @@
 
     <header id="header">
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
-            <div class="container">
+            <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -45,16 +53,16 @@
                     <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 100%;">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
+
+                    <ul class="nav navbar-nav" style="width: 170%;">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap">マインド部屋</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goShare">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
 						</c:if>
                     </ul>
                 </div>
@@ -70,8 +78,7 @@
                             <div class="col-sm-6">
                                 <div class="carousel-content">
                                     <h2 style="color:white;"><span>マインド部屋</span></h2>
-                                    <p><h2 style="color:white;"> あなたの部屋はだいじょうぶですか？ </h2></p>
-                                    <!-- <a class="btn btn-primary btn-lg" href="#">Read More</a> -->
+                                     <!-- <p><h2 style="color:white;"> あなたの部屋はだいじょうぶですか？ </h2></p> -->
                                 </div>
                             </div>
                         </div>

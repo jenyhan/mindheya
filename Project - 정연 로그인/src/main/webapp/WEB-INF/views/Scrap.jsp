@@ -304,33 +304,27 @@ $(function(){
 
     <header id="header">
         <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
-            <div class="container">
+            <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home.jsp"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 100%;">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="#home">About</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="">Scrap</a></li>
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="goMindmap">Share</a></li>                        
+                    <ul class="nav navbar-nav" style="width: 170%;">
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:10%; font-size: 140%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
 						</c:if>
                     </ul>
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->
     </header><!--/header-->
+
 
     <section id="services" >
         <div class="container">
