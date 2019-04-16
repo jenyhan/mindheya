@@ -47,10 +47,127 @@
 		   background-color: #3B6EB5;
 		}
 		
-		.news-body-seq {
-			border: 2px solid #3B6EB5;
-			display: inline-block;
+		#searchNews::placeholder {
+			color: #1AAB8A;
+			font-style: bold;
+			font-size: 17px;
+			text-align: center;
+			
+			/* 선명도 조절  0 ~ 1 */
+			opacity: 0.7;
+		}
 		
+		#searchNews {
+			width: 22%; 
+			height: 40px;
+			border: 2px solid #1AAB8A;
+			border-bottom: none;
+			font-style: bold;
+			font-size: 17px;
+		}
+		
+		.news-body {
+			border: 2px solid #1AAB8A;
+		}
+		
+		.news-temp {
+			width : 98%;
+			
+			display: flex;
+			flex-wrap: wrap;
+			
+			margin: 5% auto;
+			padding: 3px;
+		}
+		
+		.news-body-seq {
+			/* width: 30%; */ 
+			width: 330px;
+			height: 250px;
+			border: 2px solid #e6e6e6;
+			margin: 4% auto;
+			background-color:#fffff4;
+			/* border-radius: 10px; */
+		}
+		
+	 	.news-body-titleDiv {
+			text-align: center;
+			width: 90%;
+			border: 2px solid #1AAB8A;
+			margin: 5px auto;
+			box-shadow: 4px 4px gray;
+		}
+
+		.news-body-title {
+			width: 300px;
+			height: 70px;
+			padding: 7px;
+			margin: auto;
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+		}
+		
+		.news-body-summary {
+			height: 38%; 
+			padding: 5px;
+			color: #333333;
+		}
+		
+		.news-body-press {
+			height: 16%;
+			text-align: right;
+			padding: 5px;
+			color: #999999;
+			
+		}
+		
+		.news-body-btnDiv{
+			content:'';
+			display:inline-block;
+			text-align: right;
+			height: 7%;
+			width: 100%;
+		}
+		
+		.selectBm {
+			background:#1AAB8A;
+  			color:#fff;
+  			border:none;
+  			/* position:relative; */
+  			height:30px;
+ 			font-size:1.2em;
+  			cursor:pointer;
+  			transition:800ms ease all;
+  			outline:none;
+			text-align: center;
+			width: 105px; 
+			border-radius: 4px;
+		}
+		
+		.bmDelete {
+			background: #1AAB8A;
+  			color: #fff;
+  			border: none;
+  			position: relative;
+  			height: 30px;
+ 			font-size: 1.2em;
+  			cursor: pointer;
+  			transition: 800ms ease all;
+  			outline: none;
+			text-align: center;
+			width: 40px; 
+			border-radius: 4px;
+		}
+		
+		.selectBm:hover {
+		  background:#fff;
+		  color:#1AAB8A;
+		}
+		
+		.bmDelete:hover {
+		  background:#fff;
+		  color:#1AAB8A;
 		}
 			    
     </style>
@@ -101,7 +218,7 @@ $(function(){
 			url:"selectAllBM",
 			type:"get",
 			success:function(resultData){
-				alert(resultData); 
+				
 				output(resultData);
 			}
 		});
@@ -112,16 +229,19 @@ $(function(){
 		var content = '';
 		
 		$.each(resultData, function(index, item){
-			content += '<div class="news-body-seq" data-wow-duration="300ms" data-wow-delay="500ms" news-value="' + item.bmSeq + '" style="width: 33%;">';
-			content += 		'<div class="news-body-title" news-title="'+ item.title +'"><h4>'+ item.title +'</h4></div>';
-			content += 		'<div class="news-body-summary" news-summary="'+ item.summary +'"><h5>' + item.summary + '</h5></div>';
+			content += '<div class="news-body-seq" data-wow-duration="300ms" data-wow-delay="500ms" news-value="' + item.bmSeq + '">';
+			content +=		'<div class="news-body-titleDiv">';
+			content += 			'<div class="news-body-title" news-title="'+ item.title +'"><h4>'+ item.title +'</h4></div>';
+			content +=		'</div>';
+			content += 		'<div class="news-body-summary" news-summary="'+ item.summary +'"><h5 style="line-height: 140%;">&nbsp&nbsp' + item.summary + '</h5></div>';
 			content += 		'<div class="news-body-press" news-press="'+ item.press +'"><h5>' + item.press + '</h5></div>';
-			
-			content += '	<button class="selectBm" news-value="' + item.bmSeq + '">원문 보기</button>&nbsp<button class="bmDelete" news-value="' + item.bmSeq + '">삭제</button>';
+			content +=		'<div class="news-body-btnDiv">';
+			content += 			'<button class="selectBm" news-value="' + item.bmSeq + '">READ MORE</button>&nbsp<button class="bmDelete" news-value="' + item.bmSeq + '">DEL</button>';
+			content +=		'</div>';
 			content += '</div>';
 		});
 		
-		$('.news-body').html(content);
+		$('.news-temp').html(content);
 		
 		/* bookmark 삭제  */
 		$('.bmDelete').on("click", function(){
@@ -155,6 +275,27 @@ $(function(){
 			
 			window.open(newsLink);
 		}
+	}
+	
+	$('#searchNews').keyup(function(){
+		var search = $('#searchNews').val();
+		
+		searchNews(search);
+	});
+	
+	function searchNews(search){
+		
+		$.ajax({
+			url: "searchArticle",
+			data: {
+				title:search
+				},
+			type: "get",
+			success: function(res){
+				output(res);
+			}
+		});
+		
 	}
 	
 	
@@ -200,27 +341,19 @@ $(function(){
 			
 
             <div class="row">
-                <div class="features" style="width: 110%; margin-left:5%;">
+                <div class="features">
+                	<!--  style="width: 110%; margin-left:5%;" -->
                 	
                 	<!-- 북마크 내에서 검색어로 제목 찾기 -->
-                	<div class="searchDiv">
-                		<input type="text" id="searchNews" name="searchNews">
-                	</div>
+                	
                 
                 	<div class="news">
+						<div class="searchDiv">
+               				<input type="text" id="searchNews" name="searchNews" placeholder="키워드로 검색하기">
+               			</div>
                 		<div class="news-body">
-							<!-- <div class="news-body-title">
-								
-							</div>
-							<div class="news-body-summary">
-							
-							</div>
-							<div class="news-body-press">
-							
-							</div>
-							<div class="news-body-address">
-							
-							</div> -->
+                			<div class="news-temp">
+                			</div>
                 		</div>
 					</div>
                 </div>
