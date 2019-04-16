@@ -15,9 +15,21 @@
 		@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 		@import url('https://fonts.googleapis.com/css?family=Jua&subset=korean');
 		@import url('https://fonts.googleapis.com/css?family=Cute+Font|Jua');
+		@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
+			@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+		
+		.idTitle {
+			font-family: 'Gamja Flower', cursive;
+		}
+		
+		.makeText {
+			font-size: 50px;
+	   		font-family: 'Gamja Flower', cursive;
+	   			
+		}
 		
 		#putTxt {
-			width:400px;
+			width:300px;
 			height: 40px;
 			border: 3px solid #41c121;
 			border-radius: 10px;
@@ -38,7 +50,7 @@
 		
 		
 		#putBtn, #deleteBtn, #updateBtn{
-		width: 150px;
+		width: 100px;
 		height: 40px;
 		border: none;
 		margin-top: 5px;
@@ -110,7 +122,7 @@
 			
 			
 		.searchResult {
-			width: 330px;
+			width: 390px;
 			height: 59px;
 			float: left;
 			
@@ -175,7 +187,7 @@
 		}
 		
 		.newsListDiv{
-			width: 399px;
+			width: 400px;
 			height: 1000px;
 			background-color: grey;
 			float: left;
@@ -185,8 +197,9 @@
 		}
 				
 		.newsDiv {
-			width: 369px;
-			background-color: #e8e1ae;
+			border-radius: 15px;
+			width: 370px;
+			background-color: #00B4CC;
 			border: 2px solid grey;
 			margin-top : 5px;
 			margin-left : 5px;
@@ -194,18 +207,23 @@
 		}		
 		
 		.title {
-			width: 349px;
-			line-height: 30px;
-			background-color: #f2f2f2;
-			box-shadow: 5px 5px;
+		
+			font-size: 25px;
+			border-radius: 5px;
+			width: 350px;
+			line-height:1.5em;
+			background-color: #565252;
+			color: white;
 			margin: 10px;
 			padding-top: 5px;
 			text-align: center;
-			font-family: 'Jua', sans-serif;
+			font-family: 'Cute Font', cursive;
 			/* border: 2px solid grey; */
 		}
 		
 		.press {
+			font-family: 'Cute Font', cursive;
+			font-size: 20px;
 			margin-top: 5px;
 			text-align: right;
 		}
@@ -225,9 +243,11 @@
 		}
 				  
 		.summary{
+			font-family: 'Cute Font', cursive;
 			line-height: 30px;
 			font-weight: bold;
-			font-size: 20px;
+			color: white;
+			font-size: 25px;
 			margin-left: 10px;
 			margin-right: 10px;
 			
@@ -275,6 +295,22 @@
 
 		}
 		
+		.bmBtn {
+			width: 50px;
+			height: 50px;
+		}
+		
+		.noResultDiv {
+			margin-top : 70px;
+			text-align: center;
+		}
+
+		.noResultDiv h2 {
+			color: white;
+			font-family: 'Cute Font', cursive;
+			font-size: 70px;
+		
+		}		
 				    
     </style>
     
@@ -317,6 +353,10 @@
 <!--Optional JavaScript for Bootstrap: jQuery first, then Popper.js, then Bootstrap JS-->
 <script>
 		$(function() {
+			
+ 			document.body.style.zoom = "80%";			
+
+
 			$('#logout').on("click", function() {
 				alert('로그아웃합니다.');
 				$('#hiddenlogout').submit();
@@ -358,15 +398,21 @@
 
 				var content = ""; 
 				
+				if(result == ""){
+					content += 	'<div class="noResultDiv">';
+					content += '<h2>No News</h2>';						
+					content += 	'</div>';
+				}
+				
 				if(result != ""){
 					$.each(result, function(index, item){
 
 						content += 	'<div class="newsDiv">';
-						content += 		'<div class="title"><h4>' + item.title + '</h4></div>';
+						content += 		'<div class="title">' + item.title + '</div>';
 						content += 		'<div class="summary">&nbsp;&nbsp;' + item.summary + '</div>';
 						content += 		'<div class="press">' + item.press + '</div>';
 						content += 		'<div class="address"><a href="https://news.google.com'+item.address+'" target="_blank" rel="noopener noreferrer">기사 본문보기</a></div>';
-						content += 		'<div class="addBtn"><button class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '">Scrap</button></div>';
+						content += 		'<div class="addBtn"><img src="resources/images/bookMarkIcon.png" class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '"></div>';						
 						content += 	'</div>';
 
 						if(index == 4){
@@ -471,6 +517,10 @@
 	//업데이트 드래그 설정
 	var draggable = false;
 
+	//확대 기능
+	var canvasScale = 1;
+	
+	
 	//jsp가 로드된 후에 실행
 	window.onload = function() {
 				
@@ -502,6 +552,12 @@
 			if(savedArray.length!=0 ||!savedArray){
 				return;
 			}
+			var rootId = prompt('마인드맵 주제를 입력하세요.');
+			
+			if(rootId!=null){	
+				root.id = rootId;
+			}
+			
 			savedArray.push(root);
 			writeMindMap(savedArray);
 		}
@@ -511,15 +567,33 @@
 		//로그인한 ID에 대해 아직 아무 마인드맵도 저장하지 않았을 때,
 		//루트를 가운데에 미리 세팅하기 위한 객체 설정
 		root = {
-					x:canvas.width/2,
+					x:canvas.width/2 - 50,
 					y:canvas.height/2,
-					afterX:canvas.width/2,
+					afterX:canvas.width/2 - 50,
 					afterY:canvas.height/2,
 					parent: 'root',
 					id: 'Root Item',
 					depth: 0,
 					root:true
 		};
+		
+		
+		////확대, 축소
+		$('#plusBtn').on('click', function(){
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.translate(100, 100);
+			ctx.scale(0.5,0.5);
+			
+			
+		});
+
+		$('#minusBtn').on('click', function(){
+			ctx.translate(x, y);
+			ctx.scale(2,2);
+			
+			
+		});
+
 		
 
 		$('#putBtn').on('click', function(){
@@ -570,10 +644,10 @@
 
 		
 		//캔버스 x값
-		function canvasX(clientX) {
+/* 		function canvasX(clientX) {
 
 		     var bound = canvas.getBoundingClientRect();
-
+			console.log("x : " + (clientX - bound.left) * (canvas.width / bound.width));
 		     return (clientX - bound.left) * (canvas.width / bound.width);
 
 		}
@@ -583,9 +657,19 @@
 		function canvasY(clientY) {
 
 		     var bound = canvas.getBoundingClientRect();
-
+				console.log("y : " + (clientY - bound.top) * (canvas.height / bound.height));
 		     return (clientY - bound.top) * (canvas.height / bound.height);
 
+		} */
+		
+		function getElementRelativeMousePosition(e, elem) {
+			  const rect = elem.getBoundingClientRect();
+			  const css = getComputedStyle(document.body);
+			  
+			  return {
+			    x: e.clientX / css.zoom - rect.left,
+			    y: e.clientY / css.zoom - rect.top,
+			  };
 		}
 
 		//회인 왈 : 여기 세줄은 패스하셔도 됩니다.
@@ -606,11 +690,12 @@
 		canvas.onmousedown = function(e) {
 			e.preventDefault();			
 			
-			
-			// 시작 x, y좌표 구함
-			sx = canvasX(e.clientX);
-			sy = canvasY(e.clientY);
 
+			// 시작 x, y좌표 구함
+			sx = getElementRelativeMousePosition(e, canvas).x;
+			sy = getElementRelativeMousePosition(e, canvas).y;
+ 						
+			
 			if(flag==0){
 				
 				//피타고라스 함수로 가장 가까운 객체를 선택
@@ -724,46 +809,11 @@
 				}
 
 
-				}
+			}
 
-				
-
-				
-/* 				//갱신되어야 할 것 : 선택된 객체의 id, 해당 객체를 부모로 갖고있는 자식들의 부모 id
-					for(var i = 0; i < savedArray.length; i++){
-
-					 //1. 업데이트 해야할 객체를 찾는다.
-					if(savedArray[i].id == selectedObj.id){						 
-																		 													
-						//2. 업데이트 될 객체의 id를 자식들의 parent에도 업데이트 해야 한다.
-						for(var j = 0; j < savedArray.length; j++){
-							if(savedArray[j].parent == selectedObj.id){
-								mindRef.child(savedArray[j].id).update({parent : updateId});
-							}
-						}
 	
-	
-					
- 						//해당 객체의 내용만 빼서 새로운 노드 updateId를 생성. 내용을 복사
-						mindRef.child(savedArray[i].id).once('value').then(function(snapshot) {
-							mindRef.child(updateId).set(snapshot.val());  
-							mindRef.child(updateId).update({id:updateId});
-
-							mindRef.child(savedArray[i].id).remove();
-	
-							});
-							
-							break;
-
-						}
-				
+		}
 			
-					} */
-				}
-			
-
-/* 			}
- */
 			//마우스가 움직일 때
 			//flag 0: 마인드맵의 위치를 변경
 			//flag 1: 입력
@@ -777,7 +827,6 @@
 					if(chkRoot){
 						
 						chkRoot = false;
-						alert('루트는 이동할 수 없습니다.');
 						draggable = false;
 						selectedObj=null;
 						return;
@@ -793,9 +842,11 @@
 
 						//1.3 마우스를 누른 순간 가장 가까운 아이를 선택한 상태에서 무브 메서드 발동
 						//1.4 selectedObj에는 선택한 아이가 저장되어 있다.
-
-						ex = canvasX(e.clientX);
-						ey = canvasY(e.clientY);
+						
+						ex = getElementRelativeMousePosition(e, canvas).x;
+						ey = getElementRelativeMousePosition(e, canvas).y;
+						
+ 
 						//1.5 선택된 객체를 제외한 아이들 중 부모 객체를 찾는 메서드 발동
 						//결과로 selectedObj 에는 엄마 객체가 저장. 아이는 buf에 저장되어 있음.
 						
@@ -823,16 +874,13 @@
 					
 				} else if(flag==1){
 				
-					
-
 					//유효성검사 통과여부 체크
 					if(!checkPut){
-					return;
+						return;
 					}
 
-					ex = canvasX(e.clientX);
-					ey = canvasY(e.clientY);
-					
+					ex = getElementRelativeMousePosition(e, canvas).x;
+					ey = getElementRelativeMousePosition(e, canvas).y;
 
 					// 백업한 상태에서 선 그림
 					if (drawing) {
@@ -856,18 +904,19 @@
 			//flag 2: flag를 0으로 세팅하고 마침(return)
 			//flag 3: 작업중
 			canvas.onmouseup = function(e) {
-				ex = canvasX(e.clientX);
-				ey = canvasY(e.clientY);
 				
+				ex = getElementRelativeMousePosition(e, canvas).x;
+				ey = getElementRelativeMousePosition(e, canvas).y;
+
 				drawing = false;
 				draggable = false;
-
 				
 				if(flag==0){
 					
 					return;
 
 				} else if(flag==1){
+
 					flag=0;
 
 					//유효성 체크 여부 확인
@@ -884,8 +933,6 @@
 					return;
 
 				}else if(flag==3){
-
-					
 
 					return;
 				}
@@ -913,7 +960,7 @@
 						afterY:ey,
 						parent: parentId,
 						id: saveId,
-						depth: newDepth % 7
+						depth: newDepth
 					};
 				
 				// 새로 만든 객체를 savedArray에 추가한 후, Firebase에 저장
@@ -1022,9 +1069,18 @@
 						
 						//lineTo() : 그리기 끝낼 점 값을 입력(본인의 afterX, afterY)
 						ctx.lineTo(array.afterX, array.afterY);
-						ctx.strokeStyle = depColor[array.depth];					
 
- 						ctx.lineWidth = 3;
+						var trans = Math.pow(0.8, array.depth);
+
+						var rgbRef = 'rgba(0, 180, 124, ' + trans + ')';
+
+						ctx.strokeStyle = rgbRef;											
+						
+						
+
+						//확대
+
+						ctx.lineWidth = 3;
 
 						//stroke() : 줄을 그려준다.
 						ctx.stroke();
@@ -1034,32 +1090,18 @@
 				
 				for(var i = 0; i < savedArray.length; i++){
 
-					//원으로 그릴 경우
-/* 					ctx.beginPath();
-					ctx.strokeStyle = depColor[savedArray[i].depth];					
-					ctx.lineWidth = 5;
-			
-					ctx.arc(savedArray[i].afterX, savedArray[i].afterY, 40, 0, Math.PI * 2);
-					ctx.stroke();
-					ctx.fillStyle = 'white';
-					ctx.fill();
-					ctx.restore();
-					ctx.fillStyle = 'black';
-					ctx.fillText(savedArray[i].id, savedArray[i].afterX - 3, savedArray[i].afterY + 5);
- */				
-/*  					var txtWidth = ctx.measureText(savedArray[i].id).width;
- 					var txtHeight = 30;
- 
- 					var width = txtWidth * 5;
- 					var height = 100; */
+					var trans = Math.pow(0.8, savedArray[i].depth);
 
- 					
+					var rgbRef = 'rgba(0, 180, 124, ' + trans + ')';
 
  					ctx.beginPath();
  					ctx.font = "15px Arial";
 					ctx.lineWidth = 5;
- 					ctx.strokeStyle = depColor[savedArray[i].depth];										
- 					
+
+
+  					ctx.strokeStyle = rgbRef;											
+
+
  					var txtWidth = ctx.measureText(savedArray[i].id).width;
  					var txtHeight = 50;
  					
@@ -1207,21 +1249,22 @@
 <body id="home" class="homepage">
 
     <header id="header">
-        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="height:100px;">
             <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home" style="padding-top: 15px;"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+
                     <ul class="nav navbar-nav" style="width: 170%;">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
+                        <li class="scroll" style="margin-left:15%; font-size: 200%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap" style="font-size: 90%">MindMap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 200%; font-family: 'Kosugi Maru', sans-serif;" ><a href="goScrap" style="font-size: 90%">Scrap</a></li>
+                        <li class="scroll" style="margin-left:15%; font-size: 200%; font-family: 'Kosugi Maru', sans-serif;"><a href="goShare" style="font-size: 90%">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 200%; font-family: 'Kosugi Maru', sans-serif;"><a href="login" style="font-size: 90%">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:15%; font-size: 200%; font-family: 'Kosugi Maru', sans-serif;"><a href="logout" style="font-size: 90%">Logout</a></li>                        						
 						</c:if>
                     </ul>
                 </div>
@@ -1234,8 +1277,8 @@
     <section id="servicesMap" >
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown" style="margin-top:100px;">${sessionScope.loginId}'s MindMap</h2>
-                <p class="text-center wow fadeInDown"> Make Your Mind</p>
+                <h2 class="section-title text-center wow fadeInDown idTitle" style="margin-top:100px; font-size:80px;">${sessionScope.loginId}'s MindMap</h2>
+                <p class="text-center wow fadeInDown makeText">マインドヘヤ</p>
             </div>
             <div class="row">
                 <div class="features" style="width: 110%; margin-left:5%;">
@@ -1253,6 +1296,9 @@
 				<input type="button" id="putBtn" value="등록">
 				<input type="button" id="updateBtn" value="수정">			
 				<input type="button" id="deleteBtn" value="삭제">
+				<input type="button" id="plusBtn" value="+">
+				<input type="button" id="minusBtn" value="-">
+				
 			
 			<input type="button" class="searchButton" value="Search"></input>
 			<input type="text" class="searchTerm" placeholder="What are you looking for?">

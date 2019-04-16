@@ -13,6 +13,25 @@
     <style>
 	@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
 	@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+	@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
+
+
+		.mindMapNumLimit {
+		   font-family: 'Gamja Flower', cursive;
+		   font-size: 15px;
+
+		}
+		
+		.mindMapLeader {
+		   font-family: 'Gamja Flower', cursive;
+		   font-size: 15px;
+		}
+
+		.mindGroupName {
+		   font-family: 'Gamja Flower', cursive;
+		
+		}
+
 
 		.optionBtn{
 		   text-align: center;
@@ -26,8 +45,8 @@
 		   box-shadow: 0 5px 15px;
 		   font-size: 40px;
 		   float: center;
-		   width: 250px;
-		   height: 100px;
+		   width: 150px;
+		   height: 80px;
 		
 		}
 		
@@ -55,13 +74,14 @@
 		.mindMapImg {
 			width: 70px;
 			height: 80px;
+			margin-top: 5px;
 		}
 		
 		.showDefault {
 			
 			width: 100%;
-			height: 500px;
-			margin-top: 120px;
+			height: 200px;
+			margin-top: 50px;
 			text-align: center;
 			font-size: 50px;
       		font-family: 'Gamja Flower', cursive;
@@ -71,8 +91,14 @@
 		.mindMapDiv {
 			margin-left: 5.5%;
 			margin-bottom: 5.5%;
-		}		    
+		   font-family: 'Gamja Flower', cursive;
+		
+		}	
 	
+		.idTitle {
+			font-family: 'Gamja Flower', cursive;
+		
+		}
 	
     </style>
     
@@ -116,21 +142,12 @@
      // 파이어베이스 초기화 세팅
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
-<<<<<<< HEAD
     		    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
     		    authDomain: "web-crawling-6562b.firebaseapp.com",
     		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
     		    projectId: "web-crawling-6562b",
     		    storageBucket: "web-crawling-6562b.appspot.com",
     		    messagingSenderId: "407695243177"
-=======
-    		    apiKey: ,
-    		    authDomain: ,
-    		    databaseURL: ,
-    		    projectId: ,
-    		    storageBucket: ,
-    		    messagingSenderId: 
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
      };
    
      // Initialize the default app
@@ -153,11 +170,7 @@
       var mindRef = firebase.database().ref('/users/' + userId + '/mindMapList');
       
       var mapTreeRef = firebase.database().ref('/users/' + userId + '/MapTree');
-<<<<<<< HEAD
-      		
-=======
-		
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
       var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
 
      
@@ -179,8 +192,7 @@
                seq : savedList[i].seq,
                leader : savedList[i].leader,
                groupName : savedList[i].groupName,
-               numLimit : savedList[i].numLimit,
-               numShare : savedList[i].numShare
+               numLimit : savedList[i].numLimit
                
             });
 
@@ -202,13 +214,8 @@
          
          
          if(mindMapList==null){
-<<<<<<< HEAD
-            showDefault();
-            return;
-=======
         	 showDefault();
         	 return;
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
          }
          
          //seq세팅
@@ -232,23 +239,13 @@
       
       
       function showDefault(){
-<<<<<<< HEAD
-         
-         var content = '';
-         content += '<div class="showDefault">No MindMap on List';
-          content += '</div>'
-         
-         $('.features').html(content);
-         
-=======
     	  
     	  var content = '';
-    	  content += '<div class="showDefault">No MindMap on List';
+    	  content += '<div class="showDefault">Add a New Mind';
           content += '</div>'
     	  
          $('.features').html(content);
 			
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
       }
       
       function showMap(){
@@ -258,12 +255,8 @@
          }
          var content = '';
          
-<<<<<<< HEAD
-         $.each(savedList, function(index, item){       
-=======
          $.each(savedList, function(index, item){
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
-             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 370px;">';
+             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width:290px;">';
              content += 	'<div class="media service-box">';
              content +=			'<div class="pull-left">';
              content +=				'<img src="resources/images/mindMapImg2.png" class="mindMapImg">';
@@ -319,11 +312,7 @@
                      if(savedList[i].leader == leader){
                         if(savedList[i].seq == gotSeq){
                             
-<<<<<<< HEAD
-                           mapTreeRef.child(savedList[i].groupName).remove();
-=======
                         	mapTreeRef.child(savedList[i].groupName).remove();
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
                             mindRef.child(savedList[i].groupName).remove();
                             
                         }
@@ -349,15 +338,9 @@
                         alert('존재하지 않는 아이디입니다, 다시 선택해주세요.');
                      
                      } else if(result=="same"){
-<<<<<<< HEAD
-                       alert('본인에게 공유할 수 없습니다.');
-                        
-                        
-=======
-                    	alert('본인에게 공유할 수 없습니다.');
-                    	 
-                    	 
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
+                    	 alert('본인에게 공유할 수 없습니다.');
+
                      } else {
                         selectFlag = 0;
                         var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
@@ -396,6 +379,10 @@
                            //공유 받을 사람 칼럼 추가
                             /* var ref = new Firebase('https://firstpractice-190218.firebaseio.com'); */
                             mindRef.on('child_added', function(snapshot) {
+                            	
+                            	
+                            	
+                            	
                                 snapshot.ref().update({shared: shareId});
                             });
                            
@@ -513,36 +500,23 @@
 <body id="home" class="homepage">
 
     <header id="header">
-        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner">
+        <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="height:100px;">
             <div class="container" style="margin-left: 100px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="home"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
+                    <a class="navbar-brand" href="home" style="padding-top: 15px;"><img src="resources/images/marvelousmonday.png" alt="logo" width="200px" height="70px"></a>
                 </div>
-<<<<<<< HEAD
-               <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+                <div class="collapse navbar-collapse navbar-right" style="width: 80%;">
+
                     <ul class="nav navbar-nav" style="width: 170%;">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
-                  <c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                                          
-                  </c:if>
-                  <c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                                          
-                  </c:if>
-=======
-            	<div class="collapse navbar-collapse navbar-right" style="width: 80%;">
-                    <ul class="nav navbar-nav" style="width: 170%;">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">MindMap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goScrap">Scrap</a></li>
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="goMindmap">Share</a></li>                        
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goMindmap" style="font-size: 90%">MindMap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;" ><a href="goScrap" style="font-size: 90%">Scrap</a></li>
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="goShare" style="font-size: 90%">Share</a></li>                        
 						<c:if test="${sessionScope.loginId==null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="login">Login</a></li>                        						
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="login" style="font-size: 90%">Login</a></li>                        						
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
-                        <li class="scroll" style="margin-left:15%; font-size: 180%;"><a href="logout">Logout</a></li>                        						
+                        <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="logout" style="font-size: 90%">Logout</a></li>                        						
 						</c:if>
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -553,8 +527,8 @@
         <div class="container" style="width:100%;">
 
             <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">${sessionScope.loginId}'s MindMap</h2>
-                <p class="text-center wow fadeInDown chooseText">Choose Your Mind</p>
+                <h2 class="section-title text-center wow fadeInDown idTitle" style="font-size: 65px;">${sessionScope.loginId}'s MindMap</h2>
+                <p class="text-center wow fadeInDown chooseText">マインドヘヤ</p>
             </div>
 			<div class="optionBtn">
 			   <button id="createMindMap">추가</button>

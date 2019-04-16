@@ -7,18 +7,19 @@ import org.springframework.stereotype.Repository;
 import com.my.map.vo.Member;
 
 @Repository
-public class MemberDAO{
-	
+public class MemberDAO {
+
 	@Autowired
 	SqlSession session;
-	//È¸¿ø°¡ÀÔ
+
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int join(Member member) {
-		int result=0;
-		
+		int result = 0;
+
 		MemberMapper mapper = session.getMapper(MemberMapper.class);
-		
+
 		try {
-			result=mapper.join(member);
+			result = mapper.join(member);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,20 +27,39 @@ public class MemberDAO{
 		}
 		return result;
 	}
-	//È¸¿ø ·Î±×ÀÎ
+
+	// È¸ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
 	public Member login(Member member) {
-		Member result=null;
-		
+		Member result = null;
+
 		MemberMapper mapper = session.getMapper(MemberMapper.class);
-		
+
 		try {
-			result=mapper.login(member);
+			result = mapper.login(member);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return result;
 		}
 		return result;
-	
-		}
+
 	}
+	
+	public String checkEmail(String email) {
+
+		String result = null;
+		
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+
+		try {
+			result = mapper.checkEmail(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return result;
+		}
+		return result;
+							
+	}
+	
+}
