@@ -142,16 +142,7 @@
      // 파이어베이스 초기화 세팅
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
-    		    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-    		    authDomain: "web-crawling-6562b.firebaseapp.com",
-    		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-    		    projectId: "web-crawling-6562b",
-    		    storageBucket: "web-crawling-6562b.appspot.com",
-<<<<<<< HEAD
-    		    messagingSenderId: "407695243177"
-=======
-    		    messagingSenderId: "407695243177"
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
+
      };
    
      // Initialize the default app
@@ -234,7 +225,6 @@
          
          
 		//numShare 세팅
-         var notificationList = [];
          for (var key in notificationList){
         	 if(notificationList[key].numShare > numShare){
         		 numShare = notificationList[key].numShare;
@@ -276,7 +266,7 @@
              content +=				'<img src="resources/images/mindMapImg2.png" class="mindMapImg">';
              content +=			'</div>';
              content += 		'<div class="media-body">';
-             
+            
              if(item.groupName.length<13){
 	             content += 		'<h2 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h2>';
             	 
@@ -353,6 +343,9 @@
                      
                      } else if(result=="same"){
                        alert('본인에게 공유할 수 없습니다.');
+                       
+                     /* } else if (numShare==numLimit){
+                    	 alert('그룹 인원수를 초과했습니다.'); */
 
                      } else {
                         selectFlag = 0;
@@ -390,35 +383,28 @@
                            
                            
                            //공유 받을 사람 칼럼 추가
+                           
                            sharedList = [];
                            
-                           mindRef.once("value").then(function(snapshot) {
+                           var shareRef = firebase.database().ref('/users/' + userId + '/mindMapList/' + groupName);
+                           
+                           shareRef.once('value').then(function(snapshot) {
                         	  
-                        	  var exist = snapshot.child("shared").exists();
-                        	   alert(exist);
+                         	  var exist = snapshot.child('shared').exists();
+                        	   
                         	  if (exist) {	//if child exists
                         		  
-                         		  for (var i = 0; i < savedList.length; i++) {
-                        			  
-                        			  sharedList.push(savedList[i].shared);
-                        		  }
-                        		  
                         		  sharedList.push(shareId);
-                        		  alert(sharedList);
-/*                         		  firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).update({
-                        			  shared : sharedList
-                        		  }) */
                         		  
-                        		  
-                        		  //mindRef.child(groupName).set({shared: sharedList});
-                        	  }
-                        	  
-                        	  else {		//if child does not exist
- 								alert(exist);
+                         		  for (var i = 0; i < savedList.length; i++) {
+                        			sharedList.push(savedList[i].shared);
+                        			shareRef.update({shared: sharedList});
+                        		  }
+                        	  } else {		//if child does not exist
+
                         		  mindRef.child(groupName).update({shared: shareId});	  
                         	  }
                            })
-                        	  
                            
                         } else{
                            alert('공유 취소');
@@ -549,11 +535,7 @@
 						</c:if>
 						<c:if test="${sessionScope.loginId!=null}">
                         <li class="scroll" style="margin-left:10%; font-size: 180%; font-family: 'Kosugi Maru', sans-serif;"><a href="logout" style="font-size: 90%">Logout</a></li>                        						
-<<<<<<< HEAD
 						</c:if>
-=======
-						</c:if>
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
                     </ul>
                 </div>
             </div><!--/.container-->
