@@ -266,7 +266,7 @@
          var content = '';
          
          $.each(savedList, function(index, item){
-             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 370px;">';
+             content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 290px;">';
              content += 	'<div class="media service-box">';
              content +=			'<div class="pull-left">';
              content +=				'<img src="resources/images/mindMapImg2.png" class="mindMapImg">';

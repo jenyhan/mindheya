@@ -96,7 +96,7 @@ function ssc_scrollArray(e, t, n, r) {
   ssc_pending = true
 }
 
-function ssc_wheel(e) {
+/*function ssc_wheel(e) {
   if (!ssc_initdone) {
     ssc_init()
   }
@@ -119,7 +119,7 @@ function ssc_wheel(e) {
   ssc_scrollArray(n, -r, -i);
   e.preventDefault()
 }
-
+*/
 function ssc_keydown(e) {
   var t = e.target;
   var n = e.ctrlKey || e.altKey || e.metaKey;
@@ -298,6 +298,6 @@ var ischrome = /chrome/.test(navigator.userAgent.toLowerCase());
 
 if (ischrome) {
   ssc_addEvent("mousedown", ssc_mousedown);
-  ssc_addEvent("mousewheel", ssc_wheel);
+/*  ssc_addEvent("mousewheel", ssc_wheel);*/
   ssc_addEvent("load", ssc_init)
 }

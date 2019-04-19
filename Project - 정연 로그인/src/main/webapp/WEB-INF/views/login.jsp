@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans+KR);
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+
 
 
 .optionSet{
@@ -24,6 +26,7 @@
   margin: auto;
 }
 .form {
+  border-radius: 15px;
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -34,7 +37,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Gamja Flower', cursive;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -45,7 +48,7 @@
   font-size: 14px;
 }
 .form button {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Gamja Flower', cursive;
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -54,6 +57,7 @@
   padding: 15px;
   color: #FFFFFF;
   font-size: 14px;
+  font-weight: bold;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -64,11 +68,17 @@
 .form .message {
   margin: 20px 0 0;
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 15px;
+  font-family: 'Gamja Flower', cursive;
+  
 }
 .form .message a {
+  margin-top: 25px;
   color: #4CAF50;
   text-decoration: none;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: 'Gamja Flower', cursive;
 }
 .form .register-form {
   display: none;
@@ -113,7 +123,7 @@ body {
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Gamja Flower', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
@@ -121,14 +131,14 @@ body {
 
 <body>
 <div class="login-page">
-  <div class="form">
+  <div class="form" style="margin-top:90px;">
     <form class="login-form" action="login-form" method="post">
 	  <img src="resources/image/marvelousmonday.png" class="logo"><br><br>
       <input type="text" placeholder="username" name="id" value="${member.id}"><br>
       <input type="password" placeholder="password" name="pw" value="${member.pw}"><font color="red">${warning}</font><br>
       <input type="hidden" name="tabNum" value="${tabNum}">
       <button>Login</button>
-      <p class="message">Not registered? <br><a href="goJoin" class="optionSet">Register</a> <a href="home" class="optionSet">Home</a></p>
+      <p class="message">Not registered? <br><a href="goJoin?tabNum=1" class="optionSet">Register</a> <a href="home" class="optionSet">Home</a></p>
     </form>
     
   </div>

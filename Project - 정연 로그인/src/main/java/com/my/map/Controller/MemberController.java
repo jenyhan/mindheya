@@ -19,7 +19,9 @@ public class MemberController {
 	
 	//회원가입 폼 이동
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
-	public String goJoin() {
+	public String goJoin(int tabNum, Model model) {
+		System.out.println(tabNum);
+		model.addAttribute("tabNum", tabNum);
 		return "JoinForm";
 	}
 	
@@ -71,10 +73,10 @@ public class MemberController {
 			
 		} else if(tabNum==2) {
 			
-			return "redirect/goScrap";
+			return "Scrap";
 		} else if(tabNum==3) {
 			
-			return "redirect/goShare";
+			return "shareBoard";
 			
 		} else {
 			

@@ -16,7 +16,9 @@
 		@import url('https://fonts.googleapis.com/css?family=Jua&subset=korean');
 		@import url('https://fonts.googleapis.com/css?family=Cute+Font|Jua');
 		@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
-			@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+		@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
+		@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans');
+		
 		
 		.idTitle {
 			font-family: 'Gamja Flower', cursive;
@@ -36,18 +38,6 @@
 			font-size: 13px;
 			font-style: bold;
 		}
-		
-/* 		#putBtn { */
-/* 			background-color: white; */
-/* 			border: 3px solid #00B4CC; */
-/* 			color: #00B4CC; */
-/* 			font-size: 15px; */
-/* 		    font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif; */
-/* 		    width: 90px; */
-/* 		    height: 35px; */
-		
-/* 		} */
-		
 		
 		#putBtn, #deleteBtn, #updateBtn{
 		width: 100px;
@@ -198,8 +188,9 @@
 				
 		.newsDiv {
 			border-radius: 15px;
+			
 			width: 370px;
-			background-color: #00B4CC;
+			background-color: white;
 			border: 2px solid grey;
 			margin-top : 5px;
 			margin-left : 5px;
@@ -208,7 +199,9 @@
 		
 		.title {
 		
-			font-size: 25px;
+			padding-left: 3px;
+			padding-right: 3px;
+			font-size: 30px;
 			border-radius: 5px;
 			width: 350px;
 			line-height:1.5em;
@@ -218,6 +211,7 @@
 			padding-top: 5px;
 			text-align: center;
 			font-family: 'Cute Font', cursive;
+			font-weight: bold;
 			/* border: 2px solid grey; */
 		}
 		
@@ -235,6 +229,7 @@
 				  
 		.address a{			
 			font-family: 'Cute Font', cursive;
+			font-weight: bold;
 			font-size: 25px;
 		}		  
 		
@@ -244,9 +239,9 @@
 				  
 		.summary{
 			font-family: 'Cute Font', cursive;
-			line-height: 30px;
+			line-height: 1.5em;
 			font-weight: bold;
-			color: white;
+			color: black;
 			font-size: 25px;
 			margin-left: 10px;
 			margin-right: 10px;
@@ -431,12 +426,12 @@
 					var bmPress = $(this).attr('bm-press');
 					var bmAddress = $(this).attr('bm-address');
 					
-					
-					alert("title : " + bmTitle);
-					alert("summary : " + bmSummary);
-					alert("press : " + bmPress);
-					alert("address : " + bmAddress);
-					
+				
+	            	if(!confirm('북마크에 추가하시겠습니까?')){
+						alert('취소합니다.');
+	            		return;
+	            	}
+
 					
 				 $.ajax({
 					url : "insertBM",
@@ -448,7 +443,7 @@
 					type : "post",
 					success : function(resultData) {
 					
-						alert("return값 확인 : " + resultData);
+						alert('저장되었습니다.');
 						
 					/* 나중에 BookMarkList가 들어가졋을때 select으로 불러오자 */
 					/* output(result); */ 
@@ -581,9 +576,8 @@
 		////확대, 축소
 		$('#plusBtn').on('click', function(){
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.translate(100, 100);
-			ctx.scale(0.5,0.5);
-			
+			ctx.scale(0.8,0.8);
+			ctx.translate((canvas.width - 50) * 0.8, (canvas.height/2) * 0.8);
 			
 		});
 
@@ -642,26 +636,7 @@
 
 		});
 
-		
-		//캔버스 x값
-/* 		function canvasX(clientX) {
 
-		     var bound = canvas.getBoundingClientRect();
-			console.log("x : " + (clientX - bound.left) * (canvas.width / bound.width));
-		     return (clientX - bound.left) * (canvas.width / bound.width);
-
-		}
-
-		 
-		//캔버스 y값
-		function canvasY(clientY) {
-
-		     var bound = canvas.getBoundingClientRect();
-				console.log("y : " + (clientY - bound.top) * (canvas.height / bound.height));
-		     return (clientY - bound.top) * (canvas.height / bound.height);
-
-		} */
-		
 		function getElementRelativeMousePosition(e, elem) {
 			  const rect = elem.getBoundingClientRect();
 			  const css = getComputedStyle(document.body);
@@ -807,11 +782,7 @@
 						break;
 					}					
 				}
-
-
 			}
-
-	
 		}
 			
 			//마우스가 움직일 때
@@ -870,6 +841,9 @@
 								mindRef.child(savedArray[i].id).update({x:bufObj.afterX, y:bufObj.afterY});
 							}
 						}
+
+					
+					
 					}
 					
 				} else if(flag==1){
