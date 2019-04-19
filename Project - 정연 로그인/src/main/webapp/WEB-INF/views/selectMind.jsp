@@ -142,16 +142,13 @@
      // 파이어베이스 초기화 세팅
      //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
      var config = {
-<<<<<<< HEAD
+    		    apiKey: "AIzaSyB2cNuvRyMFsiLRaUK0320cBc3GTkpGvK0",
+    		    authDomain: "firstpractice-190218.firebaseapp.com",
+    		    databaseURL: "https://firstpractice-190218.firebaseio.com",
+    		    projectId: "firstpractice-190218",
+    		    storageBucket: "firstpractice-190218.appspot.com",
+    		    messagingSenderId: "375340198473"
 
-=======
-    		    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-    		    authDomain: "web-crawling-6562b.firebaseapp.com",
-    		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-    		    projectId: "web-crawling-6562b",
-    		    storageBucket: "web-crawling-6562b.appspot.com",
-    		    messagingSenderId: "407695243177"
->>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
      };
    
      // Initialize the default app
@@ -178,6 +175,8 @@
       var mapTreeRef = firebase.database().ref('/users/' + userId + '/MapTree');
 
       var notificationRef = firebase.database().ref('/users/' + userId + '/notification');
+      
+     
 
       var seq = 0;
       
@@ -393,28 +392,29 @@
                            
                            //공유 받을 사람 칼럼 추가
                            
-                           sharedList = [];
-                           
+                           //sharedList = [];
                            var shareRef = firebase.database().ref('/users/' + userId + '/mindMapList/' + groupName);
-                           
-                           shareRef.once('value').then(function(snapshot) {
-                        	  
-                         	  var exist = snapshot.child('shared').exists();
+							
+                           shareRef.on('value', function(snapshot){
                         	   
+                        	   var exist = snapshot.child('shared').exists();
+                        	   alert(exist);
+                            
                         	  if (exist) {	//if child exists
                         		  
                         		  sharedList.push(shareId);
                         		  
                          		  for (var i = 0; i < savedList.length; i++) {
                         			sharedList.push(savedList[i].shared);
-                        			shareRef.update({shared: sharedList});
-                        		  }
+                        			
+                        		  } shareRef.update({shared: sharedList});
+                         		  
                         	  } else {		//if child does not exist
 
                         		  mindRef.child(groupName).update({shared: shareId});	  
                         	  }
+                          
                            })
-                           
                         } else{
                            alert('공유 취소');
                         }
