@@ -16,6 +16,11 @@
 	@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
 
 
+		.mindMapMember {
+		   font-family: 'Gamja Flower', cursive;
+		   font-size: 15px;
+		
+		}
 		.mindMapNumLimit {
 		   font-family: 'Gamja Flower', cursive;
 		   font-size: 15px;
@@ -73,7 +78,7 @@
 				
 		.mindMapImg {
 			width: 70px;
-			height: 80px;
+			height: 100px;
 			margin-top: 5px;
 		}
 		
@@ -184,23 +189,23 @@
       
       var numShare = 0;
             
-      
-      function createMind(){
+      //파이어베이스 저장하기      
+      function createMind(newMap){
          
-         for(var i = 0; i < savedList.length; i++){
-            
-            firebase.database().ref('users/' + userId + '/mindMapList/' + savedList[i].groupName).set({
+    	  //생성하는 사람은 리더이자 멤버
+			var member = [];
+			member.push(userId);
+			
+            firebase.database().ref('users/' + userId + '/mindMapList/' + newMap.groupName).set({
                
-               seq : savedList[i].seq,
-               leader : savedList[i].leader,
-               groupName : savedList[i].groupName,
-               numLimit : savedList[i].numLimit
-               
+               seq : newMap.seq,
+               leader : newMap.leader,
+               groupName : newMap.groupName,
+               numLimit : newMap.numLimit,
+               numShare : Number(1),
+               member : member
             });
-
-         }
          
-         //파이어베이스 저장하기
       }
       
       //파이어베이스 업데이트 값 불러오기
@@ -214,11 +219,9 @@
          //배열 초기화
          savedList = [];
          
-         
          if(mindMapList==null){
             showDefault();
             return;
-
          }
          
          //seq세팅
@@ -229,17 +232,7 @@
                }
             }
          }
-         
-         
-         
-		//numShare 세팅
-         for (var key in notificationList){
-        	 if(notificationList[key].numShare > numShare){
-        		 numShare = notificationList[key].numShare;
-        	 }
-         }
-         
-         
+       
          //jArrays를 돌리면서 savedList에 저장해줄 것.
          for (var key in mindMapList) {
             var groupObject = mindMapList[key];
@@ -265,8 +258,10 @@
          if(savedList.length == 0){
             return;
          }
-         var content = '';
          
+         var content = '';
+
+
          $.each(savedList, function(index, item){
              content += '<div class="col-md-4 col-sm-6 wow fadeInUp mindMapDiv" data-wow-duration="300ms" data-wow-delay="500ms" mind-value ="' + item.seq + '" style="width: 290px;">';
              content += 	'<div class="media service-box">';
@@ -285,9 +280,26 @@
 	             content += 		'<h6 class="media-heading mindGroupName" name-value="' + item.groupName + '">' + item.groupName + '</h6>';
 
              }
+             
 
              content +=				'<h5 class="mindMapLeader" leader-value="' + item.leader + '">Leader : '  + item.leader + '</h5>';
-             content +=				'<h5 class="mindMapNumLimit" limit-value="' + item.numLimit + '">Member :' + item.numLimit + '</h5>';
+             content +=				'<h5 class="mindMapNumLimit" limit-value="' + item.numLimit + '">Member : ' + item.numShare + ' / ' + item.numLimit + '</h5>';
+             content += 			'<input type=hidden class="mindMapNumShare" numShare-value="' + item.numShare + '">';
+
+			var memberJSON = item.member;
+
+			var JSONString = JSON.stringify(item.member);
+
+	        var memList = [];
+		             
+		    var memString = '';
+
+			for(var key in memberJSON){
+	      		memList.push(memberJSON[key]);
+	            memString += memberJSON[key] + " ";
+			}             
+
+			 content += 			'<h5 class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>Member : ' + memString + '</h5>';																					
              content += 		'</div>';
              content += 	'</div>';
              content +=	'</div>';             
@@ -301,6 +313,20 @@
             var leader = $('.mindMapLeader', this).attr('leader-value');
             var groupName = $('.mindGroupName', this).attr('name-value');
             var numLimit = $('.mindMapNumLimit', this).attr('limit-value');
+            var numShare = $('.mindMapNumShare', this).attr('numShare-value');
+            
+            
+            //멤버를 가져오기(가져오거나, 없으면 0)
+            var member_value = $('.mindMapMember', this).attr('member-value');
+
+            var member_value_JSON = JSON.parse(member_value);
+
+            var member = [];
+            
+            for(var key in member_value_JSON){
+            	member.push(member_value_JSON[key]);	
+            	
+            }     
             
             if(selectFlag==0){
                 
@@ -352,33 +378,30 @@
                      } else if(result=="same"){
                        alert('본인에게 공유할 수 없습니다.');
                        
-                     /* } else if (numShare==numLimit){
-                    	 alert('그룹 인원수를 초과했습니다.'); */
-
                      } else {
                         selectFlag = 0;
                         var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
                         if(question){
-                           alert('메세지를 보냅니다.');
-                           
-                           numShare = numShare + 1;
                            
                            var messageObj = {
                                  seq : gotSeq,
                                  leader : leader,
                                  groupName : groupName,
                                  numLimit : numLimit,
-                                 numShare : numShare
+                                 numShare : numShare,
+                                 member : member
                            };                           
-                                                       
-                           firebase.database().ref('users/' + shareId + '/notification/' +  messageObj.leader + '/' + messageObj.seq).set({
-                                 
+                           
+   							
+
+   	                       firebase.database().ref('users/' + shareId + '/notification/' +  messageObj.leader + '/' + messageObj.seq).set({
+                                   
                                  seq : messageObj.seq,
                                  leader : messageObj.leader,
                                  groupName : messageObj.groupName,
                                  numLimit : messageObj.numLimit,
-                                 numShare : messageObj.numShare
-   
+                                 numShare : messageObj.numShare,
+     							 member : member
                            });
 
                         } else{
@@ -387,44 +410,12 @@
                      }                     
                   }
                });
-
                
             }
             
          });
       }
-      
-      
-      //1. 
-      
-      
-/*    var shareRef = firebase.database().ref('/users/' + userId + '/mindMapList/' + groupName);
-		
-      shareRef.on('value', function(snapshot){
-   	   
-   	   	var exist = snapshot.child('shared').exists();
-       
-   	  	if (exist) {	//if child exists
-   		  
-   		  sharedList.push(shareId);
-   		  
-    	  for (var i = 0; i < savedList.length; i++) {
-   		  	sharedList.push(savedList[i].shared);
-   			
-   		  } 
-    	  
-    	  shareRef.update({shared: sharedList});
-    		  
-   	  	} else {		//if child does not exist
 
-   		  	mindRef.child(groupName).update({shared: shareId});	  
-   	  	}
-     
-      });
-      
-
-      */      
-      
       
       notificationRef.on('value', function(snapshot) {
          
@@ -507,8 +498,7 @@
 
          }
          
-         savedList.push(newMap);
-         createMind();   
+         createMind(newMap);   
 
       });
       

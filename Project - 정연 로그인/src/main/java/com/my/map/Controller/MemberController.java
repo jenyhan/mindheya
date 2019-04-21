@@ -20,7 +20,6 @@ public class MemberController {
 	//회원가입 폼 이동
 	@RequestMapping(value="/goJoin", method=RequestMethod.GET)
 	public String goJoin(int tabNum, Model model) {
-		System.out.println(tabNum);
 		model.addAttribute("tabNum", tabNum);
 		return "JoinForm";
 	}
@@ -42,7 +41,8 @@ public class MemberController {
 			model.addAttribute("member", member);
 			return "JoinForm";
 		}
-		return "home";
+				
+		return "redirect:/login?tabNum=0";
 	}
 	
 	//로그인폼 이동//
@@ -59,6 +59,7 @@ public class MemberController {
 	public String loginMember(Member member, HttpSession session, Model model, int tabNum) {
 		Member result = null;
 		result=dao.login(member);
+		
 		if(result==null) {
 			model.addAttribute("warning", "ID와 비밀번호를 확인해주세요.");
 			model.addAttribute("member", member);
@@ -91,11 +92,11 @@ public class MemberController {
 		return "home";
 	}
 	
-	@RequestMapping(value="checkEmail", method=RequestMethod.GET)
+	@RequestMapping(value="/checkEmail", method=RequestMethod.GET)
 	public @ResponseBody String checkEmail(String email, Model model) {
 
 		String result = dao.checkEmail(email);
-		
+
 		if(result==null) {
 			return "ok";
 		} else {

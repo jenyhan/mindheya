@@ -524,12 +524,13 @@
 		var leader = $("#leader").val();
 		var groupName = $("#groupName").val();
 		var numLimit = $("#numLimit").val();
-		
+		var gotId = leader;
+
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();
 
 		//파이어베이스에서 가져올 DB 경로 설정
-		var mindRef = firebase.database().ref('/users/' + userId + '/MapTree/' + groupName);
+		var mindRef = firebase.database().ref('/users/' + gotId + '/MapTree/' + groupName);
 		
 		//body 내의 캔버스를 가져와 객체에 할당.
 		canvas = document.getElementById("canvas");
@@ -1129,7 +1130,7 @@
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
 					if(typeof(mindObjs[i].root) == "undefined"){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 			    
 				    	x: mindObjs[i].x,
 				    	y: mindObjs[i].y,
@@ -1143,7 +1144,7 @@
 
 					} else {
 					
-						firebase.database().ref('users/' + userId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
+						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
@@ -1251,7 +1252,7 @@
     <section id="servicesMap" >
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown idTitle" style="margin-top:100px; font-size:80px;">${sessionScope.loginId}'s MindMap</h2>
+                <h2 class="section-title text-center wow fadeInDown idTitle" style="margin-top:100px; font-size:80px;">${mindMap.groupName}</h2>
                 <p class="text-center wow fadeInDown makeText">マインドヘヤ</p>
             </div>
             <div class="row">
@@ -1298,12 +1299,6 @@
 	<input type="hidden" id="groupName" name="groupName" value="${mindMap.groupName}">
 	<input type="hidden" id="numLimit" name="numLimit" value="${mindMap.numLimit}">
 
-	<form id="goMap" action="goMap" method="GET">
-      <input type="hidden" id="gotSeq" name="gotSeq">
-      <input type="hidden" id="leader" name="leader">
-      <input type="hidden" id="groupName" name="groupName">
-      <input type="hidden" id="numLimit" name="numLimit">
-   </form>
 
     <footer id="footer" style="width:100%; height:100px; float: left;">
         <div class="container">
