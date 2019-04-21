@@ -15,6 +15,7 @@
     	,press
     	,address
     	,indate
+    	,img_src
 	  	)
 	  	values
 	  	(
@@ -25,11 +26,12 @@
   		,#{press}
   		,#{address}
   		,sysdate
+  		,#{img_src}
   		)
   	
   	</insert>
   	
-  	<!-- bookmark 전체 출력 // 한 개만 검색하기 도 만들까 말까??? -->
+  	<!-- bookmark 전체 출력 -->
   	<select id="selectAllBM" parameterType="String" resultType="News">
   
   	select 
@@ -40,6 +42,7 @@
     	,press
     	,address
     	,indate
+    	,img_src
   	from
   		BMList
   	where
@@ -68,6 +71,7 @@
     		,press
     		,address
     		,indate
+    		,img_src
 		from
 			BMList
 		where
@@ -84,14 +88,15 @@
     		,press
     		,address
     		,indate
+    		,img_src
     	from
     		BMList
     	where
     		id=#{id}
     	and
-    		(title like '%' ||  #{title} || '%'
+    		(title like  upper('%' || #{title} || '%')
     	or
-    		summary like '%' ||  #{title} ||'%')
+    		summary like   upper('%' ||  #{title} ||'%'))
     	order by 
   			bmSeq
     

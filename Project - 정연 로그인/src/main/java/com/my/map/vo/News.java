@@ -9,8 +9,10 @@ public class News {
 	private String press;
 	private String address;
 	private String indate;
+	private String img_src;
 
-	public News(String bmSeq, String id, String title, String summary, String press, String address, String indate) {
+	public News(String bmSeq, String id, String title, String summary, String press, String address, String indate,
+			String img_src) {
 		super();
 		this.bmSeq = bmSeq;
 		this.id = id;
@@ -19,17 +21,18 @@ public class News {
 		this.press = press;
 		this.address = address;
 		this.indate = indate;
+		this.img_src = img_src;
 	}
 
 	public News() {
 		super();
 	}
 
-	public String getbmSeq() {
+	public String getBmSeq() {
 		return bmSeq;
 	}
 
-	public void setbmSeq(String bmSeq) {
+	public void setBmSeq(String bmSeq) {
 		this.bmSeq = bmSeq;
 	}
 
@@ -81,10 +84,18 @@ public class News {
 		this.indate = indate;
 	}
 
+	public String getImg_src() {
+		return img_src;
+	}
+
+	public void setImg_src(String img_src) {
+		this.img_src = img_src;
+	}
+
 	@Override
 	public String toString() {
 		return "News [bmSeq=" + bmSeq + ", id=" + id + ", title=" + title + ", summary=" + summary + ", press=" + press
-				+ ", address=" + address + ", indate=" + indate + "]";
+				+ ", address=" + address + ", indate=" + indate + ", img_src=" + img_src + "]";
 	}
 
 }

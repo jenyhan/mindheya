@@ -7,6 +7,8 @@ create table BMList(
     summary varchar2(2000),
     press varchar2(50),
     address varchar2(3000),
-    indate date default sysdate);
+    indate date default sysdate,
+    img_src varchar2(1000)
+);
 
 commit;
