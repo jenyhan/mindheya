@@ -22,7 +22,6 @@ public class MemberDAO {
 			result = mapper.join(member);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return result;
 		}
 		return result;
