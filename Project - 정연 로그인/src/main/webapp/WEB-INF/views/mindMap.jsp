@@ -500,12 +500,13 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-  		    apiKey: "AIzaSyDvxN2PM3npv7G-5nwr8tZSzY55Fb5LbEE",
-		    authDomain: "fir-1400c.firebaseapp.com",
-		    databaseURL: "https://myproject-cf946.firebaseio.com",
-		    projectId: "myproject-cf946",
-		    storageBucket: "myproject-cf946.appspot.com",
-		    messagingSenderId: "659201790301"
+  		 	apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
+		    authDomain: "web-crawling-6562b.firebaseapp.com",
+		    databaseURL: "https://web-crawling-6562b.firebaseio.com",
+		    projectId: "web-crawling-6562b",
+		    storageBucket: "web-crawling-6562b.appspot.com",
+		    messagingSenderId: "407695243177"			
+
 		  
 	  };
 
@@ -782,9 +783,6 @@
 						return;
 					}
 				}
-
-				
-				
 				
 				for(var i = 0; i < savedArray.length; i++){
 					if(savedArray[i].parent == selectedObj.id){
@@ -797,13 +795,14 @@
 				for(var i = 0; i < savedArray.length; i++){
 					if(savedArray[i].id == selectedObj.id){
 						
-						mindRef.child(savedArray[i].id).once('value').then(function(snapshot) {
-	
-							mindRef.child(savedArray[i].id).remove();
+						
+						mindRef.child(selectedObj.id).once('value').then(function(snapshot) {
 							
 							mindRef.child(updateId).set(snapshot.val());  
+
 							mindRef.child(updateId).update({id:updateId});
 	
+							mindRef.child(selectedObj.id).remove();
 						});
 						break;
 					}					
@@ -1153,22 +1152,9 @@
 					//if로 조건을 나눈다.
 					//1.root 필드가 없는 객체는 root 필드 없이 저장
 					//2.root값이 있는지 조사하여, root 필드가 있는 객체는 root 필드도 저장해준다.
-					if(typeof(mindObjs[i].root) == "undefined"){
+					if(typeof(mindObjs[i].root) !== 'undefined'){
 						//저장할 경로를 설정
-						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
-			    
-				    	x: mindObjs[i].x,
-				    	y: mindObjs[i].y,
-				    	afterX:mindObjs[i].afterX,
-				    	afterY:mindObjs[i].afterY,
-				    	parent:mindObjs[i].parent,
-				    	id:mindObjs[i].id,
-				    	depth:mindObjs[i].depth
-			    		
-						});
 
-					} else {
-					
 						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
@@ -1181,6 +1167,24 @@
 					    	depth:mindObjs[i].depth
 
 					    });
+
+
+					} else {
+					
+						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
+						    
+					    	x: mindObjs[i].x,
+					    	y: mindObjs[i].y,
+					    	afterX:mindObjs[i].afterX,
+					    	afterY:mindObjs[i].afterY,
+					    	parent:mindObjs[i].parent,
+					    	id:mindObjs[i].id,
+					    	depth:mindObjs[i].depth
+				    		
+						});
+						
+						
+						
 					}
 					
 				}

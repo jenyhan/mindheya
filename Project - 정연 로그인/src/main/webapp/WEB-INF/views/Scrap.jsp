@@ -333,7 +333,7 @@ $(function(){
 			} else if (/^[a-zA-Z]+$/.test(itemTitle)) {
 				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 40) +'...</p></div>';
 			} else {
-				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 32) +'...</p></div>';
+				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 27) +'...</p></div>';
 			}
 			content +=			'</a>';
 			content +=		'</div>';

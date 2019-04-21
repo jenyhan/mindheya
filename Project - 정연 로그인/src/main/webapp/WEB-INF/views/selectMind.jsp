@@ -282,8 +282,8 @@
              }
              
 
-             content +=				'<h5 class="mindMapLeader" leader-value="' + item.leader + '">Leader : '  + item.leader + '</h5>';
-             content +=				'<h5 class="mindMapNumLimit" limit-value="' + item.numLimit + '">Member : ' + item.numShare + ' / ' + item.numLimit + '</h5>';
+             content +=				'<h5 class="mindMapLeader" leader-value="' + item.leader + '">Leader&nbsp; : &nbsp; '  + item.leader + '</h5>';
+             content +=				'<h5 class="mindMapNumLimit" limit-value="' + item.numLimit + '">Player&nbsp;&nbsp; : &nbsp;&nbsp;' + item.numShare + ' / ' + item.numLimit + '</h5>';
              content += 			'<input type=hidden class="mindMapNumShare" numShare-value="' + item.numShare + '">';
 
 			var memberJSON = item.member;
@@ -299,7 +299,7 @@
 	            memString += memberJSON[key] + " ";
 			}             
 
-			 content += 			'<h5 class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>Member : ' + memString + '</h5>';																					
+			 content += 			'<h5 class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>Member&nbsp;&nbsp;:&nbsp;&nbsp;' + memString + '</h5>';																					
              content += 		'</div>';
              content += 	'</div>';
              content +=	'</div>';             
@@ -364,13 +364,19 @@
                }
                
             } else if(selectFlag == 2){            
-
+            	selectFlag = 0;
             	if(numShare==numLimit){
             		alert('허용 인원을 초과했습니다. 멤버를 정리해주세요');
+            		return;
             	}
             	
             	var shareId = prompt("공유할 아이디를 입력해주세요.");
-               
+				if(shareId===null || shareId == ''){
+					
+					alert('취소합니다.');
+					return;
+				}
+            	
                $.ajax({
                   url : "selectShare",
                   data : {shareId : shareId},
@@ -378,13 +384,13 @@
                   success : function(result) {
 
                      if(result=="fail"){
-                        alert('존재하지 않는 아이디입니다, 다시 선택해주세요.');
+                        alert('존재하지 않는 아이디입니다.');
                      
                      } else if(result=="same"){
                        alert('본인에게 공유할 수 없습니다.');
                        
                      } else {
-                        selectFlag = 0;
+                        
                         var question = confirm('존재하는 아이디입니다. 공유 메세지를 보내시겠습니까?');
                         if(question){
                            
@@ -410,7 +416,7 @@
                            });
 
                         } else{
-                           alert('공유 취소');
+                           alert('취소합니다');
                         }
                      }                     
                   }
@@ -462,13 +468,17 @@
          
          if(savedList.length == 0){
             groupName = prompt("새로운 그룹명을 정해주세요.");
+            if(groupName===null){
+            	alert('등록을 취소합니다.');
+                return;
+                
+            }
          } else {
          
             //동일한 마인드맵 이름 체크
             while(checkName){
                groupName = prompt("새로운 그룹명을 정해주세요.");
-               
-               if(groupName==null){
+               if(groupName===null){
                   alert('등록을 취소합니다.');
                   return;
                }               
@@ -490,10 +500,21 @@
 
 
          var numLimit = prompt("그룹 인원수를 정해주세요.");   
+		
+         if(isNaN(numLimit)){
+        	 alert('숫자만 입력가능합니다.');
+             return;        	 
+         }
+         
          if(numLimit==null){
             alert('등록을 취소합니다.');
             return;
          }
+         
+         if(numLimit > 5){
+        	alert('공유 가능한 인원은 5명까지입니다.');
+         }
+         
          seq = seq + 1;
          var newMap = {
                seq : seq,
@@ -508,12 +529,26 @@
       });
       
       $('#deleteMindMap').on("click", function(){
-         selectFlag = 1;   
+    	 
+    	  //아아
+    	  if(savedList.length==0){
+    		  alert('삭제할 마인드맵이 없습니다.');
+    		  return;
+    	  }
+
+    	 selectFlag = 1;   
          alert('삭제할 마인드맵을 선택하세요');      
       });
       
       $('#shareMindMap').on("click", function(){
-         selectFlag = 2;
+
+    	  if(savedList.length==0){
+    		  alert('공유할 마인드맵이 없습니다.');
+    		  return
+    	  }
+
+    	  
+    	  selectFlag = 2;
          alert('공유할 마인드맵을 선택하세요');
       });
       
