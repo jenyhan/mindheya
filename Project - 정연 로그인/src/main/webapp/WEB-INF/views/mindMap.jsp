@@ -188,7 +188,6 @@
 				
 		.newsDiv {
 			border-radius: 15px;
-			
 			width: 370px;
 			background-color: white;
 			border: 2px solid grey;
@@ -210,13 +209,13 @@
 			margin: 10px;
 			padding-top: 5px;
 			text-align: center;
-			font-family: 'Cute Font', cursive;
+			font-family: helvetica, 'M PLUS Rounded 1c', 'Cute Font';
 			font-weight: bold;
 			/* border: 2px solid grey; */
 		}
 		
 		.press {
-			font-family: 'Cute Font', cursive;
+			font-family: helvetica, 'M PLUS Rounded 1c', 'Cute Font';
 			font-size: 20px;
 			margin-top: 5px;
 			text-align: right;
@@ -238,7 +237,7 @@
 		}
 				  
 		.summary{
-			font-family: 'Cute Font', cursive;
+			font-family: helvetica, 'M PLUS Rounded 1c', 'Cute Font';
 			line-height: 1.5em;
 			font-weight: bold;
 			color: black;
@@ -318,6 +317,8 @@
     <link href="resources/css/prettyPhoto.css" rel="stylesheet">
     <link href="resources/css/main.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+    
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -373,23 +374,61 @@
 				$("#loadingDiv").addClass("readyHtml");
 				
 				var keyWord = $(".searchTerm").val();
-				$.ajax({
-					url : "selectContent",
-					data : {title:keyWord},
-					type : "get",
-					success : function(result) {
-						
-					output(result); 
-
-					$(".newsListDiv").css("overflow","auto");
+				
+				/* 영어인지, 한글인지 아니면 그외 else인지 확인해서 처리하자. */
+				
+				if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(keyWord)) {
 					
-					}
-				});
+					$.ajax({
+						url : "selectContentKr",
+						data : {title:keyWord},
+						type : "get",
+						success : function(result) {
+							
+						output(result); 
+
+						$(".newsListDiv").css("overflow","auto");
+						
+						}
+					});
+					
+				} else if (/^[a-zA-Z]+$/.test(keyWord)) {
+					
+					$.ajax({
+						url : "selectContentEn",
+						data : {title:keyWord},
+						type : "get",
+						success : function(result) {
+							
+						output(result); 
+
+						$(".newsListDiv").css("overflow","auto");
+						
+						}
+					});
+					
+				} else {
+
+					$.ajax({
+						url : "selectContentJp",
+						data : {title:keyWord},
+						type : "get",
+						success : function(result) {
+							
+						output(result); 
+
+						$(".newsListDiv").css("overflow","auto");
+						
+						}
+					});
+					
+				}
+				
+				
 			});
 	 
 	 
 			function output(result){			
-				
 
 				var content = ""; 
 				
@@ -407,7 +446,7 @@
 						content += 		'<div class="summary">&nbsp;&nbsp;' + item.summary + '</div>';
 						content += 		'<div class="press">' + item.press + '</div>';
 						content += 		'<div class="address"><a href="https://news.google.com'+item.address+'" target="_blank" rel="noopener noreferrer">기사 본문보기</a></div>';
-						content += 		'<div class="addBtn"><img src="resources/images/bookMarkIcon.png" class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '"></div>';						
+						content += 		'<div class="addBtn"><img src="resources/images/bookMarkIcon.png" class="bmBtn" bm-title="'+ item.title + '" bm-summary="'+ item.summary + '" bm-press="'+ item.press + '" bm-address="https://news.google.com'+ item.address + '" bm-img_src="'+item.img_src+'"></div>';						
 						content += 	'</div>';
 
 						if(index == 4){
@@ -418,13 +457,14 @@
 				} 				
 	
 				$(".newsListDiv").html(content);
-
+				
 				$(".bmBtn").off("click").on("click", function(){
 					
 					var bmTitle = $(this).attr('bm-title');
 					var bmSummary = $(this).attr('bm-summary');
 					var bmPress = $(this).attr('bm-press');
 					var bmAddress = $(this).attr('bm-address');
+					var bmImg_src = $(this).attr('bm-img_src');
 					
 				
 	            	if(!confirm('북마크에 추가하시겠습니까?')){
@@ -439,6 +479,7 @@
 							,summary:bmSummary
 							,press:bmPress
 							,address:bmAddress
+							,img_src:bmImg_src
 						},
 					type : "post",
 					success : function(resultData) {
@@ -459,12 +500,13 @@
 	  // 파이어베이스 초기화 세팅
 	  //80~86에 본인의 파이어베이스 변수 가져오기(파이어베이스 로그인 -> 프로젝트 선택 -> 좌측메뉴의 Authentication -> 우측 상단의 '웹 설정' 클릭 후 복사 붙이기)
 	  var config = {
-			    apiKey: "AIzaSyDbP5rLbpe6JFedjvFxaI3gM2jm1REFrJ8",
-			    authDomain: "web-crawling-6562b.firebaseapp.com",
-			    databaseURL: "https://web-crawling-6562b.firebaseio.com",
-			    projectId: "web-crawling-6562b",
-			    storageBucket: "web-crawling-6562b.appspot.com",
-			    messagingSenderId: "407695243177"			  
+  		    apiKey: "AIzaSyDvxN2PM3npv7G-5nwr8tZSzY55Fb5LbEE",
+		    authDomain: "fir-1400c.firebaseapp.com",
+		    databaseURL: "https://myproject-cf946.firebaseio.com",
+		    projectId: "myproject-cf946",
+		    storageBucket: "myproject-cf946.appspot.com",
+		    messagingSenderId: "659201790301"
+		  
 	  };
 
 	  // Initialize the default app
