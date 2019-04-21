@@ -19,6 +19,17 @@
 		@import url('https://fonts.googleapis.com/css?family=Cute+Font|Jua');
 		
 
+		.chooseText {
+			font-size: 45px;
+      		font-family: 'Gamja Flower', cursive;
+
+		}
+
+		.idTitle {
+			font-family: 'Gamja Flower', cursive;
+		
+		}
+
 		.optionBtn{
 		   text-align: center;
 		}
@@ -438,8 +449,8 @@ $(function(){
         <div class="container">
 
             <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">${sessionScope.loginId}'s Scrap</h2>
-                <p class="text-center wow fadeInDown"> Search For News</p>
+                <h2 class="section-title text-center wow fadeInDown idTitle" style="font-size: 65px;">${sessionScope.loginId}'s Scrap</h2>
+                <p class="text-center wow fadeInDown chooseText"> ニュースヘヤ</p>
             </div>
 	
 	

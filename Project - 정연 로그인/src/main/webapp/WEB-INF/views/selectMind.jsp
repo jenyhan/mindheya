@@ -364,7 +364,12 @@
                }
                
             } else if(selectFlag == 2){            
-               var shareId = prompt("공유할 아이디를 입력해주세요.");
+
+            	if(numShare==numLimit){
+            		alert('허용 인원을 초과했습니다. 멤버를 정리해주세요');
+            	}
+            	
+            	var shareId = prompt("공유할 아이디를 입력해주세요.");
                
                $.ajax({
                   url : "selectShare",

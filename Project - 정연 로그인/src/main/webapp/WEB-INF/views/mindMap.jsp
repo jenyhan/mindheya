@@ -614,25 +614,8 @@
 					depth: 0,
 					root:true
 		};
-		
-		
-		////확대, 축소
-		$('#plusBtn').on('click', function(){
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.scale(0.8,0.8);
-			ctx.translate((canvas.width - 50) * 0.8, (canvas.height/2) * 0.8);
-			
-		});
-
-		$('#minusBtn').on('click', function(){
-			ctx.translate(x, y);
-			ctx.scale(2,2);
-			
-			
-		});
 
 		
-
 		$('#putBtn').on('click', function(){
 						
 			
@@ -1313,8 +1296,6 @@
 				<input type="button" id="putBtn" value="등록">
 				<input type="button" id="updateBtn" value="수정">			
 				<input type="button" id="deleteBtn" value="삭제">
-				<input type="button" id="plusBtn" value="+">
-				<input type="button" id="minusBtn" value="-">
 				
 			
 			<input type="button" class="searchButton" value="Search"></input>

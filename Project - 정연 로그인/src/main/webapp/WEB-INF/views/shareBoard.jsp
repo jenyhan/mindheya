@@ -281,8 +281,7 @@
 /* 					----------------------------------------------------------------- */
 
 						var gotNumShare = snapResult.numShare + 1;
-						alert(gotNumShare);
-
+						
 
 /* 					----------------------------------------------------------------- */
 
@@ -303,9 +302,7 @@
 			            	if(filteredMember[k]==tobeShared.leader){
 			            		continue;
 
-			            		alert('==leader' + filteredMember[k]);
 			            	} else{
-			            		alert('else' + filteredMember[k]);
 
 			            		firebase.database().ref('users/' + filteredMember[k] + '/sharedList/' + tobeShared.leader).child(tobeShared.seq).update({member:filteredMember});
 	
@@ -722,10 +719,7 @@
 						
 								
 								if(memberArray[j]!=leader){
-									
-									alert(JSON.stringify('array : ' + memberArray));
-									alert(JSON.stringify('j : ' + memberArray[j]));
-									
+																		
 									firebase.database().ref('users/' + memberArray[j] + '/sharedList/' + leader).child(gotSeq).update({member:memberArray});
 	
 					            	firebase.database().ref('users/' + memberArray[j] + '/sharedList/' + leader).child(gotSeq).update({numShare:numShare - 1});
@@ -790,7 +784,7 @@
 
             <div class="section-header">
                 <h2 class="section-title text-center wow fadeInDown idTitle" style="font-size: 65px;">${sessionScope.loginId}'s Share</h2>
-                <p class="text-center wow fadeInDown chooseText">マインドヘヤ</p>
+                <p class="text-center wow fadeInDown chooseText">シェアのヘヤ</p>
             </div>
 			<div class="notificationList">
 			</div>

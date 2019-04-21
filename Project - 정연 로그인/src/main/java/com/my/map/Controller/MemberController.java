@@ -63,7 +63,10 @@ public class MemberController {
 		if(result==null) {
 			model.addAttribute("warning", "ID와 비밀번호를 확인해주세요.");
 			model.addAttribute("member", member);
+			model.addAttribute("tabNum", tabNum);		
+
 			return "login";
+
 		}
 
 		session.setAttribute("loginId", member.getId());
