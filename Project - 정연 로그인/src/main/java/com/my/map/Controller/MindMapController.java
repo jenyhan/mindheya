@@ -32,13 +32,17 @@ public class MindMapController {
 	}
 	
 	@RequestMapping(value="/selectShare", method=RequestMethod.GET)
-	public @ResponseBody String selectShare(String shareId) {
+	public @ResponseBody String selectShare(String shareId, HttpSession session) {
 
 		Member result = dao.selectShare(shareId);
-		
 		if(result == null) {
+			System.out.println("1");
 			return "fail";
+		} else if(result.getId().equals(session.getAttribute("loginId"))) {
+			System.out.println("2");
+			return "same";
 		} else {
+			System.out.println("3");
 			return "success";
 		}
 		

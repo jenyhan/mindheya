@@ -189,7 +189,7 @@
 		.newsDiv {
 			border-radius: 15px;
 			width: 370px;
-			background-color: #00B4CC;
+			background-color: white;
 			border: 2px solid grey;
 			margin-top : 5px;
 			margin-left : 5px;
