@@ -94,9 +94,12 @@
     	where
     		id=#{id}
     	and
-    		(title like  upper('%' || #{title} || '%')
+    		(upper(title) like  upper('%' || #{title} || '%')
     	or
-    		summary like   upper('%' ||  #{title} ||'%'))
+    		upper(summary) like   upper('%' ||  #{title} || '%')
+    	or
+    		upper(press) like   upper('%' ||  #{title} || '%')	
+    		)
     	order by 
   			bmSeq
     

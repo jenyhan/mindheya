@@ -378,6 +378,20 @@
 				/* 영어인지, 한글인지 아니면 그외 else인지 확인해서 처리하자. */
 				
 				if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(keyWord)) {
+					$.ajax({
+						url : "selectContentKr",
+						data : {title:keyWord},
+						type : "get",
+						success : function(result) {
+							
+						output(result); 
+
+						$(".newsListDiv").css("overflow","auto");
+						
+						}
+					});
+					
+				} else if (/^[0-9]*$/.test(keyWord)) {
 					
 					$.ajax({
 						url : "selectContentKr",
@@ -392,7 +406,7 @@
 						}
 					});
 					
-				} else if (/^[a-zA-Z]+$/.test(keyWord)) {
+				} else if (/^[a-zA-Z]*$/.test(keyWord)) {
 					
 					$.ajax({
 						url : "selectContentEn",
