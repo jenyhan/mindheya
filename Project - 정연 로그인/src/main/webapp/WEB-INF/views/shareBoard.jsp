@@ -11,11 +11,15 @@
     <meta name="keywords" content="">
 	<title>Insert title here</title>
 	<style>
-	@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
 	@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
 	@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
 
-
+		/* 테이블 구분 */
+		.shareMessage, .myShare, .shareList {							
+			text-align: center;
+			font-family: 'Gamja Flower', cursive;
+		}
+		
 		.chooseText {
 			font-size: 45px;
       		font-family: 'Gamja Flower', cursive;
@@ -23,23 +27,81 @@
 		}
 
 		.idTitle {
-			font-family: 'Gamja Flower', cursive;
-		
+			font-family: 'Gamja Flower', cursive;		
 		}
 		
-		.notiSubject {
+		/* 테이블 클래스 */
+		.notiSubject, .manageSubject {
 			width: 1200px;
-			border: 1px solid black;
 			margin-bottom: 50px;
+			margin-left: auto;
+			margin-right: auto;
+ 			line-height: 1.2;
 		}
-
-		.manageSubject {
-			width: 1200px;
-			border: 1px solid black;
-			margin-bottom: 50px;
+		
+		.rowHeader {
+			color: #ffffff;
+			border-top-left-radius: 5px;
+  			border-top-right-radius: 5px;
 		}
-
-
+		
+		#rowHeader1 {
+			background: #40BBB4;    		
+		}
+		
+		#rowHeader2 {
+			background: #F78181;
+		}
+		
+		#rowHeader3 {
+			background: #3B6EB5;
+		}
+		
+		.cell {
+		 	padding-left: 30px;
+ 		    padding-top: 12px;
+    		padding-bottom: 12px;
+    		font-family: 'Gamja Flower', cursive;
+    		font-size: 19px;
+		}
+		
+		tr td {
+			padding-left: 30px;
+			padding-top: 7px;
+    		padding-bottom: 7px;
+		 	font-family: 'Gamja Flower', cursive;
+			font-size: large;
+			line-height: 1;
+		}
+		
+		#notiArray:hover {
+  			background-color:  rgba(64, 180, 187, .2);
+  			cursor: pointer;
+		}
+		
+		#manageList:hover {
+  			background-color:  rgba(247, 129, 129, .2);
+  			cursor: pointer;
+		}
+		
+		#sharedList:hover {
+  			background-color:  rgba(59, 110, 181, .2);
+  			cursor: pointer;
+		}
+		
+		#acceptMessage, #deleteMessage {
+			background-color:  rgba(64, 180, 187, .45);
+		}
+		
+		#goManage, #deleteManage {
+			background-color:  rgba(247, 129, 129, .45);
+		}
+		
+		#goShared, #deleteShared {
+			background-color:  rgba(59, 110, 181, .45);
+		}
+		
+		
 	</style>
 
 <!-- CSS -->
@@ -155,28 +217,26 @@
 				showNotification(notificationArray);
 		  }		
 		  
-
-		  
 		  
 		  
 		  function showNotification(notificationArray){
 				
-			var contents = '<h2>공유 메세지 관리</h2>';								
+			var contents = '<h2 class="shareMessage">공유 메세지 관리</h2>';								
 			contents += '<table class="notiSubject">';
-			contents += '<tr>';
-			contents += '<th>공유하는 사람</th>';
-			contents += '<th>마인드맵 이름</th>';
-			contents += '<th>허용 인원</th>';			
-			contents += '<th>현재 인원</th>';			
-			contents += '<th>참여 멤버</th>';
-			contents += '<th>수락</th>';
-     		contents += '<th>삭제</th>';
+			contents += '<tr class="rowHeader" id="rowHeader1">';
+			contents += '<th class="cell">공유하는 사람</th>';
+			contents += '<th class="cell">마인드맵 이름</th>';
+			contents += '<th class="cell">허용 인원</th>';			
+			contents += '<th class="cell">현재 인원</th>';			
+			contents += '<th class="cell">참여 멤버</th>';
+			contents += '<th class="cell">수락</th>';
+     		contents += '<th class="cell">거절</th>';
      		contents += '</tr>';
 		
 			$.each(notificationArray, function(index, item){
 					
 				for(var i in item){
-					contents += '<tr class="mindMapSeq" seq-value="' + item[i].seq + '">';
+					contents += '<tr class="mindMapSeq" id="notiArray" seq-value="' + item[i].seq + '">';
 					contents += 	'<td class="mindMapLeader" leader-value="'+item[i].leader+'">'+item[i].leader+'</td>';
 					contents += 	'<td class="mindMapGroup" groupName-value="'+item[i].groupName+'">'+item[i].groupName+'</td>';										
 					contents += 	'<td class="mindMapNumLimit" numLimit-value="'+item[i].numLimit+'">'+item[i].numLimit+'</td>';										
@@ -199,8 +259,8 @@
 		            
 					contents += 	'<td class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>' + memString + '</td>';																
 			
-					contents += 	'<td><button class="acceptMessage">수락</td>';
-					contents += 	'<td><button class="deleteMessage">취소</td>';
+					contents += 	'<td><button type="button" class="btn btn-outline-primary" id="acceptMessage">수락</td>';
+					contents += 	'<td><button type="button" class="btn btn-outline-primary" id="deleteMessage">거절</td>';
 
 					contents += '</tr>';
 						
@@ -212,7 +272,7 @@
 				$('.notificationList').html(contents);
 
 				//메시지 수락 버튼
-				$('.acceptMessage').on('click', function(){
+				$('#acceptMessage').on('click', function(){
 
 
 		            var check = confirm('공유마인드맵에 추가하시겠습니까?');
@@ -278,7 +338,6 @@
  						var filteredMember = MergedMember.filter((value, idx, arr) => MergedMember.indexOf(value) === idx);
 						
 /* 					----------------------------------------------------------------- */
-/* 					----------------------------------------------------------------- */
 
 						var gotNumShare = snapResult.numShare + 1;
 						
@@ -326,7 +385,7 @@
 				});
 
 				
-				$('.deleteMessage').on('click', function(){
+				$('#deleteMessage').on('click', function(){
 					
 					var check = confirm('삭제하시겠습니까?');
 					
@@ -397,19 +456,19 @@
 		  
 		  function showManageList(manageList){
 
-				var contents = '<h2>나의 공유 관리</h2>';								
+				var contents = '<h2 class="myShare">나의 공유 관리</h2>';								
 				contents += '<table class="manageSubject">';
-				contents += '<tr>';
-				contents += '<th>마인드맵 이름</th>';
-				contents += '<th>허용 인원</th>';			
-				contents += '<th>현재 인원</th>';			
-				contents += '<th>멤버</th>';
-				contents += '<th>이동</th>';
-				contents += '<th>멤버삭제</th>';				
+				contents += '<tr class="rowHeader" id="rowHeader2">';
+				contents += '<th class="cell">마인드맵 이름</th>';
+				contents += '<th class="cell">허용 인원</th>';			
+				contents += '<th class="cell">현재 인원</th>';			
+				contents += '<th class="cell">멤버</th>';
+				contents += '<th class="cell">이동</th>';
+				contents += '<th class="cell">멤버삭제</th>';				
 	     		contents += '</tr>';
 			  
 				  $.each(manageList, function(index, item){
-						contents += '<tr class="mindMapSeq" seq-value="' + item.seq + '">';
+						contents += '<tr class="mindMapSeq" id="manageList" seq-value="' + item.seq + '">';
 						contents += 	'<td class="mindMapGroup" groupName-value="'+item.groupName+'">'+item.groupName+'</td>';										
 						contents += 	'<td class="mindMapNumLimit" numLimit-value="'+item.numLimit+'">'+item.numLimit+'</td>';										
 						contents += 	'<td class="mindMapNumShare" numShare-value="'+item.numShare+'">'+item.numShare+'</td>';										
@@ -431,9 +490,8 @@
 						}             
 				            
 						contents += 	'<td class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>' + memString + '</td>';																					
-						
-						contents += 	'<td><button class="goManage">이동</td>';
-						contents += 	'<td><button class="deleteManage">멤버삭제</td>';
+						contents += 	'<td><button type="button" class="btn btn-outline-primary" id="goManage">이동</td>';
+						contents += 	'<td><button type="button" class="btn btn-outline-primary" id="deleteManage">멤버삭제</td>';
 						contents += '</tr>';
 				  
 				  });
@@ -443,7 +501,7 @@
 				  $('.managementList').html(contents);
 
 				  
-				  $('.goManage').on('click', function(){
+				  $('#goManage').on('click', function(){
 					    var gotSeq = $(this).closest('tr').attr('seq-value');		         	
 			            var leader = userId;
 			            var groupName = $(this).closest('tr').children('.mindMapGroup').attr('groupName-value');
@@ -464,7 +522,7 @@
 			            
 				  });
 				  
-				  $('.deleteManage').on('click', function(){
+				  $('#deleteManage').on('click', function(){
 
  						var gotSeq = $(this).closest('tr').attr('seq-value');		         	
 			            var leader = userId;
@@ -582,16 +640,16 @@
 		  function showSharedList(sharedList){
 			
 			  
-			var contents = '<h2>공유 마인드 리스트</h2>';								
+			var contents = '<h2 class="shareList">공유 마인드 리스트</h2>';								
 				contents += '<table class="notiSubject">';
-				contents += '<tr>';
-				contents += '<th>리더</th>';
-				contents += '<th>마인드맵 이름</th>';
-				contents += '<th>허용 인원</th>';			
-				contents += '<th>현재 인원</th>';			
-				contents += '<th>참여 멤버</th>';
-				contents += '<th>이동</th>';
-	     		contents += '<th>삭제</th>';
+				contents += '<tr class="rowHeader" id="rowHeader3">';
+				contents += '<th class="cell">리더</th>';
+				contents += '<th class="cell">마인드맵 이름</th>';
+				contents += '<th class="cell">허용 인원</th>';			
+				contents += '<th class="cell">현재 인원</th>';			
+				contents += '<th class="cell">참여 멤버</th>';
+				contents += '<th class="cell">이동</th>';
+	     		contents += '<th class="cell">삭제</th>';
 	     		contents += '</tr>';
 
 			  
@@ -600,7 +658,7 @@
 				  
 				  for(var i in item){
 					  
-					contents += '<tr class="mindMapSeq" seq-value="' + item[i].seq + '">';
+					contents += '<tr class="mindMapSeq" id="sharedList" seq-value="' + item[i].seq + '">';
 					contents += 	'<td class="mindMapLeader" leader-value="'+item[i].leader+'">'+item[i].leader+'</td>';
 					contents += 	'<td class="mindMapGroup" groupName-value="'+item[i].groupName+'">'+item[i].groupName+'</td>';										
 					contents += 	'<td class="mindMapNumLimit" numLimit-value="'+item[i].numLimit+'">'+item[i].numLimit+'</td>';										
@@ -621,9 +679,8 @@
 					}             
 			            
 					contents += 	'<td class="mindMapMember" member-length="' + memList.length + '"member-value=' + JSONString + '>' + memString + '</td>';																
-					
-					contents += 	'<td><button class="goShared">이동</td>';
-					contents += 	'<td><button class="deleteShared">삭제</td>';					
+					contents += 	'<td><button type="button" class="btn btn-outline-primary" id="goShared">이동</td>';
+					contents += 	'<td><button type="button" class="btn btn-outline-primary" id="deleteShared">삭제</td>';					
 					contents += '</tr>';
 					  
 				  }
@@ -635,7 +692,7 @@
 			  
 			  $('.sharedList').html(contents);
 			  
-			  $('.goShared').on('click', function(){
+			  $('#goShared').on('click', function(){
 				  
 				    var gotSeq = $(this).closest('tr').attr('seq-value');		         	
 		            var leader = $(this).closest('tr').children('.mindMapLeader').attr('leader-value');
@@ -668,7 +725,7 @@
 				  
 			  });
 			  
-			  $(".deleteShared").on('click', function(){
+			  $("#deleteShared").on('click', function(){
 				    var gotSeq = $(this).closest('tr').attr('seq-value');		         	
 		            var leader = $(this).closest('tr').children('.mindMapLeader').attr('leader-value');
 		            var groupName = $(this).closest('tr').children('.mindMapGroup').attr('groupName-value');
