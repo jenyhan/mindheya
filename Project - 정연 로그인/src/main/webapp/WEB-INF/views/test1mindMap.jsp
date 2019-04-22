@@ -569,12 +569,6 @@
 		var numLimit = $("#numLimit").val();
 		var gotId = leader;
 
-		
-		//시퀀스 세팅
-		var seq = 0;
-		
-		
-		
 		//로그인한 UserId를 input hidden 태그에서 가져온다.
 		var userId = $('#userId').val();
 
@@ -619,8 +613,7 @@
 					parent: 'root',
 					id: 'Root Item',
 					depth: 0,
-					root:true,
-					seq: 1
+					root:true
 		};
 
 		
@@ -793,7 +786,7 @@
 				
 				for(var i = 0; i < savedArray.length; i++){
 					if(savedArray[i].parent == selectedObj.id){
-						mindRef.child(savedArray[i].seq).update({parent : updateId});
+						mindRef.child(savedArray[i].id).update({parent : updateId});
 					}										
 				}
 				
@@ -803,10 +796,13 @@
 					if(savedArray[i].id == selectedObj.id){
 						
 						
-						mindRef.child(selectedObj.seq).once('value').then(function(snapshot) {
+						mindRef.child(selectedObj.id).once('value').then(function(snapshot) {
 							
-							mindRef.child(selectedObj.seq).update({id:updateId});
+							mindRef.child(updateId).set(snapshot.val());  
+
+							mindRef.child(updateId).update({id:updateId});
 	
+							mindRef.child(selectedObj.id).remove();
 						});
 						break;
 					}					
@@ -862,12 +858,12 @@
 
 							//1.
 							if(savedArray[i].id == bufObj.id){
-								mindRef.child(savedArray[i].seq).update(bufObj);								/* savedArray[i] = bufObj; */
+								mindRef.child(savedArray[i].id).update(bufObj);								/* savedArray[i] = bufObj; */
 							}
 
 							//2.
 							if(savedArray[i].parent==bufObj.id){		
-								mindRef.child(savedArray[i].seq).update({x:bufObj.afterX, y:bufObj.afterY});
+								mindRef.child(savedArray[i].id).update({x:bufObj.afterX, y:bufObj.afterY});
 							}
 						}
 
@@ -963,8 +959,7 @@
 						afterY:ey,
 						parent: parentId,
 						id: saveId,
-						depth: newDepth,
-						seq: seq + 1
+						depth: newDepth
 					};
 				
 				// 새로 만든 객체를 savedArray에 추가한 후, Firebase에 저장
@@ -1063,10 +1058,7 @@
 					for (var key in jArrays) {
 						var array=jArrays[key];
 						savedArray.push(array); 				
-						if(array.seq > seq){
-							seq = array.seq;
-						}
-						
+											
 						//canvas에 그려주는 작업
 						//beginPath() : 그려주기 세팅 작업
 						ctx.beginPath();
@@ -1163,7 +1155,7 @@
 					if(typeof(mindObjs[i].root) !== 'undefined'){
 						//저장할 경로를 설정
 
-						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].seq).set({
+						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 
 						    x: mindObjs[i].x,
 						    y: mindObjs[i].y,
@@ -1172,14 +1164,14 @@
 				    		parent:mindObjs[i].parent,
 				    		id:mindObjs[i].id,
 							root:mindObjs[i].root,
-					    	depth:mindObjs[i].depth,
-							seq: mindObjs[i].seq
+					    	depth:mindObjs[i].depth
+
 					    });
 
 
 					} else {
 					
-						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].seq).set({
+						firebase.database().ref('users/' + gotId + '/MapTree/' + groupName + '/' + mindObjs[i].id).set({
 						    
 					    	x: mindObjs[i].x,
 					    	y: mindObjs[i].y,
@@ -1187,8 +1179,8 @@
 					    	afterY:mindObjs[i].afterY,
 					    	parent:mindObjs[i].parent,
 					    	id:mindObjs[i].id,
-					    	depth:mindObjs[i].depth,
-							seq: mindObjs[i].seq				    		
+					    	depth:mindObjs[i].depth
+				    		
 						});
 						
 						
@@ -1223,22 +1215,20 @@
 				var count = 0;
 
 				function filter(target){
-		        	
-					var toDelete = [];
+		        let toDelete = [];
 
-			        for(var i = 0; i < savedArray.length; i++){
+			        for(let i = 0; i < savedArray.length; i++){
 							
 						//target의 id와 array안의 id / parentid 값을 비교.
 		     	    	if(savedArray[i].id == target || savedArray[i].parent == target){
 	
-
-		     	    		//같은 경우에 delete해야할 리스트에 추가
+							//같은 경우에 delete해야할 리스트에 추가
 							toDelete.push(i);
-		     	    		
+	
 							//target과 같지 않은 경우에는 if 문의 or 두번째 조건 : 객체의 부모id가 target과 같음을 의미한다.
 		     	        	if(savedArray[i].id != target){					
 		    	                toDelete = toDelete.concat(filter(savedArray[i].id).slice(1));
-		   	             	}							
+		   	             	}
 		  	          	}
 			        }					
 	     	   		
@@ -1247,40 +1237,12 @@
 
 	    		var targets = filter(id).sort();			
 
-/* ----------------------------------------------------------------------------------*/
-
- 	    		var delBySeq = [];
-	    		
 		    	for(var i = targets.length - 1; i >= 0; i--){								
 		    		
 		    		//그냥 파이어베이스에서 지우면 알아서 업데이트됨
-
-		    		delBySeq.push(savedArray[targets[i]].seq);
+		    		mindRef.child(savedArray[targets[i]].id).remove();
 		    		
 		    	}
-
-		    	function sortNumber(a,b) {
-		            return a - b;
-		        }
-		        
-		        delBySeq.sort(sortNumber);
-
-
-		        for(var i = delBySeq.length - 1; i >= 0; i--){
-		        	
-		        	for(var j = 0; j < savedArray.length; j++){
-		        		
-		        		if(savedArray[j].seq == delBySeq[i]){		
-                        	mindRef.child(savedArray[j].seq).remove();
-		        		}
-		        	}		        	
-		        }
-		        
-
-
-/* ----------------------------------------------------------------------------------*/
-
-		        
 			}
 			
 			

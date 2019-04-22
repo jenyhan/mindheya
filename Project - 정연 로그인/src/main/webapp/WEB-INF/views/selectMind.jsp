@@ -513,6 +513,7 @@
          
          if(numLimit > 5){
         	alert('공유 가능한 인원은 5명까지입니다.');
+        	return;
          }
          
          seq = seq + 1;
