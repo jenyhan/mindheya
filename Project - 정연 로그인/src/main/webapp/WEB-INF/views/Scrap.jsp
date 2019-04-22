@@ -224,11 +224,13 @@
 		
 		.bmDelete {
 			border: none;
+			outline: none;
 			background-color: white;
 			width: 45px;
 			height: 38px;
 			float: left;
 			margin-left: 10px;
+			
 		}
 		
 		/* .selectBm:hover {
@@ -327,17 +329,34 @@ $(function(){
 			content +=		'</figure>';
 			content +=		'<div class="news-body-titleDiv">';
 			content +=			'<a href="'+ item.address +'" target="_blank">';
-			if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(itemTitle)) {
-				/* $('h-News-Title').css('font-size', '1.5em'); */
-				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 40) +'...</p></div>';
-			} else if (/^[a-zA-Z]+$/.test(itemTitle)) {
-				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 40) +'...</p></div>';
+			
+			/* 1한국어// 2번째는??  3번째는 영어,일본어  */
+			if (/[가-힣]/.test(itemTitle)) {
+				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 30) +'...</p></div>';
+			
+			} else if (/[a-zA-Z]/.test(itemTitle)) {
+				if (/[あ-ん]/.test(itemTitle)) {
+					content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 35) +'...</p></div>';
+				} else {
+					content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 50) +'...</p></div>';
+				}
+			
 			} else {
+<<<<<<< HEAD
+				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 35) +'...</p></div>';
+			
+=======
 				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 27) +'...</p></div>';
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 			}
 			content +=			'</a>';
 			content +=		'</div>';
-			content += 		'<div class="news-body-summary" news-summary="'+ item.summary +'"><p class="h-News-Summary">&nbsp&nbsp&nbsp' + item.summary + '</p></div>';
+			
+			if (item.summary != null) {
+				content +=			'<div class="news-body-summary" news-summary="'+ item.summary +'"><p class="h-News-Summary">&nbsp;&nbsp;' + item.summary + '</p></div>';
+			} else {
+				content +=			'<div class="news-body-summary" news-summary="'+ item.summary +'"><p class="h-News-Summary">&nbsp;&nbsp; 미리보기 제한</p></div>';
+			}
 			content += 		'<div class="news-body-press" news-press="'+ item.press +'">';
 			content +=			'<p class="h-News-Press"><button class="bmDelete" news-value="' + item.bmSeq + '">';
 			content +=					'<img class="deleteImg" src="resources/images/Bin.jpg" width="35" height="35">';

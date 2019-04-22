@@ -11,7 +11,6 @@
     <meta name="keywords" content="">
     <title>HR Theme Two</title>
     <style>
-	@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
 	@import url('https://fonts.googleapis.com/css?family=Gamja+Flower');
 	@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
 
