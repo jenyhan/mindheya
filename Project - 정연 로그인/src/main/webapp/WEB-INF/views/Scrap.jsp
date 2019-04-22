@@ -342,8 +342,12 @@ $(function(){
 				}
 			
 			} else {
+<<<<<<< HEAD
 				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 35) +'...</p></div>';
 			
+=======
+				content += 			'<div class="news-body-title" news-title="'+ item.title +'"><p class="h-News-Title">'+ itemTitle.substring(0, 27) +'...</p></div>';
+>>>>>>> branch 'master' of https://github.com/jenyhan/mindheya.git
 			}
 			content +=			'</a>';
 			content +=		'</div>';
